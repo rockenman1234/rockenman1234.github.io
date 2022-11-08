@@ -1,9 +1,6 @@
----
-layout: default
----
-
 
 ## This is a Work In progress!!
+
 <!---
 Text can be **bold**, _italic_, or ~~strikethrough~~.
 

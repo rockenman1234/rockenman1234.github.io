@@ -1,3 +1,3 @@
 # alexj.io
 
-A personal profolio website built usign Javascript, HTML, & CSS.
+A personal portfolio website built usign Javascript, HTML, & CSS.

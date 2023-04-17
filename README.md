@@ -1,3 +1,3 @@
 # alexj.io
 
-A personal portfolio website built usign Javascript, HTML, & CSS.
+A personal portfolio website built using Javascript, HTML, & CSS.

@@ -35,9 +35,11 @@
     --line-height-small: 1.2;
 
     --black: #000;
-    --pink: #ff3258;
     --white: #f0e9f2;
     --white-1: #e5e5e6da;
+    --gold: #B3A369;
+    --blue: #003057;
+
 
 
     --container-max-width: 1180px;
@@ -150,7 +152,7 @@ h2::after {
     display: block;
     height: 2px;
     width: 10rem;
-    background: var(--pink);
+    background: var(--blue);
     margin: var(--gutter-small) 0;
 }
 
@@ -201,7 +203,7 @@ a {
 
 button:focus,
 a:focus {
-    outline: 2px solid var(--pink);
+    outline: 2px solid var(--gold);
 }
 
 body:not(.user-is-tabbing) button:focus,
@@ -210,7 +212,7 @@ body:not(.user-is-tabbing) a:focus {
 }
 
 .link:hover {
-    color: var(--pink);
+    color: var(--gold);
 }
 
 .btn {
@@ -219,7 +221,7 @@ body:not(.user-is-tabbing) a:focus {
     padding: 1rem 4.2rem;
     text-decoration: none;
     color: inherit;
-    border: 1px solid  var(--pink);
+    border: 1px solid  var(--gold);
     font-weight: 400;
 }
 
@@ -243,20 +245,20 @@ body:not(.user-is-tabbing) a:focus {
 .btn:hover::after,
 .btn:focus::after {
     right: 0;
-    background: var(--pink);
+    background: var(--gold);
 }
 
-.btn--pink {
-    background: var(--pink);
+.btn--gold {
+    background: var(--gold);
     transition: all 0.2s;
 }
 
-.btn--pink::after {
+.btn--gold::after {
     display: none;
 }
 
-.btn--pink:hover,
-.btn--pink:focus {
+.btn--gold:hover,
+.btn--gold:focus {
     background: transparent;
 }
 
@@ -266,7 +268,7 @@ body:not(.user-is-tabbing) a:focus {
     padding: .6rem;
     color: inherit;
     text-decoration: none;
-    border-bottom: 1px solid var(--pink);
+    border-bottom: 1px solid var(--blue);
 }
 
 .link__text::after {
@@ -289,7 +291,7 @@ body:not(.user-is-tabbing) a:focus {
 .link__text:hover::after,
 .link__text:focus:after {
     right: 0;
-    background: var(--pink);
+    background: var(--blue);
 }
 
 .link__text span {
@@ -308,7 +310,7 @@ body:not(.user-is-tabbing) a:focus {
     align-items: center;
     height: 5.5rem;
     width: 5.5rem;
-    background-color: var(--pink);
+    background-color: var(--blue);
     border-radius: 50%;
     z-index: 10;
     visibility: hidden;
@@ -390,13 +392,13 @@ body:not(.user-is-tabbing) a:focus {
 }
 
 .nav__link:hover {
-    color: var(--pink);
+    color: var(--gold);
 }
 
 .nav__link:hover::after {
     right: 0;
     height: 2px;
-    background: var(--pink);
+    background: var(--gold);
 }
 
 /* --------------------------------------- */
@@ -405,7 +407,7 @@ body:not(.user-is-tabbing) a:focus {
 
 .header {
     background: linear-gradient(rgba(0,0,0, .1), rgba(0,0,0, .4)), 
-        url('./images/header.jpg');
+        url('./images/altdowntown.avif');
     height: 100vh;
     background-size: cover;
     background-position: center;

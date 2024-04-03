@@ -40,6 +40,33 @@
   <meta name="keywords" content="Kenneth ( Alex ) Jenkins - Alex Jenkins, Shell, Python, Java, C#, C++, HTML, Javascipt, CSS, Georgia Tech,
   Clayton State, Univeristy, Atlanta, Georgia, Kenneth Jenkins, Computer Engineering, Engineer, Computer Science, Mathematics, Research" />
   <link rel="stylesheet" href="index.css" />
+
+  <script>
+    function setBackground() {
+      // Check if the browser is Safari
+      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+      
+      // Check if the device is mobile
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+      // Set the default background
+      let backgroundImage = "linear-gradient(rgba(0,0,0, .1), rgba(0,0,0, .4)), url('./images/altdowntown.avif')";
+
+      // Change background based on browser
+      if (isSafari) {
+        backgroundImage = "linear-gradient(rgba(0,0,0, .1), rgba(0,0,0, .4)), url('./images/safariBackground.webp')";
+      }
+      
+      // Change background based on mobile device
+      if (isMobile) {
+        backgroundImage = "linear-gradient(rgba(0,0,0, .1), rgba(0,0,0, .4)), url('./images/code.gif')";
+      }
+
+      document.querySelector('.header').style.backgroundImage = backgroundImage;
+    }
+
+    document.addEventListener('DOMContentLoaded', setBackground);
+  </script>
 </head>
 
 <body>

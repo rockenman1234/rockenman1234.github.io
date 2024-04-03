@@ -3,23 +3,45 @@
 <head>
     <title>Coming Soon</title>
     <link rel="shortcut icon" type="image/png" href="./images/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Meta tag for responsiveness -->
     <style>
         body {
             text-align: center;
-            padding: 150px;
+            padding: 10px; /* Adjusting padding for smaller screens */
             font-family: Arial, sans-serif;
-            background-color: black; /* setting background color to black */
-            color: white; /* setting text color to white */
+            background-color: black;
+            color: white;
         }
         
         h1 {
-            font-size: 50px;
-            color: white; /* changing h1 color to white */
+            font-size: 36px; /* Adjusting font size for smaller screens */
+            color: white;
         }
         
         p {
-            font-size: 20px;
-            color: #ccc; /* adjusting paragraph color for better contrast */
+            font-size: 18px; /* Adjusting font size for smaller screens */
+            color: #ccc;
+        }
+
+        button {
+            padding: 10px 20px; /* Adjusting button padding for smaller screens */
+            font-size: 16px; /* Adjusting button font size for smaller screens */
+            margin-top: 20px; /* Adding margin to the top of the button for better spacing */
+        }
+
+        /* Media query for screens smaller than 600px */
+        @media only screen and (max-width: 600px) {
+            body {
+                padding: 20px; /* Adjusting padding for smaller screens */
+            }
+
+            h1 {
+                font-size: 30px; /* Adjusting font size for smaller screens */
+            }
+
+            p {
+                font-size: 16px; /* Adjusting font size for smaller screens */
+            }
         }
     </style>
 </head>

@@ -59,7 +59,7 @@ var keyHandler = function (event) {
 
 	if (pattern.length === current) {
 		current = 0;
-    window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank')
+    window.open('https://www.youtube.com/watch?v=SHYUkAthMN0', '_blank')
 	}
 
 };

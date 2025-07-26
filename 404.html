@@ -3,14 +3,34 @@
 
 <svg id="mainImage_create" data-name="mainImage" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 171.2 81.5">
   <style id="svgStyle">
-    @import url('https://fonts.googleapis.com/css?family=Merriweather');
+    /* Libre and Open Source Fonts */
+    /* HK Grotesk - Licensed under SIL Open Font License (OFL) 1.1 */
+    @font-face {
+      font-family: 'Hk Grotesk';
+      font-style: normal;
+      font-weight: 400;
+      src: url('./fonts/HKGrotesk-Regular.woff') format('woff');
+    }
+
+    /* Jost - Licensed under SIL Open Font License (OFL) 1.1 */
+    @font-face {
+      font-family: 'Jost';
+      font-style: normal;
+      font-weight: 400;
+      src: url('./fonts/Jost-Regular.ttf') format('truetype');
+    }
+
     .changeColor {
       fill: #4f86ed;
     }
 
     #title {
-      font-size: 50%;
-      font-family: 'Merriweather', serif;
+      font-size: 8px;
+      font-family: 'Hk Grotesk', 'Jost', sans-serif;
+      text-anchor: middle;
+      dominant-baseline: middle;
+      font-weight: 600;
+      fill: #333;
     }
 
     .cls-1 {
@@ -255,7 +275,7 @@
   <path class="cls-12" d="M88.15,60.27s1.7.95,1.7,2.22"></path>
   <path class="cls-5" d="M101.81,61a6.68,6.68,0,0,0,8.51,0Z"></path>
   <polygon class="cls-5" points="90.92 30.25 77.46 29.69 77.46 28.64 90.92 29.22 90.92 30.25"></polygon>
-  <text id="title" transform="matrix(1 0 0 1 44.7249 78)">404 Page not found</text>
+  <text id="title" x="85.6" y="75" text-anchor="middle">404 Page not found</text>
 </svg>
 
 <div style="display: flex; justify-content: center;">

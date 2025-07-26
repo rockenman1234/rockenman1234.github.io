@@ -2,6 +2,9 @@
 /* ----- Basic Setup ----- */
 /* --------------------------------------- */
 
+/* Libre and Open Source Fonts */
+/* HK Grotesk - Licensed under SIL Open Font License (OFL) 1.1 */
+/* Source: https://hanken.co/products/hk-grotesk */
 @font-face {
     font-family: 'Hk Grotesk';
     font-style: normal;
@@ -9,6 +12,8 @@
     src: url('./fonts/HKGrotesk-Regular.woff') format('woff');
 }
 
+/* Jost - Licensed under SIL Open Font License (OFL) 1.1 */
+/* Source: https://indestructibletype.com/Jost.html */
 @font-face {
     font-family: 'Jost';
     font-style: normal;

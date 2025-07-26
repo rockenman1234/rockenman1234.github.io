@@ -689,3 +689,124 @@ body:not(.user-is-tabbing) a:focus {
         height: 80px;
     }
 }
+
+/* --------------------------------------- */
+/* ----- License Table Styles ----- */
+/* --------------------------------------- */
+
+#jslicense-labels1 {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--gutter-normal) 0;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(179, 163, 105, 0.3);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+#jslicense-labels1 thead {
+    background: linear-gradient(135deg, var(--gold), #8B7355);
+}
+
+#jslicense-labels1 th {
+    padding: var(--gutter-small) var(--gutter-small-1);
+    text-align: left;
+    font-weight: 600;
+    color: var(--black);
+    font-size: var(--font-size-small);
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+#jslicense-labels1 td {
+    padding: var(--gutter-small) var(--gutter-small-1);
+    border-bottom: 1px solid rgba(179, 163, 105, 0.1);
+    font-size: var(--font-size-small);
+    color: var(--white-1);
+    vertical-align: top;
+}
+
+#jslicense-labels1 tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+#jslicense-labels1 tbody tr:hover {
+    background: rgba(179, 163, 105, 0.1);
+}
+
+#jslicense-labels1 tbody tr:last-child td {
+    border-bottom: none;
+}
+
+#jslicense-labels1 a {
+    color: var(--gold);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-weight: 500;
+}
+
+#jslicense-labels1 a:hover {
+    color: #D4C584;
+    text-decoration: underline;
+}
+
+/* Responsive table styling */
+@media (max-width: 768px) {
+    #jslicense-labels1 {
+        font-size: 1.4rem;
+    }
+    
+    #jslicense-labels1 th,
+    #jslicense-labels1 td {
+        padding: 1rem;
+    }
+    
+    #jslicense-labels1 th {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 600px) {
+    #jslicense-labels1 {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    
+    #jslicense-labels1 thead,
+    #jslicense-labels1 tbody,
+    #jslicense-labels1 th,
+    #jslicense-labels1 td,
+    #jslicense-labels1 tr {
+        display: block;
+    }
+    
+    #jslicense-labels1 thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    
+    #jslicense-labels1 tr {
+        margin-bottom: var(--gutter-small);
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(179, 163, 105, 0.3);
+        border-radius: 6px;
+        padding: var(--gutter-small);
+    }
+    
+    #jslicense-labels1 td {
+        border: none;
+        padding: 0.5rem 0;
+        white-space: normal;
+    }
+    
+    #jslicense-labels1 td:before {
+        content: attr(data-label) ": ";
+        font-weight: 600;
+        color: var(--gold);
+        display: inline-block;
+        min-width: 80px;
+    }
+}

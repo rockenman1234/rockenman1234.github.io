@@ -582,11 +582,41 @@ body:not(.user-is-tabbing) a:focus {
     padding: var(--gutter-medium) 0 var(--gutter-normal);
 }
 
+.footer__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gutter-medium);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer__fsf {
+    flex-shrink: 0;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer__fsf-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.footer__center {
+    flex: 1;
+    text-align: center;
+}
+
 .footer__social-links {
     display: flex;
     justify-content: center;
     padding: var(--gutter-normal) 0;
     list-style: none;
+    margin: 0;
 }
 
 .footer__social-link-item:not(:last-of-type) {
@@ -595,6 +625,23 @@ body:not(.user-is-tabbing) a:focus {
 
 .footer__social-image {
     height: 4rem;
+}
+
+.footer__license {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    margin-top: 0.5rem;
+}
+
+.footer__license-link {
+    color: var(--accent-color);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom 0.2s ease;
+}
+
+.footer__license-link:hover {
+    border-bottom-color: var(--accent-color);
 }
 
 .footer__github-buttons {
@@ -608,8 +655,32 @@ body:not(.user-is-tabbing) a:focus {
     transform: translateY(3px);
 }
 
+@media(max-width: 768px) {
+    .footer__content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .footer__fsf {
+        order: 2;
+        margin-top: var(--gutter-small);
+        width: 100px;
+        height: 100px;
+    }
+    
+    .footer__center {
+        order: 1;
+    }
+}
+
 @media(max-width: 500px) {
     .footer {
         padding: var(--gutter-medium) 0;
-    } 
+    }
+    
+    .footer__fsf {
+        width: 80px;
+        height: 80px;
+    }
 }

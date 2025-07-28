@@ -39,6 +39,8 @@
       // Set the default background
       let backgroundImage = "linear-gradient(rgba(0,0,0, .1), rgba(0,0,0, .4)), url('./images/altdowntown.avif')";
 
+      const headerElement = document.querySelector('.header');
+
       // Change background based on browser
       if (isSafari) {
         backgroundImage = "linear-gradient(rgba(0,0,0, .1), rgba(0,0,0, .4)), url('./images/safariBackground.webp')";
@@ -47,9 +49,14 @@
       // Change background based on mobile device
       if (isMobile) {
         backgroundImage = "linear-gradient(rgba(0,0,0, .1), rgba(0,0,0, .4)), url('./images/code.gif')";
+        // Ensure proper scaling for mobile GIF
+        headerElement.style.backgroundSize = 'cover';
+        headerElement.style.backgroundPosition = 'center';
+        headerElement.style.backgroundRepeat = 'no-repeat';
+        headerElement.style.backgroundAttachment = 'scroll'; // Fixed attachment can cause issues on mobile
       }
 
-      document.querySelector('.header').style.backgroundImage = backgroundImage;
+      headerElement.style.backgroundImage = backgroundImage;
     }
 
     document.addEventListener('DOMContentLoaded', setBackground);

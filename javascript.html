@@ -7,6 +7,42 @@
   <title>JavaScript License Information | Alex Jenkins</title>
   <meta name="description" content="License information for JavaScript code used on Alex Jenkins' website.">
   <link rel="stylesheet" href="index.css" />
+
+  <script>
+    // @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&dn=gpl-3.0.txt GPL-v3
+    function setBackground() {
+      // Check if the browser is Safari
+      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+      
+      // Check if the device is mobile
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+      // Set the default background
+      let backgroundImage = "linear-gradient(rgba(0,0,0, .1), rgba(0,0,0, .4)), url('./images/altdowntown.avif')";
+
+      const headerElement = document.querySelector('.header');
+
+      // Change background based on browser
+      if (isSafari) {
+        backgroundImage = "linear-gradient(rgba(0,0,0, .1), rgba(0,0,0, .4)), url('./images/safariBackground.webp')";
+      }
+      
+      // Change background based on mobile device
+      if (isMobile) {
+        backgroundImage = "linear-gradient(rgba(0,0,0, .1), rgba(0,0,0, .4)), url('./images/code.gif')";
+        // Ensure proper scaling for mobile GIF
+        headerElement.style.backgroundSize = 'cover';
+        headerElement.style.backgroundPosition = 'center';
+        headerElement.style.backgroundRepeat = 'no-repeat';
+        headerElement.style.backgroundAttachment = 'scroll'; // Fixed attachment can cause issues on mobile
+      }
+
+      headerElement.style.backgroundImage = backgroundImage;
+    }
+
+    document.addEventListener('DOMContentLoaded', setBackground);
+    // @license-end
+  </script>
 </head>
 
 <body>

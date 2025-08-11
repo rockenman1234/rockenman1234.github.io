@@ -557,6 +557,14 @@ body:not(.user-is-tabbing) a:focus {
 
 .about__photo-container {
     margin-bottom: var(--gutter-normal);
+    display: flex;
+    justify-content: center;
+}
+
+.about__photo {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
 }
 
 @media(min-width: 901px) {

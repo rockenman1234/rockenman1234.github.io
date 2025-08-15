@@ -39,8 +39,8 @@
   <meta name="theme-color" content="#003057">
   
   <!-- Cache Control and Performance Meta Tags -->
-  <meta http-equiv="Cache-Control" content="public, max-age=31536000, immutable">
-  <meta http-equiv="Expires" content="31536000">
+  <meta http-equiv="Cache-Control" content="public, max-age=3600, must-revalidate">
+  <meta http-equiv="Expires" content="3600">
   
   <!-- Critical resource preloading -->
   <link rel="preload" href="./fonts/HKGrotesk-Regular.woff" as="font" type="font/woff" crossorigin>
@@ -108,6 +108,12 @@
         headerElement.style.backgroundAttachment = 'scroll'; // Fixed attachment can cause issues on mobile
       }
 
+      // Force reload of background image on page refresh
+      if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+        const timestamp = '?t=' + Date.now();
+        backgroundImage = backgroundImage.replace(/\.(avif|webp|gif)'\)/g, '.$1' + timestamp + "')");
+      }
+
       headerElement.style.backgroundImage = backgroundImage;
     }
 
@@ -117,6 +123,9 @@
       requestAnimationFrame(() => {
         setBackground();
         
+        // Force image reload on page refresh
+        forceImageReload();
+        
         // Lazy loading fallback for older browsers - defer to avoid blocking
         setTimeout(() => {
           if ('loading' in HTMLImageElement.prototype) {
@@ -124,6 +133,16 @@
             images.forEach(img => {
               img.addEventListener('load', () => {
                 img.classList.add('loaded');
+              });
+              
+              // Force reload on page visibility change (helps with cache issues)
+              img.addEventListener('error', () => {
+                console.warn('Image failed to load, retrying:', img.src);
+                const originalSrc = img.src;
+                img.src = '';
+                setTimeout(() => {
+                  img.src = originalSrc + '?t=' + Date.now();
+                }, 100);
               });
             });
           } else {
@@ -137,6 +156,40 @@
       });
     });
     
+    // Force image reload function to handle page refresh issues
+    function forceImageReload() {
+      // Check if this is a hard refresh or reload
+      if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+        const images = document.querySelectorAll('img[src*=".webp"], img[src*=".avif"], img[src*=".png"], img[src*=".jpg"], img[src*=".jpeg"]');
+        images.forEach(img => {
+          const originalSrc = img.src;
+          if (originalSrc && !originalSrc.includes('?t=')) {
+            // Add timestamp to force fresh load on page reload
+            img.src = originalSrc + '?t=' + Date.now();
+          }
+        });
+      }
+    }
+    
+    // Handle page visibility changes to ensure images load properly
+    document.addEventListener('visibilitychange', function() {
+      if (!document.hidden) {
+        // Page is now visible, check for any failed images
+        setTimeout(() => {
+          const images = document.querySelectorAll('img');
+          images.forEach(img => {
+            if (!img.complete || img.naturalHeight === 0) {
+              const originalSrc = img.src;
+              img.src = '';
+              setTimeout(() => {
+                img.src = originalSrc;
+              }, 50);
+            }
+          });
+        }, 100);
+      }
+    });
+    
     // Register service worker for caching - non-blocking
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
@@ -144,6 +197,21 @@
           navigator.serviceWorker.register('/sw.js')
             .then(function(registration) {
               console.log('ServiceWorker registration successful');
+              
+              // Listen for service worker updates
+              registration.addEventListener('updatefound', () => {
+                console.log('New service worker version available');
+                const newWorker = registration.installing;
+                newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'activated') {
+                    console.log('New service worker activated');
+                    // Force reload to use new service worker
+                    if (confirm('A new version is available. Reload to update?')) {
+                      window.location.reload();
+                    }
+                  }
+                });
+              });
             }, function(err) {
               console.log('ServiceWorker registration failed: ', err);
             });
@@ -569,37 +637,6 @@
             </div>
             <div class="work__image-box">
               <img src="./images/Developing_Metacognitive_Skills_CSU_.webp" class="work__image" alt="Developing Metacognitive Skills Research" width="758" height="1000" loading="lazy" decoding="async"/>
-            </div>
-          </div>
-
-          <!-- 16. ECE Discovery Project -->
-          <div class="work__box">
-            <div class="work__text">
-              <h3>ECE Discovery Project</h3>
-              <p>
-                Featured in Georgia Tech's ECE-1100 course, 
-                this assignment revolved around an independent exploration project. 
-                Over the course of a semester, I embarked on a self-selected project, 
-                subject to approval from course instructors. I utilized resources at Georgia Tech,
-                like mini-project workshops available at the Interdisciplinary Design Commons (IDC), 
-                the Hive Maker Space, Robotarium, and other campus facilities. 
-              </p>
-              <ul class="work__list">
-                <li>A hands-on project where I picked up engineering principles by tackling real-world issues, 
-                  mastering the art of soldering.</li>
-              </ul>
-              <ul class="work__list">
-                <li>Faculty Advisors - Dr. Lakshmi Raju (Ph.D ECE), Dr. Jacki Rohde (Ph.D. Education)</li>
-              </ul>
-
-              <div class="work__links">
-                <a href="/discoveryProject.html" class="link__text">
-                  View Project <span>&rarr;</span>
-                </a>
-              </div>
-            </div>
-            <div class="work__image-box">
-              <img src="./images/discoveryProject.webp" class="work__image" alt="Discovery Project" width="758" height="758" loading="lazy" decoding="async"/>
             </div>
           </div>
 

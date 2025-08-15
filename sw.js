@@ -1,10 +1,10 @@
 // Service Worker for Caching - GitHub Pages Compatible
 // @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&dn=gpl-3.0.txt GPL-v3
 
-const CACHE_NAME = 'alexj-portfolio-v4';
-const STATIC_CACHE = 'static-v4';
-const DYNAMIC_CACHE = 'dynamic-v4';
-const IMAGE_CACHE = 'images-v4';
+const CACHE_NAME = 'alexj-portfolio-v5';
+const STATIC_CACHE = 'static-v5';
+const DYNAMIC_CACHE = 'dynamic-v5';
+const IMAGE_CACHE = 'images-v5';
 
 // Critical resources to cache immediately
 const urlsToCache = [
@@ -75,16 +75,10 @@ self.addEventListener('fetch', function(event) {
     return;
   }
 
-  // Temporary bypass for problematic images - let them load directly
-  if (event.request.url.includes('fedele-lab-logo.webp') || 
-      event.request.url.includes('AI-Textbook-logo.webp')) {
-    return; // Let browser handle these directly
-  }
-
-  // Handle images with optimized caching
+  // Handle images with reload-aware caching
   if (event.request.destination === 'image' || 
       event.request.url.match(/\.(png|jpg|jpeg|webp|avif|gif|svg|ico)$/)) {
-    event.respondWith(imageFirst(event.request));
+    event.respondWith(imageReloadAware(event.request));
     return;
   }
 
@@ -104,24 +98,67 @@ self.addEventListener('fetch', function(event) {
   event.respondWith(cacheFirst(event.request));
 });
 
-// Optimized image caching strategy with better error handling
-function imageFirst(request) {
+// Reload-aware image caching strategy
+function imageReloadAware(request) {
   return caches.open(IMAGE_CACHE)
     .then(function(cache) {
+      // Check if this is a reload request (has cache-control: no-cache or pragma: no-cache)
+      const isReload = request.headers.get('cache-control') === 'no-cache' || 
+                      request.headers.get('pragma') === 'no-cache' ||
+                      request.cache === 'reload';
+      
+      if (isReload) {
+        // For reload requests, always fetch fresh and update cache
+        return fetch(request)
+          .then(function(response) {
+            if (response && response.status === 200 && response.type !== 'opaque') {
+              try {
+                const responseToCache = response.clone();
+                cache.put(request, responseToCache).catch(function(error) {
+                  console.warn('Failed to cache image on reload:', request.url, error);
+                });
+              } catch (error) {
+                console.warn('Failed to clone response for caching on reload:', request.url, error);
+              }
+            }
+            return response;
+          })
+          .catch(function(error) {
+            console.error('Failed to fetch image on reload:', request.url, error);
+            // Fallback to cache if network fails
+            return cache.match(request);
+          });
+      }
+      
+      // For normal requests, try cache first, then network
       return cache.match(request)
         .then(function(cachedResponse) {
           if (cachedResponse) {
+            // Also fetch in background to keep cache fresh
+            fetch(request)
+              .then(function(response) {
+                if (response && response.status === 200 && response.type !== 'opaque') {
+                  const responseToCache = response.clone();
+                  cache.put(request, responseToCache).catch(function(error) {
+                    console.warn('Failed to update cached image:', request.url, error);
+                  });
+                }
+              })
+              .catch(function(error) {
+                console.warn('Background fetch failed for:', request.url, error);
+              });
+            
             return cachedResponse;
           }
           
+          // Not in cache, fetch from network
           return fetch(request)
             .then(function(response) {
-              // Check if response is valid
               if (response && response.status === 200 && response.type !== 'opaque') {
                 try {
                   const responseToCache = response.clone();
                   cache.put(request, responseToCache).catch(function(error) {
-                    console.warn('Failed to cache image:', request.url, error);
+                    console.warn('Failed to cache new image:', request.url, error);
                   });
                 } catch (error) {
                   console.warn('Failed to clone response for caching:', request.url, error);
@@ -131,8 +168,7 @@ function imageFirst(request) {
             })
             .catch(function(error) {
               console.error('Failed to fetch image:', request.url, error);
-              // Return a fallback or let the browser handle it
-              return fetch(request);
+              throw error;
             });
         })
         .catch(function(error) {

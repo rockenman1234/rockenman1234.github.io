@@ -134,12 +134,6 @@ body {
 
 @media(max-width: 600px) {
     .row {
-        padding: 0 var(--gutter-normal);
-    }
-}
-
-@media(max-width: 600px) {
-    .row {
         padding: 0 var(--gutter-small);
     }
 }
@@ -318,6 +312,20 @@ body:not(.user-is-tabbing) a:focus {
 .btn:focus::after {
     right: 0;
     background: var(--gold);
+}
+
+.btn--red {
+    background: var(--gold);
+    transition: all 0.2s;
+}
+
+.btn--red::after {
+    display: none;
+}
+
+.btn--red:hover,
+.btn--red:focus {
+    background: transparent;
 }
 
 .btn--gold {
@@ -546,7 +554,6 @@ body:not(.user-is-tabbing) a:focus {
 }
 
 .work__list {
-    /* list-style-type: square; */
     list-style-position: inside;
     margin-bottom: var(--gutter-normal);
 }

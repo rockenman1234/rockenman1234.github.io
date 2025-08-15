@@ -124,6 +124,41 @@ img {
     max-width: 100%;
 }
 
+/* Project images - responsive sizing for consistent spacing */
+.work__image {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* Desktop: display images at double resolution for better quality */
+@media(min-width: 901px) {
+    .work__image {
+        width: 200%;
+        height: auto;
+        max-width: 200%;
+    }
+    
+    .work__image-box {
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+/* Mobile: display images at exact resolution for consistent vertical spacing */
+@media(max-width: 900px) {
+    .work__image {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+    }
+    
+    .work__image-box {
+        display: block;
+    }
+}
+
 /* --------------------------------------- */
 /* ----- Headlines and Paragraphs ----- */
 /* --------------------------------------- */

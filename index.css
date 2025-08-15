@@ -1,33 +1,63 @@
 /* --------------------------------------- */
-/* ----- Basic Setup ----- */
+/* ----- Performance Optimizations ----- */
 /* --------------------------------------- */
 
-/* Libre and Open Source Fonts */
-/* HK Grotesk - Licensed under SIL Open Font License (OFL) 1.1 */
-/* Source: https://hanken.co/products/hk-grotesk */
+/* Improve font loading performance */
 @font-face {
     font-family: 'Hk Grotesk';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
     src: url('./fonts/HKGrotesk-Regular.woff') format('woff');
+    /* Preload hint for better performance */
+    font-feature-settings: "liga" 1, "kern" 1;
 }
 
-/* Jost - Licensed under SIL Open Font License (OFL) 1.1 */
-/* Source: https://indestructibletype.com/Jost.html */
 @font-face {
     font-family: 'Jost';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('./fonts/Jost-Regular.ttf') format('woff');
+    src: url('./fonts/Jost-Regular.ttf') format('truetype');
+    font-feature-settings: "liga" 1, "kern" 1;
 }
 
+/* Critical CSS performance improvements */
 * {
     margin: 0;
     padding: 0;
     box-sizing: inherit;
 }
+
+/* Optimize scroll and rendering performance */
+html {
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Improve image loading performance */
+img {
+    max-width: 100%;
+    height: auto;
+    /* Prevent layout shifts with explicit sizing */
+    width: auto;
+    /* Enable hardware acceleration where beneficial */
+    transform: translateZ(0);
+}
+
+/* Optimize animations and transitions */
+*,
+*::before,
+*::after {
+    /* Enable hardware acceleration for better performance */
+    will-change: auto;
+}
+
+/* --------------------------------------- */
+/* ----- Basic Setup ----- */
+/* --------------------------------------- */
 
 :root {
     --font-size-small: 1.8rem;

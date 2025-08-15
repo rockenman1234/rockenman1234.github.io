@@ -9,8 +9,7 @@
 -->
 
 <!-- ***** Analytics ***** -->
-<!-- 100% privacy-first analytics -->
-<script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+<!-- 100% privacy-first analytics - Deferred for performance -->
 <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
 <!-- / 100% privacy-first analytics -->
 
@@ -40,26 +39,45 @@
   <meta name="theme-color" content="#003057">
   
   <!-- Cache Control and Performance Meta Tags -->
-  <meta http-equiv="Cache-Control" content="public, max-age=86400">
-  <meta http-equiv="Expires" content="86400">
-  <link rel="preload" href="./fonts/HKGrotesk-Regular.woff" as="font" type="font/woff" crossorigin>
-  <link rel="preload" href="./fonts/Jost-Regular.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="preload" href="./images/headshot.webp" as="image">
-  <link rel="dns-prefetch" href="//scripts.simpleanalyticscdn.com">
-  <link rel="dns-prefetch" href="//queue.simpleanalyticscdn.com">
+  <meta http-equiv="Cache-Control" content="public, max-age=31536000, immutable">
+  <meta http-equiv="Expires" content="31536000">
   
-  <!-- Preload critical resources -->
+  <!-- Critical resource preloading -->
   <link rel="preload" href="./fonts/HKGrotesk-Regular.woff" as="font" type="font/woff" crossorigin>
   <link rel="preload" href="./fonts/Jost-Regular.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="./index.css" as="style">
-  <link rel="preload" href="./images/altdowntown.avif" as="image">
+  <link rel="preload" href="./images/headshot.webp" as="image">
+  <link rel="preload" href="./images/altdowntown.avif" as="image" media="(min-width: 768px)">
+  <link rel="preload" href="./images/code.gif" as="image" media="(max-width: 767px)">
+  
+  <!-- DNS prefetch for external domains -->
+  <link rel="dns-prefetch" href="//scripts.simpleanalyticscdn.com">
+  <link rel="dns-prefetch" href="//queue.simpleanalyticscdn.com">
+  <link rel="dns-prefetch" href="//static.cloudflareinsights.com">
+  <link rel="dns-prefetch" href="//mozilla.github.io">
+  <link rel="dns-prefetch" href="//raw.githubusercontent.com">
+  
+  <!-- Preconnect to critical external domains -->
+  <link rel="preconnect" href="https://scripts.simpleanalyticscdn.com" crossorigin>
+  <link rel="preconnect" href="https://static.cloudflareinsights.com" crossorigin>
   
   <!-- Preconnect to external domains -->
   <link rel="preconnect" href="https://mozilla.github.io" crossorigin>
   <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
-  <link rel="preconnect" href="https://scripts.simpleanalyticscdn.com" crossorigin>
   
   <link rel="stylesheet" href="index.css" />
+
+  <!-- Defer non-critical analytics -->
+  <script>
+    // Load analytics after critical rendering
+    setTimeout(() => {
+      const script = document.createElement('script');
+      script.src = 'https://scripts.simpleanalyticscdn.com/latest.js';
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+    }, 1000);
+  </script>
 
   <script>
     // @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&dn=gpl-3.0.txt GPL-v3
@@ -70,7 +88,7 @@
       // Check if the device is mobile
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-      // Set the default background
+      // Set the default background with performance optimization
       let backgroundImage = "linear-gradient(rgba(0,0,0, .1), rgba(0,0,0, .4)), url('./images/altdowntown.avif')";
 
       const headerElement = document.querySelector('.header');
@@ -93,34 +111,43 @@
       headerElement.style.backgroundImage = backgroundImage;
     }
 
+    // Optimize DOM content loaded handler
     document.addEventListener('DOMContentLoaded', function() {
-      setBackground();
-      
-      // Lazy loading fallback for older browsers
-      if ('loading' in HTMLImageElement.prototype) {
-        const images = document.querySelectorAll('img[loading="lazy"]');
-        images.forEach(img => {
-          img.addEventListener('load', () => {
-            img.classList.add('loaded');
-          });
-        });
-      } else {
-        // Fallback for browsers that don't support native lazy loading
-        const script = document.createElement('script');
-        script.src = 'https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver';
-        document.head.appendChild(script);
-      }
+      // Use requestAnimationFrame to avoid blocking main thread
+      requestAnimationFrame(() => {
+        setBackground();
+        
+        // Lazy loading fallback for older browsers - defer to avoid blocking
+        setTimeout(() => {
+          if ('loading' in HTMLImageElement.prototype) {
+            const images = document.querySelectorAll('img[loading="lazy"]');
+            images.forEach(img => {
+              img.addEventListener('load', () => {
+                img.classList.add('loaded');
+              });
+            });
+          } else {
+            // Fallback for browsers that don't support native lazy loading
+            const script = document.createElement('script');
+            script.src = 'https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver';
+            script.async = true;
+            document.head.appendChild(script);
+          }
+        }, 100);
+      });
     });
     
-    // Register service worker for caching
+    // Register service worker for caching - non-blocking
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js')
-          .then(function(registration) {
-            console.log('ServiceWorker registration successful');
-          }, function(err) {
-            console.log('ServiceWorker registration failed: ', err);
-          });
+        setTimeout(() => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(function(registration) {
+              console.log('ServiceWorker registration successful');
+            }, function(err) {
+              console.log('ServiceWorker registration failed: ', err);
+            });
+        }, 2000);
       });
     }
     // @license-end
@@ -185,7 +212,7 @@
                   Visit Lab Website <span>&rarr;</span>
                 </a>
                 <a href="https://github.com/Fedele-AI/">
-                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
+                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub" width="20" height="20">
                 </a>
               </div>
             </div>
@@ -646,7 +673,7 @@
           </div>
 
           <div class="about__photo-container">
-            <img class="about__photo" src="./images/headshot.webp" alt="" />
+            <img class="about__photo" src="./images/headshot.webp" alt="Alex Jenkins - Computer Engineering Student" width="1658" height="1758" />
           </div>
         </div>
       </div>
@@ -720,7 +747,7 @@
   </footer>
 
   <a href="#top" class="back-to-top" title="Back to Top">
-    <img src="./images/arrow-up.svg" alt="Back to Top" class="back-to-top__image"/>
+    <img src="./images/arrow-up.svg" alt="Back to Top" class="back-to-top__image" width="20" height="20"/>
   </a>
   <script src="./index.js" defer></script>
 </body>

@@ -1,9 +1,10 @@
-// Enhanced Service Worker for Caching - GitHub Pages Compatible
+// Service Worker for Caching - GitHub Pages Compatible
 // @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&dn=gpl-3.0.txt GPL-v3
 
-const CACHE_NAME = 'alexj-portfolio-v2';
-const STATIC_CACHE = 'static-v2';
-const DYNAMIC_CACHE = 'dynamic-v2';
+const CACHE_NAME = 'alexj-portfolio-v3';
+const STATIC_CACHE = 'static-v3';
+const DYNAMIC_CACHE = 'dynamic-v3';
+const IMAGE_CACHE = 'images-v3';
 
 // Critical resources to cache immediately
 const urlsToCache = [
@@ -14,25 +15,36 @@ const urlsToCache = [
   '/manifest.json',
   '/images/headshot.webp',
   '/images/altdowntown.avif',
+  '/images/safariBackground.webp',
   '/fonts/HKGrotesk-Regular.woff',
   '/fonts/Jost-Regular.ttf'
 ];
 
-// Large assets to cache on demand
+// Large assets to cache on demand with longer expiry
 const largeAssets = [
   '/images/code.gif',
-  '/images/KalibungaDemo.gif'
+  '/images/KalibungaDemo.gif',
+  '/images/AI-Textbook-logo.webp',
+  '/images/Buzz_Off.webp',
+  '/images/simpleHTTPd.webp',
+  '/images/fedele-lab-logo.webp'
 ];
 
 // Install event - cache critical resources
 self.addEventListener('install', function(event) {
   event.waitUntil(
-    caches.open(STATIC_CACHE)
-      .then(function(cache) {
-        console.log('Caching critical resources');
-        return cache.addAll(urlsToCache);
-      })
-      .then(() => self.skipWaiting())
+    Promise.all([
+      caches.open(STATIC_CACHE)
+        .then(function(cache) {
+          console.log('Caching critical resources');
+          return cache.addAll(urlsToCache);
+        }),
+      caches.open(IMAGE_CACHE)
+        .then(function(cache) {
+          console.log('Preparing image cache');
+          return cache;
+        })
+    ]).then(() => self.skipWaiting())
   );
 });
 
@@ -42,7 +54,7 @@ self.addEventListener('activate', function(event) {
     caches.keys().then(function(cacheNames) {
       return Promise.all(
         cacheNames.map(function(cacheName) {
-          if (cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE) {
+          if (cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE && cacheName !== IMAGE_CACHE) {
             console.log('Deleting old cache:', cacheName);
             return caches.delete(cacheName);
           }
@@ -52,30 +64,86 @@ self.addEventListener('activate', function(event) {
   );
 });
 
-// Fetch event with different strategies for different asset types
+// Fetch event with optimized strategies for different asset types
 self.addEventListener('fetch', function(event) {
   const requestUrl = new URL(event.request.url);
   
-  // Skip non-GET requests
-  if (event.request.method !== 'GET') {
+  // Skip non-GET requests and external analytics
+  if (event.request.method !== 'GET' || 
+      requestUrl.hostname.includes('simpleanalyticscdn.com') ||
+      requestUrl.hostname.includes('cloudflareinsights.com')) {
+    return;
+  }
+
+  // Handle images with optimized caching
+  if (event.request.destination === 'image' || 
+      event.request.url.match(/\.(png|jpg|jpeg|webp|avif|gif|svg|ico)$/)) {
+    event.respondWith(imageFirst(event.request));
     return;
   }
 
   // Handle HTML files - Network First (for updated content)
-  if (event.request.headers.get('accept').includes('text/html')) {
+  if (event.request.headers.get('accept')?.includes('text/html')) {
     event.respondWith(networkFirst(event.request));
     return;
   }
 
-  // Handle images, fonts, and static assets - Cache First
-  if (event.request.url.match(/\.(png|jpg|jpeg|webp|avif|gif|svg|ico|woff|woff2|ttf|css|js)$/)) {
-    event.respondWith(cacheFirst(event.request));
+  // Handle fonts, CSS, and JS - Cache First with long expiry
+  if (event.request.url.match(/\.(woff|woff2|ttf|css|js)$/)) {
+    event.respondWith(cacheFirstLongTerm(event.request));
     return;
   }
 
   // Default strategy - Cache First with network fallback
   event.respondWith(cacheFirst(event.request));
 });
+
+// Optimized image caching strategy
+function imageFirst(request) {
+  return caches.open(IMAGE_CACHE)
+    .then(function(cache) {
+      return cache.match(request)
+        .then(function(cachedResponse) {
+          if (cachedResponse) {
+            return cachedResponse;
+          }
+          
+          return fetch(request)
+            .then(function(response) {
+              if (response && response.status === 200) {
+                const responseToCache = response.clone();
+                cache.put(request, responseToCache);
+              }
+              return response;
+            });
+        });
+    });
+}
+
+// Cache First with long-term caching for static assets
+function cacheFirstLongTerm(request) {
+  return caches.match(request)
+    .then(function(cachedResponse) {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+      
+      return fetch(request)
+        .then(function(response) {
+          if (!response || response.status !== 200 || response.type !== 'basic') {
+            return response;
+          }
+
+          const responseToCache = response.clone();
+          caches.open(STATIC_CACHE)
+            .then(function(cache) {
+              cache.put(request, responseToCache);
+            });
+
+          return response;
+        });
+    });
+}
 
 // Cache First Strategy - Good for static assets
 function cacheFirst(request) {

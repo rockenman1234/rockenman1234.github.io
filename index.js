@@ -91,3 +91,76 @@ var keyHandler = function (event) {
 };
 
 document.addEventListener('keydown', keyHandler, false);
+
+// Service Worker Registration and Cache Management
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js')
+      .then(function(registration) {
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        
+        // Check for updates
+        registration.addEventListener('updatefound', function() {
+          const newWorker = registration.installing;
+          newWorker.addEventListener('statechange', function() {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              // New content is available, but old content is still being served
+              console.log('New content is available; please refresh.');
+            }
+          });
+        });
+      })
+      .catch(function(err) {
+        console.log('ServiceWorker registration failed: ', err);
+      });
+  });
+}
+
+// Cache management for large assets
+function preloadLargeAssets() {
+  const largeAssets = [
+    './images/code.gif',
+    './images/KalibungaDemo.gif'
+  ];
+  
+  // Preload large assets when user shows intent to interact
+  let userInteracted = false;
+  
+  function onUserInteraction() {
+    if (!userInteracted) {
+      userInteracted = true;
+      
+      // Use requestIdleCallback if available, otherwise setTimeout
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => {
+          largeAssets.forEach(asset => {
+            const link = document.createElement('link');
+            link.rel = 'prefetch';
+            link.href = asset;
+            document.head.appendChild(link);
+          });
+        });
+      } else {
+        setTimeout(() => {
+          largeAssets.forEach(asset => {
+            const img = new Image();
+            img.src = asset;
+          });
+        }, 100);
+      }
+      
+      // Remove listeners after first interaction
+      document.removeEventListener('mouseenter', onUserInteraction);
+      document.removeEventListener('touchstart', onUserInteraction);
+      document.removeEventListener('scroll', onUserInteraction);
+    }
+  }
+  
+  // Listen for user interaction signals
+  document.addEventListener('mouseenter', onUserInteraction, { passive: true });
+  document.addEventListener('touchstart', onUserInteraction, { passive: true });
+  document.addEventListener('scroll', onUserInteraction, { passive: true });
+}
+
+// Initialize cache preloading
+document.addEventListener('DOMContentLoaded', preloadLargeAssets);

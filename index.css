@@ -9,6 +9,7 @@
     font-family: 'Hk Grotesk';
     font-style: normal;
     font-weight: 400;
+    font-display: swap;
     src: url('./fonts/HKGrotesk-Regular.woff') format('woff');
 }
 
@@ -18,6 +19,7 @@
     font-family: 'Jost';
     font-style: normal;
     font-weight: 400;
+    font-display: swap;
     src: url('./fonts/Jost-Regular.ttf') format('woff');
 }
 
@@ -746,6 +748,22 @@ body:not(.user-is-tabbing) a:focus {
 #jslicense-labels1 tbody tr:last-child td {
     border-bottom: none;
 }
+
+/* --------------------------------------- */
+/* ----- Performance Optimizations ----- */
+/* --------------------------------------- */
+
+/* Image loading optimization */
+img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+img[loading="lazy"].loaded {
+    opacity: 1;
+}
+
+/* Kalibunga fallback for large GIF - removed as GIF is now optimized */
 
 #jslicense-labels1 a {
     color: var(--gold);

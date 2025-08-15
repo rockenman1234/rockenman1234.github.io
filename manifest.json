@@ -1,0 +1,16 @@
+{
+  "name": "Alex Jenkins - Portfolio",
+  "short_name": "Alex Jenkins",
+  "description": "Computer Engineering Student at Georgia Institute of Technology",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#003057",
+  "icons": [
+    {
+      "src": "./images/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    }
+  ]
+}

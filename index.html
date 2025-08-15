@@ -35,6 +35,30 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Alex Jenkins Portfolio">
   
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#003057">
+  
+  <!-- Cache Control and Performance Meta Tags -->
+  <meta http-equiv="Cache-Control" content="public, max-age=86400">
+  <meta http-equiv="Expires" content="86400">
+  <link rel="preload" href="./fonts/HKGrotesk-Regular.woff" as="font" type="font/woff" crossorigin>
+  <link rel="preload" href="./fonts/Jost-Regular.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="./images/headshot.webp" as="image">
+  <link rel="dns-prefetch" href="//scripts.simpleanalyticscdn.com">
+  <link rel="dns-prefetch" href="//queue.simpleanalyticscdn.com">
+  
+  <!-- Preload critical resources -->
+  <link rel="preload" href="./fonts/HKGrotesk-Regular.woff" as="font" type="font/woff" crossorigin>
+  <link rel="preload" href="./fonts/Jost-Regular.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="./index.css" as="style">
+  <link rel="preload" href="./images/altdowntown.avif" as="image">
+  
+  <!-- Preconnect to external domains -->
+  <link rel="preconnect" href="https://mozilla.github.io" crossorigin>
+  <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
+  <link rel="preconnect" href="https://scripts.simpleanalyticscdn.com" crossorigin>
+  
   <link rel="stylesheet" href="index.css" />
 
   <script>
@@ -69,7 +93,36 @@
       headerElement.style.backgroundImage = backgroundImage;
     }
 
-    document.addEventListener('DOMContentLoaded', setBackground);
+    document.addEventListener('DOMContentLoaded', function() {
+      setBackground();
+      
+      // Lazy loading fallback for older browsers
+      if ('loading' in HTMLImageElement.prototype) {
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        images.forEach(img => {
+          img.addEventListener('load', () => {
+            img.classList.add('loaded');
+          });
+        });
+      } else {
+        // Fallback for browsers that don't support native lazy loading
+        const script = document.createElement('script');
+        script.src = 'https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver';
+        document.head.appendChild(script);
+      }
+    });
+    
+    // Register service worker for caching
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+          .then(function(registration) {
+            console.log('ServiceWorker registration successful');
+          }, function(err) {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+      });
+    }
     // @license-end
   </script>
 </head>
@@ -137,7 +190,7 @@
               </div>
             </div>
             <div class="work__image-box">
-              <img src="./images/fedele-lab-logo.webp" class="work__image" alt="Fedele-AI Lab" width="500" height="500"/>
+              <img src="./images/fedele-lab-logo.webp" class="work__image" alt="Fedele-AI Lab" width="758" height="758" loading="lazy" decoding="async"/>
             </div>
           </div>
 
@@ -168,7 +221,7 @@
               </div>
             </div>
             <div class="work__image-box">
-              <img src="./images/AI-Textbook-logo.webp" class="work__image" alt="AI Fundamentals Textbook" width="500" height="500"/>
+              <img src="./images/AI-Textbook-logo.webp" class="work__image" alt="AI Fundamentals Textbook" width="758" height="724" loading="lazy" decoding="async"/>
             </div>
           </div>
 
@@ -195,7 +248,7 @@
               </div>
             </div>
             <div class="work__image-box">
-              <img src="./images/Buzz_Off.webp" class="work__image" alt="Buzz Off" width="960" height="540"/>
+              <img src="./images/Buzz_Off.webp" class="work__image" alt="Buzz Off" width="758" height="436" loading="lazy" decoding="async"/>
             </div>
           </div>
 
@@ -219,7 +272,7 @@
               </div>
             </div>
             <div class="work__image-box">
-              <img src="./images/simpleHTTPd.webp" class="work__image" alt="Simple HTTP Server Screenshot" />
+              <img src="./images/simpleHTTPd.webp" class="work__image" alt="Simple HTTP Server Screenshot" width="758" height="758" loading="lazy" decoding="async"/>
             </div>
           </div>
 
@@ -240,7 +293,7 @@
               </div>
             </div>
             <div class="work__image-box">
-              <img src="./images/rcpufetch_ss.webp" class="work__image" alt="rCPUfetch Screenshot" />
+              <img src="./images/rcpufetch_ss.webp" class="work__image" alt="rCPUfetch Screenshot" width="758" height="792" loading="lazy" decoding="async"/>
             </div>
           </div>
 
@@ -261,7 +314,7 @@
               </div>
             </div>
             <div class="work__image-box">
-              <img src="./images/graniteAbliteration.webp" class="work__image" alt="Granite Abliteration Logo" />
+              <img src="./images/graniteAbliteration.webp" class="work__image" alt="Granite Abliteration Logo" width="758" height="714" loading="lazy" decoding="async"/>
             </div>
           </div>
 
@@ -283,7 +336,7 @@
               </div>
             </div>
             <div class="work__image-box">
-              <img src="./images/KalibungaDemo.gif" class="work__image" alt="Kalibunga Logo"/>
+              <img src="./images/KalibungaDemo.gif" class="work__image" alt="Kalibunga Demo" width="758" height="584" loading="lazy" decoding="async"/>
             </div>
           </div>
 
@@ -304,7 +357,7 @@
               </div>
             </div>
             <div class="work__image-box">
-              <img src="./images/fedoraTweaks.webp" class="work__image" alt="Fedora Tweaks Logo" width="500" height="500"/>
+              <img src="./images/fedoraTweaks.webp" class="work__image" alt="Fedora Tweaks Logo" width="758" height="758" loading="lazy" decoding="async"/>
             </div>
           </div>
 
@@ -328,7 +381,7 @@
               </div>
             </div>
             <div class="work__image-box">
-              <img src="./images/Calculus_cruncher.webp" class="work__image" alt="Calculus Cruncher Main Page"  width="960" height="540"/>
+              <img src="./images/Calculus_cruncher.webp" class="work__image" alt="Calculus Cruncher Main Page" width="758" height="426" loading="lazy" decoding="async"/>
             </div>
           </div>
 
@@ -354,7 +407,7 @@
               </div>
             </div>
             <div class="work__image-box">
-              <img src="./images/argon2.webp" class="work__image" alt="Argon2" width="600" height="550"/>
+              <img src="./images/argon2.webp" class="work__image" alt="Argon2" width="758" height="694" loading="lazy" decoding="async"/>
             </div>
           </div> 
 
@@ -377,7 +430,7 @@
               </div>
             </div>
             <div class="work__image-box">
-              <img src="./images/argon.webp" class="work__image" alt="Argon" width="600" height="550"/>
+              <img src="./images/argon.webp" class="work__image" alt="Argon" width="758" height="694" loading="lazy" decoding="async"/>
             </div>
           </div>  
 
@@ -401,7 +454,7 @@
               </div>
             </div>
             <div class="work__image-box">
-              <img src="./images/codingNewton.webp" class="work__image" alt="Newton's Method" width="500" height="500"/>
+              <img src="./images/codingNewton.webp" class="work__image" alt="Newton's Method" width="758" height="758" loading="lazy" decoding="async"/>
             </div>
           </div>
 
@@ -425,7 +478,7 @@
               </div>
             </div>
             <div class="work__image-box">
-              <img src="./images/javaMath.webp" class="work__image" alt="Java Math Iterator" width="500" height="500"/>
+              <img src="./images/javaMath.webp" class="work__image" alt="Java Math Iterator" width="758" height="758" loading="lazy" decoding="async"/>
             </div>
           </div>
           
@@ -457,7 +510,7 @@
               </div>
             </div>
             <div class="work__image-box">
-              <img src="./images/Falling_Into_Viscosity.webp" class="work__image" alt="Project 3" />
+              <img src="./images/Falling_Into_Viscosity.webp" class="work__image" alt="Falling Into Viscosity Research" width="758" height="1000" loading="lazy" decoding="async"/>
             </div>
           </div>
 
@@ -488,7 +541,7 @@
               </div>
             </div>
             <div class="work__image-box">
-              <img src="./images/Developing_Metacognitive_Skills_CSU_.webp" class="work__image" alt="Project 3" />
+              <img src="./images/Developing_Metacognitive_Skills_CSU_.webp" class="work__image" alt="Developing Metacognitive Skills Research" width="758" height="1000" loading="lazy" decoding="async"/>
             </div>
           </div>
 
@@ -519,7 +572,7 @@
               </div>
             </div>
             <div class="work__image-box">
-              <img src="./images/discoveryProject.webp" class="work__image" alt="Discovery Project" width="500" height="500"/>
+              <img src="./images/discoveryProject.webp" class="work__image" alt="Discovery Project" width="758" height="758" loading="lazy" decoding="async"/>
             </div>
           </div>
 
@@ -559,7 +612,7 @@
     <div class="row">
       <h2>Resume 👨‍💼</h2>
       <body>
-        <iframe src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/rockenman1234/resume/40834578b10558bb6a88dbb187cae228d5fd65c7/Resume.pdf#sidebar=0" style="width:100%; height:100vh;" frameborder="0"></iframe>
+        <iframe src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/rockenman1234/resume/40834578b10558bb6a88dbb187cae228d5fd65c7/Resume.pdf#sidebar=0" style="width:100%; height:100vh;" frameborder="0" title="Alex Jenkins Resume PDF Viewer" loading="lazy"></iframe>
       </body>                
     </div>
   </section>
@@ -669,7 +722,7 @@
   <a href="#top" class="back-to-top" title="Back to Top">
     <img src="./images/arrow-up.svg" alt="Back to Top" class="back-to-top__image"/>
   </a>
-  <script src="./index.js"></script>
+  <script src="./index.js" defer></script>
 </body>
 
 </html>

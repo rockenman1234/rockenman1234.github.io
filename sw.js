@@ -1,10 +1,10 @@
 // Service Worker for Caching - GitHub Pages Compatible
 // @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&dn=gpl-3.0.txt GPL-v3
 
-const CACHE_NAME = 'alexj-portfolio-v3';
-const STATIC_CACHE = 'static-v3';
-const DYNAMIC_CACHE = 'dynamic-v3';
-const IMAGE_CACHE = 'images-v3';
+const CACHE_NAME = 'alexj-portfolio-v4';
+const STATIC_CACHE = 'static-v4';
+const DYNAMIC_CACHE = 'dynamic-v4';
+const IMAGE_CACHE = 'images-v4';
 
 // Critical resources to cache immediately
 const urlsToCache = [
@@ -75,6 +75,12 @@ self.addEventListener('fetch', function(event) {
     return;
   }
 
+  // Temporary bypass for problematic images - let them load directly
+  if (event.request.url.includes('fedele-lab-logo.webp') || 
+      event.request.url.includes('AI-Textbook-logo.webp')) {
+    return; // Let browser handle these directly
+  }
+
   // Handle images with optimized caching
   if (event.request.destination === 'image' || 
       event.request.url.match(/\.(png|jpg|jpeg|webp|avif|gif|svg|ico)$/)) {
@@ -98,7 +104,7 @@ self.addEventListener('fetch', function(event) {
   event.respondWith(cacheFirst(event.request));
 });
 
-// Optimized image caching strategy
+// Optimized image caching strategy with better error handling
 function imageFirst(request) {
   return caches.open(IMAGE_CACHE)
     .then(function(cache) {
@@ -110,13 +116,35 @@ function imageFirst(request) {
           
           return fetch(request)
             .then(function(response) {
-              if (response && response.status === 200) {
-                const responseToCache = response.clone();
-                cache.put(request, responseToCache);
+              // Check if response is valid
+              if (response && response.status === 200 && response.type !== 'opaque') {
+                try {
+                  const responseToCache = response.clone();
+                  cache.put(request, responseToCache).catch(function(error) {
+                    console.warn('Failed to cache image:', request.url, error);
+                  });
+                } catch (error) {
+                  console.warn('Failed to clone response for caching:', request.url, error);
+                }
               }
               return response;
+            })
+            .catch(function(error) {
+              console.error('Failed to fetch image:', request.url, error);
+              // Return a fallback or let the browser handle it
+              return fetch(request);
             });
+        })
+        .catch(function(error) {
+          console.error('Cache match failed for:', request.url, error);
+          // Fallback to network request
+          return fetch(request);
         });
+    })
+    .catch(function(error) {
+      console.error('Failed to open image cache:', error);
+      // Fallback to network request
+      return fetch(request);
     });
 }
 

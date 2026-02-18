@@ -549,17 +549,33 @@ body:not(.user-is-tabbing) a:focus {
     align-items: center;
 }
 
-@media(max-width: 900px) {
-    .work__links--ltc {
-        flex-wrap: wrap;
-        align-items: flex-start;
-        row-gap: 1rem;
-        column-gap: 2rem;
-    }
+.work__links.work__links--stacked {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start;
+    flex-wrap: nowrap !important;
+    gap: 1rem;
+}
 
-    .work__links--ltc .work__code {
-        margin-left: 0;
-    }
+.work__links.work__links--stacked > a {
+    display: inline-flex;
+    align-items: center;
+}
+
+.work__links.work__links--stacked .work__code {
+    margin-left: 0;
+    width: 3rem;
+    height: 3rem;
+    min-width: 3rem;
+    min-height: 3rem;
+}
+
+.work__links.work__links--stacked a:last-child {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    margin-top: 0.5rem;
 }
 
 .work__text {

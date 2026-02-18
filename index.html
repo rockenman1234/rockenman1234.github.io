@@ -81,6 +81,42 @@
 
   <script>
     // @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&dn=gpl-3.0.txt GPL-v3
+    function isReloadNavigation() {
+      const navigationEntries = performance.getEntriesByType ? performance.getEntriesByType('navigation') : [];
+      if (navigationEntries && navigationEntries.length > 0) {
+        return navigationEntries[0].type === 'reload';
+      }
+
+      if (performance.navigation) {
+        return performance.navigation.type === performance.navigation.TYPE_RELOAD;
+      }
+
+      return false;
+    }
+
+    function markLazyImageLoaded(img) {
+      img.classList.add('loaded');
+    }
+
+    function initializeLazyImage(img) {
+      if (img.complete && img.naturalWidth > 0) {
+        markLazyImageLoaded(img);
+        return;
+      }
+
+      img.addEventListener('load', () => {
+        markLazyImageLoaded(img);
+      }, { once: true });
+
+      img.addEventListener('error', () => {
+        if (!img.dataset.retryAttempted) {
+          img.dataset.retryAttempted = 'true';
+          const separator = img.src.includes('?') ? '&' : '?';
+          img.src = img.src + separator + 't=' + Date.now();
+        }
+      }, { once: true });
+    }
+
     function setBackground() {
       // Check if the browser is Safari
       const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
@@ -109,7 +145,7 @@
       }
 
       // Force reload of background image on page refresh
-      if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+      if (isReloadNavigation()) {
         const timestamp = '?t=' + Date.now();
         backgroundImage = backgroundImage.replace(/\.(avif|webp|gif)'\)/g, '.$1' + timestamp + "')");
       }
@@ -125,27 +161,13 @@
         
         // Force image reload on page refresh
         forceImageReload();
+
+        const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+        lazyImages.forEach(initializeLazyImage);
         
         // Lazy loading fallback for older browsers - defer to avoid blocking
         setTimeout(() => {
-          if ('loading' in HTMLImageElement.prototype) {
-            const images = document.querySelectorAll('img[loading="lazy"]');
-            images.forEach(img => {
-              img.addEventListener('load', () => {
-                img.classList.add('loaded');
-              });
-              
-              // Force reload on page visibility change (helps with cache issues)
-              img.addEventListener('error', () => {
-                console.warn('Image failed to load, retrying:', img.src);
-                const originalSrc = img.src;
-                img.src = '';
-                setTimeout(() => {
-                  img.src = originalSrc + '?t=' + Date.now();
-                }, 100);
-              });
-            });
-          } else {
+          if (!('loading' in HTMLImageElement.prototype)) {
             // Fallback for browsers that don't support native lazy loading
             const script = document.createElement('script');
             script.src = 'https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver';
@@ -159,7 +181,7 @@
     // Force image reload function to handle page refresh issues
     function forceImageReload() {
       // Check if this is a hard refresh or reload
-      if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+      if (isReloadNavigation()) {
         const images = document.querySelectorAll('img[src*=".webp"], img[src*=".avif"], img[src*=".png"], img[src*=".jpg"], img[src*=".jpeg"]');
         images.forEach(img => {
           const originalSrc = img.src;
@@ -170,25 +192,6 @@
         });
       }
     }
-    
-    // Handle page visibility changes to ensure images load properly
-    document.addEventListener('visibilitychange', function() {
-      if (!document.hidden) {
-        // Page is now visible, check for any failed images
-        setTimeout(() => {
-          const images = document.querySelectorAll('img');
-          images.forEach(img => {
-            if (!img.complete || img.naturalHeight === 0) {
-              const originalSrc = img.src;
-              img.src = '';
-              setTimeout(() => {
-                img.src = originalSrc;
-              }, 50);
-            }
-          });
-        }, 100);
-      }
-    });
     
     // Register service worker for caching - non-blocking
     if ('serviceWorker' in navigator) {
@@ -261,12 +264,45 @@
         <h2>My Work 💼</h2>
         <div class="work__boxes">
 
+          <!-- 0. LibreTech -->
+          <div class="work__box">
+            <div class="work__text">
+              <h3>LibreTech Collective - Founder & President</h3>
+              <p>
+                Founder of LibreTech Collective, a student organization at Georgia Tech dedicated to promoting open source software development and fostering a collaborative community of developers.
+                The collective organizes workshops, hackathons, and collaborative projects to encourage students to contribute to open source initiatives and develop their skills in software development.
+                Additionally, we managed to secure funding to host Dr. Richard Stallman, the founder of the Free Software Foundation, for a talk at Georgia Tech in January 2026, further emphasizing our
+                commitment to free & libre principles for education.
+              </p>
+              <ul class="work__list">
+                <li>Faculty Advisor - Dr. <a href="https://jyoung3131.github.io/" target="_blank">Jeffrey Young</a> (Ph.D. Electrical and Computer Engineering)</li>
+              </ul>
+              <div class="work__links work__links--ltc">
+                <a href="https://ltc.gtorg.gatech.edu/" class="link__text">
+                  Visit Club Website <span>&rarr;</span>
+                </a>
+                <a href="https://www.nojs.us" class="link__text" target="_blank" rel="noopener noreferrer">
+                  Watch RMS with No Javascript <span>&rarr;</span>
+                </a>
+                <a href="https://www.youtube.com/watch?v=YDxPJs1EPS4" class="link__text" target="_blank" rel="noopener noreferrer">
+                  Watch RMS on YouTube <span>&rarr;</span>
+                </a>
+                <a href="https://github.com/LTC-GT/">
+                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub" width="20" height="20">
+                </a>
+              </div>
+            </div>
+            <div class="work__image-box">
+              <img src="./images/LTC-logo.webp" class="work__image" alt="LibreTech Collective" width="758" height="758" loading="eager" fetchpriority="high" decoding="async"/>
+            </div>
+          </div>
+
           <!-- 1. Fedele-AI Lab -->
           <div class="work__box">
             <div class="work__text">
               <h3>Fedele-AI Lab - Cofounder</h3>
               <p>
-                Cofounder of the Fedele-AI lab at Georgia Tech, 
+                Cofounder of the Fedele-AI Lab at Georgia Tech, 
                 an innovative, cross-disciplinary research laboratory focusing on the intersection of machine learning, 
                 engineering, and creative applications. The lab explores cutting-edge AI/ML technologies 
                 and their practical implementations across various disciplines, 
@@ -676,7 +712,7 @@
     <div class="row">
       <h2>Resume 👨‍💼</h2>
       <body>
-        <iframe src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/rockenman1234/resume/40834578b10558bb6a88dbb187cae228d5fd65c7/Resume.pdf#sidebar=0" style="width:100%; height:100vh;" frameborder="0" title="Alex Jenkins Resume PDF Viewer" loading="lazy"></iframe>
+        <iframe src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/rockenman1234/resume/f974618d20bf643aec8939856454afa85c758f2b/Resume.pdf#sidebar=0" style="width:100%; height:100vh;" frameborder="0" title="Alex Jenkins Resume PDF Viewer" loading="lazy"></iframe>
       </body>                
     </div>
   </section>
@@ -689,8 +725,7 @@
         <div class="about__content">
           <div class="about__text">
             <p>
-              Hi! I'm Alex! I'm a College student studying Computer Engineering at The
-              Georgia Institute of Technology! (Go Jackets! 🐝)
+              Hi - I'm Alex Jenkins!
             </p>
             
             <p>
@@ -699,12 +734,12 @@
             </p>
 
             <p>
-              I'm a current Teaching Assistant for CEE 4813.
+              I'm a current the President and Founder of LibreTech Collective, Georgia Tech's first and only student organization dedicated to promoting free, libre, and open-source software, hardware, and culture!
             </p>
 
             <p>
-              This past spring, I proudly took part in Georgia Tech’s new interdisciplinary elective 
-              <em>Art and Generative AI</em>, part of the recently launched Minor in Artificial Intelligence and Machine Learning. Co‑taught by civil engineering professor Francesco Fedele and artist-professor Mark Liebert, the course explored the intersection of AI, neuroscience, design, and art to create both visual and auditory generative media.
+              In the past, I worked as a Reasearch Assistant in the Fedele-AI Lab at Georgia Tech, where I co-authored a libre AI/ML textbook and contributed to various research projects at the intersection of AI, engineering, and creative applications.
+              Co-taught by civil engineering professor Francesco Fedele and artist-professor Mark Liebert, the course explored the intersection of AI, neuroscience, design, and art to create both visual and auditory generative media.
             </p>
             <a href="https://github.com/rockenman1234/resume/raw/main/Resume.pdf" class="btn">View My Resume</a>
           </div>
@@ -774,7 +809,8 @@
             <img src="./images/us-flag.svg" width="24" height="13" alt="Made in USA" title="Proudly made in the USA" class="ml-2 inline-block" style="margin-left: 4px; vertical-align: middle;">
             <br>
             <span class="footer__license">
-              <a href="https://github.com/rockenman1234/rockenman1234.github.io?tab=GPL-3.0-1-ov-file" target="_blank" class="footer__license-link">This site is licensed under the GPL v3</a> | 
+              <a href="https://github.com/rockenman1234/rockenman1234.github.io?tab=GPL-3.0-1-ov-file" target="_blank" class="footer__license-link">Code under GPL-3.0</a> | 
+              <a href="https://github.com/rockenman1234/rockenman1234.github.io?tab=CC-BY-ND-4.0-1-ov-file" target="_blank" class="footer__license-link">Content under CC BY-ND 4.0</a> | 
               <a href="javascript.html" rel="jslicense" class="footer__license-link">JavaScript Information</a> | 
               <a href="pgpkey.html" class="footer__license-link">PGP Key</a> |
               <a href="pgpkey.asc" class="footer__license-link" download="kjenkins60-gatech-edu-publickey.asc">PGP Key (.asc)</a>

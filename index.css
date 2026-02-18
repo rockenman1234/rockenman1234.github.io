@@ -549,6 +549,19 @@ body:not(.user-is-tabbing) a:focus {
     align-items: center;
 }
 
+@media(max-width: 900px) {
+    .work__links--ltc {
+        flex-wrap: wrap;
+        align-items: flex-start;
+        row-gap: 1rem;
+        column-gap: 2rem;
+    }
+
+    .work__links--ltc .work__code {
+        margin-left: 0;
+    }
+}
+
 .work__text {
     flex: 0 0 30%;
 }

@@ -60,15 +60,18 @@ let alterStyles = (isBackToTopRendered) => {
     : "scale(0)";
 };
 
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 700) {
-    isBackToTopRendered = true;
-    alterStyles(isBackToTopRendered);
-  } else {
-    isBackToTopRendered = false;
-    alterStyles(isBackToTopRendered);
-  }
-});
+const desktopElScroll = document.querySelector('.desktop');
+if (desktopElScroll) {
+  desktopElScroll.addEventListener("scroll", () => {
+    if (desktopElScroll.scrollTop > 700) {
+      isBackToTopRendered = true;
+      alterStyles(isBackToTopRendered);
+    } else {
+      isBackToTopRendered = false;
+      alterStyles(isBackToTopRendered);
+    }
+  });
+}
 
 
 // Super secret code 
@@ -116,12 +119,37 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-// Cache management for large assets
-function preloadLargeAssets() {
+// Cache management for large assets and animations
+function initPerformanceAndAnimations() {
   const largeAssets = [
     './images/code.gif',
     './images/KalibungaDemo.gif'
   ];
+  
+  const largeFetchAssets = [
+    'https://raw.githubusercontent.com/rockenman1234/resume/00be68a23cc2f913489cc5dab064aca5af28caab/Resume.pdf',
+    'https://raw.githubusercontent.com/rockenman1234/resume/00be68a23cc2f913489cc5dab064aca5af28caab/Resume__Brief.pdf'
+  ];
+
+  // Intersection Observer for fade-in animations
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.15
+  };
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.fade-in-up').forEach(element => {
+    observer.observe(element);
+  });
   
   // Preload large assets when user shows intent to interact
   let userInteracted = false;
@@ -139,12 +167,18 @@ function preloadLargeAssets() {
             link.href = asset;
             document.head.appendChild(link);
           });
+          largeFetchAssets.forEach(asset => {
+            fetch(asset, { mode: 'cors' }).catch(() => {});
+          });
         });
       } else {
         setTimeout(() => {
           largeAssets.forEach(asset => {
             const img = new Image();
             img.src = asset;
+          });
+          largeFetchAssets.forEach(asset => {
+            fetch(asset, { mode: 'cors' }).catch(() => {});
           });
         }, 100);
       }
@@ -162,5 +196,5 @@ function preloadLargeAssets() {
   document.addEventListener('scroll', onUserInteraction, { passive: true });
 }
 
-// Initialize cache preloading
-document.addEventListener('DOMContentLoaded', preloadLargeAssets);
+// Initialize performance improvements
+document.addEventListener('DOMContentLoaded', initPerformanceAndAnimations);

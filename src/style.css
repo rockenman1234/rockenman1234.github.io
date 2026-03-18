@@ -1,0 +1,622 @@
+/* ================================================
+   System 6 Portfolio – Custom Styles
+   Built on top of system.css (@sakun/system.css)
+   ================================================ */
+
+/* --- Base / Desktop --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #fff;
+  --secondary: #000;
+}
+
+html {
+  overflow: hidden;
+  height: 100dvh;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  /* Classic Mac grey desktop background with subtle pattern */
+  background-color: #a8a8a8;
+  background-image:
+    linear-gradient(45deg, #a0a0a0 25%, transparent 25%),
+    linear-gradient(-45deg, #a0a0a0 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #a0a0a0 75%),
+    linear-gradient(-45deg, transparent 75%, #a0a0a0 75%);
+  background-size: 4px 4px;
+  background-position: 0 0, 0 2px, 2px -2px, -2px 0px;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+
+
+::-webkit-scrollbar {
+  width: 22px;
+  background-color: var(--primary);
+}
+
+::-webkit-scrollbar-track {
+  background: linear-gradient(45deg, var(--secondary) 25%, transparent 25%, transparent 75%, var(--secondary) 75%, var(--secondary)), linear-gradient(45deg, var(--secondary) 25%, transparent 25%, transparent 75%, var(--secondary) 75%, var(--secondary));
+  background-color: var(--primary);
+  background-size: 4px 4px;
+  background-position: 0 0, 2px 2px;
+  width: 10px;
+  border-left: 3px solid var(--secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  width: 20px;
+  box-sizing: content-box;
+  background-color: var(--primary);
+  border: 2px solid var(--secondary);
+  border-right: none;
+}
+
+::-webkit-scrollbar-button:vertical:start {
+  background-repeat: no-repeat;
+  height: 23.38px;
+  background-image: url('data:image/svg+xml;utf8,<svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 23V0H22V23H0ZM20 2H2V21H20V2Z" fill="black"/><path d="M4 17V15H6V13H8V11H10V9H12V11H14V13H16V15H18V17H16V15H14V13H12V11H10V13H8V15H6V17H4Z" fill="black"/><path d="M6 17V15H8V13H10V11H12V13H14V15H16V17H6Z" fill="black"/></svg>');
+}
+
+::-webkit-scrollbar-button:vertical:end {
+  height: 23.38px;
+  background-image: url('data:image/svg+xml;utf8,<svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 23V0H22V23H0ZM20 2H2V21H20V2Z" fill="black"/><path d="M18 6V8H16V10H14V12H12V14H10V12H8V10H6V8H4V6H6V8H8V10H10V12H12V10H14V8H16V6H18Z" fill="black"/><path d="M16 6V8H14V10H12V12H10V10H8V8H6V6H16Z" fill="black"/></svg>');
+}
+
+
+/* --- Menu Bar --- */
+.menu-bar-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  background: #fff;
+  border-bottom: 1px solid #000;
+  height: 21px; /* System 6 menu height */
+  padding: 0;
+}
+
+.menu-bar-wrapper > [role="menu-bar"] {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+}
+
+ul[role="menu-bar"] > [role="menu-item"] {
+  padding: 0 10px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  height: auto;
+  font-size: 14px; /* System 6 menu text size might be 14px depending on scaling, let's strictly align it */
+}
+
+.menu-bar-right {
+  padding-right: 12px;
+  font-size: 14px;
+  font-family: "Chicago_12", "Geneva", sans-serif;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+  text-rendering: geometricPrecision;
+}
+
+.menu-bar-clock {
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.menu-meridiem {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+}
+
+/* Apple menu icon */
+.apple-menu {
+  font-family: "Chicago_12", "Geneva", sans-serif;
+  font-weight: bold;
+}
+
+.apple-menu .apple {
+  height: 15px !important;
+  width: 14px !important;
+  background-size: contain !important;
+  background-position: center !important;
+  margin-right: 0 !important;
+  display: block;
+  position: relative;
+  top: -1px;
+}
+
+ul[role="menu-bar"] > [role="menu-item"].apple-menu:focus .apple,
+ul[role="menu-bar"] > [role="menu-item"].apple-menu:focus-within .apple,
+ul[role="menu-bar"] > [role="menu-item"].apple-menu:hover .apple,
+ul[role="menu-bar"] > [role="menu-item"].apple-menu:active .apple {
+  filter: invert(1);
+}
+
+/* --- Desktop Layout --- */
+.desktop {
+  padding-top: 24px;
+  padding-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  position: absolute;
+  top: 21px; /* Starts right below the menu bar */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.desktop > section {
+  width: 100%;
+  max-width: 800px;
+  padding: 0 16px;
+  border: none;
+  scroll-margin-top: 24px;
+}
+
+/* --- Window Overrides --- */
+.window {
+  width: 100%;
+  margin: 0 auto;
+  box-shadow: 2px 2px 0px #000;
+}
+
+.window .title {
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.window-pane {
+  overflow-y: visible !important;
+  height: auto !important;
+  max-height: none;
+  padding: 16px;
+}
+
+.window-pane h3 {
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.welcome-pane {
+  padding: 24px;
+}
+
+.welcome-window {
+  margin: 0 auto 24px auto;
+  min-width: 320px;
+  max-width: 500px;
+  width: fit-content;
+}
+
+.welcome-content {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.welcome-icon {
+  flex-shrink: 0;
+}
+
+.welcome-photo {
+  width: 120px;
+  height: auto;
+  border: 2px solid #000;
+  image-rendering: auto;
+}
+
+.welcome-text {
+  flex: 1;
+}
+
+.welcome-heading {
+  font-size: 18px;
+  margin: 0 0 8px 0;
+  font-weight: bold;
+}
+
+.welcome-text p {
+  margin: 6px 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.welcome-threads {
+  font-size: 12px !important;
+}
+
+.welcome-text .btn {
+  margin-top: 12px;
+}
+
+/* --- Project Entries --- */
+.project-entry {
+  padding: 16px 0;
+}
+
+.project-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.project-icon {
+  width: 100%;
+  max-width: 64px;
+  height: auto;
+  object-fit: contain;
+  border: 1px solid #000;
+  flex-shrink: 0;
+  image-rendering: auto;
+}
+
+.project-image-large {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #000;
+  display: block;
+  margin: 12px 0;
+  image-rendering: auto;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .project-image-large {
+    max-width: 600px;
+    margin: 12px auto;
+  }
+}
+
+.project-entry h3 {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.project-entry p {
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 6px 0;
+}
+
+.project-meta {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.project-meta li {
+  font-size: 11px;
+  padding: 2px 8px;
+  border: 1px solid #000;
+  background: #e8e8e8;
+}
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.project-links .btn {
+  font-size: 11px;
+  padding: 3px 10px;
+  text-decoration: none;
+}
+
+/* --- Résumé Window --- */
+.resume-window .window-pane {
+  padding: 12px;
+}
+
+.resume-window .window-pane h3 {
+  margin: 12px 0 8px;
+}
+
+.resume-window iframe {
+  border: 1px inset #808080;
+}
+
+/* --- About Window --- */
+.about-content {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.about-photo-wrap {
+  flex-shrink: 0;
+}
+
+.about-photo {
+  width: 160px;
+  height: auto;
+  border: 2px solid #000;
+}
+
+.about-text {
+  flex: 1;
+}
+
+.about-text p {
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 6px 0;
+}
+
+.about-text a {
+  color: #000;
+}
+
+/* --- Contact Window --- */
+.contact-window .modeless-dialog {
+  padding: 16px;
+}
+
+.contact-window .modeless-dialog p {
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 6px 0;
+}
+
+/* --- Window Animations --- */
+.window {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.window.window-closing {
+  opacity: 0;
+  transform: scale(0.95);
+  pointer-events: none;
+}
+
+.window.window-closed {
+  display: none;
+}
+
+section.section-closed {
+  display: none;
+}
+
+/* --- Status Bar (Footer) --- */
+.status-bar {
+  background: #fff;
+  border-top: 2px solid #000;
+  padding: 12px 0;
+  text-align: center;
+  width: 100%;
+  margin-top: auto;
+  color: #000;
+  font-family: "Chicago_12", "Geneva", sans-serif;
+}
+
+.status-bar-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.status-bar-left {
+  flex-shrink: 0;
+}
+
+.footer-fsf {
+  width: 64px;
+  height: 64px;
+  display: block;
+}
+
+.status-bar-center {
+  flex: 1;
+  text-align: center;
+}
+
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.footer-social img {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.footer-social a[href*="github"] img,
+.footer-social a[href*="linkedin"] img {
+  filter: brightness(0);
+}
+
+.footer-social a {
+  display: block;
+  transition: transform 0.2s;
+}
+
+.footer-social a:hover {
+  transform: scale(1.2);
+}
+
+.footer-made {
+  font-size: 12px;
+  margin: 4px 0;
+  color: #000;
+}
+
+.footer-license {
+  font-size: 10px;
+  margin: 4px 0;
+  color: #000;
+}
+
+.footer-license a {
+  color: #000;
+  text-decoration: underline;
+}
+
+.status-bar-center a {
+  color: #000;
+}
+
+.footer-pgp {
+  font-size: 10px;
+  font-family: monospace;
+  opacity: 0.6;
+  margin: 4px 0;
+}
+
+.status-bar-right-side {
+  flex-shrink: 0;
+  width: 40px; /* balance the layout */
+}
+
+/* --- Back to Top --- */
+.back-to-top {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  width: 28px;
+  height: 28px;
+  background: #fff;
+  border: 2px solid #000;
+  text-align: center;
+  line-height: 24px;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #000;
+  z-index: 100;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s, visibility 0.3s;
+  cursor: pointer;
+  box-shadow: 1px 1px 0 #000;
+}
+
+.back-to-top.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+  .desktop > section {
+    max-width: 100%;
+    padding: 0 8px;
+  }
+  
+  .welcome-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .about-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .about-photo {
+    width: 120px;
+  }
+
+  .project-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .project-links {
+    justify-content: center;
+  }
+
+  .project-meta {
+    justify-content: center;
+  }
+
+  .status-bar-inner {
+    flex-direction: column;
+  }
+
+  .status-bar-right-side {
+    display: none;
+  }
+
+  .menu-bar-right {
+    display: none;
+  }
+}
+
+/* --- Link Styles (within windows) --- */
+.window-pane a,
+.modeless-dialog a {
+  color: #000;
+  text-decoration: underline;
+}
+
+.window-pane a:hover,
+.modeless-dialog a:hover {
+  color: #555;
+}
+
+/* --- Separator Enhancement --- */
+.window-pane > .separator {
+  margin: 4px 0;
+}
+
+/* --- Typography Reset (let system.css handle most) --- */
+p {
+  margin: 6px 0;
+}
+
+h2 {
+  margin: 0;
+}
+
+h2::after {
+  display: none; /* remove leftover underline from old CSS */
+}
+
+/* Project links - override system.css btn for anchor tags */
+a.btn {
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}

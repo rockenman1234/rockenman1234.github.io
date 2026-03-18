@@ -6,23 +6,21 @@
   so if you have any suggestions, please let me know!
   You can reach me at:
   Email: kjenkins60@gatech.edu
+
+  ✦ Redesigned with system.css to mimic classic Mac System 6 ✦
 -->
 
-<!-- ***** Analytics ***** -->
-<!-- 100% privacy-first analytics - Deferred for performance -->
-<noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
-<!-- / 100% privacy-first analytics -->
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="shortcut icon" type="image/png" href="./images/favicon.ico" />
+  <link rel="shortcut icon" type="image/png" href="/images/favicon.ico" />
 
   <title>Alex Jenkins | Computer Engineering Student at Georgia Institute of Technology</title>
   <meta name="description" content="Software developer, researcher, and student at Georgia Tech. Explore my projects, resume, and contact me for collaborations.">
   <meta name="keywords" content="Computer Engineering, Software Development, Research, Georgia Tech, Cyber Security, Systems and Architecture,
-    Kenneth ( Alex ) Jenkins - Alex Jenkins, Shell, Python, Java, C#, C++, HTML, Javascipt, CSS, Georgia Tech,
-    Clayton State, Univeristy, Atlanta, Georgia, Kenneth Jenkins, Computer Engineering, Engineer, Engineering, Computer Science, IT, Computer Mathematics, Research" />
+    Kenneth ( Alex ) Jenkins - Alex Jenkins, Shell, Python, Java, C#, C++, HTML, Javascript, CSS, Georgia Tech,
+    Clayton State, University, Atlanta, Georgia, Kenneth Jenkins, Computer Engineering, Engineer, Engineering, Computer Science, IT, Computer Mathematics, Research" />
   
   <!-- Open Graph meta tags for social media previews -->
   <meta property="og:title" content="Alex Jenkins | Computer Engineering Student">
@@ -35,805 +33,553 @@
   <meta property="og:site_name" content="Alex Jenkins Portfolio">
   
   <!-- PWA Manifest -->
-  <link rel="manifest" href="./manifest.json">
-  <meta name="theme-color" content="#003057">
-  
-  <!-- Cache Control and Performance Meta Tags -->
-  <meta http-equiv="Cache-Control" content="public, max-age=3600, must-revalidate">
-  <meta http-equiv="Expires" content="3600">
-  
-  <!-- Critical resource preloading -->
-  <link rel="preload" href="./fonts/HKGrotesk-Regular.woff" as="font" type="font/woff" crossorigin>
-  <link rel="preload" href="./fonts/Jost-Regular.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="preload" href="./index.css" as="style">
-  <link rel="preload" href="./images/headshot.webp" as="image">
-  <link rel="preload" href="./images/altdowntown.avif" as="image" media="(min-width: 768px)">
-  <link rel="preload" href="./images/code.gif" as="image" media="(max-width: 767px)">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#a8a8a8">
   
   <!-- DNS prefetch for external domains -->
   <link rel="dns-prefetch" href="//scripts.simpleanalyticscdn.com">
-  <link rel="dns-prefetch" href="//queue.simpleanalyticscdn.com">
-  <link rel="dns-prefetch" href="//static.cloudflareinsights.com">
   <link rel="dns-prefetch" href="//mozilla.github.io">
   <link rel="dns-prefetch" href="//raw.githubusercontent.com">
   
   <!-- Preconnect to critical external domains -->
-  <link rel="preconnect" href="https://scripts.simpleanalyticscdn.com" crossorigin>
-  <link rel="preconnect" href="https://static.cloudflareinsights.com" crossorigin>
-  
-  <!-- Preconnect to external domains -->
   <link rel="preconnect" href="https://mozilla.github.io" crossorigin>
   <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
-  
-  <link rel="stylesheet" href="index.css?v=20260217-2" />
 
-  <!-- Defer non-critical analytics -->
-  <script>
-    // Load analytics after critical rendering
-    setTimeout(() => {
-      const script = document.createElement('script');
-      script.src = 'https://scripts.simpleanalyticscdn.com/latest.js';
-      script.async = true;
-      script.defer = true;
-      document.head.appendChild(script);
-    }, 1000);
-  </script>
+  <!-- Preload large resumes -->
+  <link rel="preload" href="https://raw.githubusercontent.com/rockenman1234/resume/00be68a23cc2f913489cc5dab064aca5af28caab/Resume.pdf" as="fetch" crossorigin="anonymous">
+  <link rel="preload" href="https://raw.githubusercontent.com/rockenman1234/resume/00be68a23cc2f913489cc5dab064aca5af28caab/Resume__Brief.pdf" as="fetch" crossorigin="anonymous">
 
-  <script>
-    // @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&dn=gpl-3.0.txt GPL-v3
-    function isReloadNavigation() {
-      const navigationEntries = performance.getEntriesByType ? performance.getEntriesByType('navigation') : [];
-      if (navigationEntries && navigationEntries.length > 0) {
-        return navigationEntries[0].type === 'reload';
-      }
-
-      if (performance.navigation) {
-        return performance.navigation.type === performance.navigation.TYPE_RELOAD;
-      }
-
-      return false;
-    }
-
-    function markLazyImageLoaded(img) {
-      img.classList.add('loaded');
-    }
-
-    function initializeLazyImage(img) {
-      if (img.complete && img.naturalWidth > 0) {
-        markLazyImageLoaded(img);
-        return;
-      }
-
-      img.addEventListener('load', () => {
-        markLazyImageLoaded(img);
-      }, { once: true });
-
-      img.addEventListener('error', () => {
-        if (!img.dataset.retryAttempted) {
-          img.dataset.retryAttempted = 'true';
-          const separator = img.src.includes('?') ? '&' : '?';
-          img.src = img.src + separator + 't=' + Date.now();
-        }
-      }, { once: true });
-    }
-
-    function setBackground() {
-      // Check if the browser is Safari
-      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-      
-      // Check if the device is mobile
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-      // Set the default background with performance optimization
-      let backgroundImage = "linear-gradient(rgba(0,0,0, .1), rgba(0,0,0, .4)), url('./images/altdowntown.avif')";
-
-      const headerElement = document.querySelector('.header');
-
-      // Change background based on browser
-      if (isSafari) {
-        backgroundImage = "linear-gradient(rgba(0,0,0, .1), rgba(0,0,0, .4)), url('./images/safariBackground.webp')";
-      }
-      
-      // Change background based on mobile device
-      if (isMobile) {
-        backgroundImage = "linear-gradient(rgba(0,0,0, .1), rgba(0,0,0, .4)), url('./images/code.gif')";
-        // Ensure proper scaling for mobile GIF
-        headerElement.style.backgroundSize = 'cover';
-        headerElement.style.backgroundPosition = 'center';
-        headerElement.style.backgroundRepeat = 'no-repeat';
-        headerElement.style.backgroundAttachment = 'scroll'; // Fixed attachment can cause issues on mobile
-      }
-
-      // Force reload of background image on page refresh
-      if (isReloadNavigation()) {
-        const timestamp = '?t=' + Date.now();
-        backgroundImage = backgroundImage.replace(/\.(avif|webp|gif)'\)/g, '.$1' + timestamp + "')");
-      }
-
-      headerElement.style.backgroundImage = backgroundImage;
-    }
-
-    // Optimize DOM content loaded handler
-    document.addEventListener('DOMContentLoaded', function() {
-      // Use requestAnimationFrame to avoid blocking main thread
-      requestAnimationFrame(() => {
-        setBackground();
-        
-        // Force image reload on page refresh
-        forceImageReload();
-
-        const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-        lazyImages.forEach(initializeLazyImage);
-        
-        // Lazy loading fallback for older browsers - defer to avoid blocking
-        setTimeout(() => {
-          if (!('loading' in HTMLImageElement.prototype)) {
-            // Fallback for browsers that don't support native lazy loading
-            const script = document.createElement('script');
-            script.src = 'https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver';
-            script.async = true;
-            document.head.appendChild(script);
-          }
-        }, 100);
-      });
-    });
-    
-    // Force image reload function to handle page refresh issues
-    function forceImageReload() {
-      // Check if this is a hard refresh or reload
-      if (isReloadNavigation()) {
-        const images = document.querySelectorAll('img[src*=".webp"], img[src*=".avif"], img[src*=".png"], img[src*=".jpg"], img[src*=".jpeg"]');
-        images.forEach(img => {
-          const originalSrc = img.src;
-          if (originalSrc && !originalSrc.includes('?t=')) {
-            // Add timestamp to force fresh load on page reload
-            img.src = originalSrc + '?t=' + Date.now();
-          }
-        });
-      }
-    }
-    
-    // Register service worker for caching - non-blocking
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        setTimeout(() => {
-          navigator.serviceWorker.register('/sw.js')
-            .then(function(registration) {
-              console.log('ServiceWorker registration successful');
-              
-              // Listen for service worker updates
-              registration.addEventListener('updatefound', () => {
-                console.log('New service worker version available');
-                const newWorker = registration.installing;
-                newWorker.addEventListener('statechange', () => {
-                  if (newWorker.state === 'activated') {
-                    console.log('New service worker activated');
-                    // Force reload to use new service worker
-                    if (confirm('A new version is available. Reload to update?')) {
-                      window.location.reload();
-                    }
-                  }
-                });
-              });
-            }, function(err) {
-              console.log('ServiceWorker registration failed: ', err);
-            });
-        }, 2000);
-      });
-    }
-    // @license-end
-  </script>
+  <script type="module" src="/src/main.js"></script>
 </head>
 
 <body>
+  <!-- 100% privacy-first analytics -->
+  <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
 
-  <!-- ***** Header ***** -->
-
-  <header class="header" role="banner" id="top">
-    <div class="row">
-      <nav class="nav" role="navigation">
-        <ul class="nav__items">
-          <li class="nav__item"><a href="#work" class="nav__link">My Work</a></li>
-          <li class="nav__item"><a href="#resume" class="nav__link">Résumé</a></li>
-          <li class="nav__item">
-            <a href="#about" class="nav__link">About Me</a>
-          </li>
-          <li class="nav__item">
-            <a href="#contact" class="nav__link">Contact Me</a>
-          </li>
+  <!-- ===== MENU BAR ===== -->
+  <nav class="menu-bar-wrapper" id="top">
+    <ul role="menu-bar">
+      <li role="menu-item" tabindex="0" aria-haspopup="true" class="apple-menu">
+        <span role="img" class="apple" aria-label="Apple"></span>
+        <ul role="menu">
+          <li role="menu-item"><a href="#welcome">About Me</a></li>
+          <li role="menu-item" class="divider"><a href="mailto:kjenkins60@gatech.edu">Send Email...</a></li>
         </ul>
-      </nav>
+      </li>
+      <li role="menu-item" tabindex="0" aria-haspopup="true">
+        File
+        <ul role="menu">
+          <li role="menu-item"><a href="#work">My Work</a></li>
+          <li role="menu-item"><a href="#resume">Résumé</a></li>
+          <li role="menu-item" class="divider"><a href="#about">Biography</a></li>
+          <li role="menu-item"><a href="#contact">Contact</a></li>
+        </ul>
+      </li>
+      <li role="menu-item" tabindex="0" aria-haspopup="true">
+        Edit
+        <ul role="menu">
+          <li role="menu-item"><a href="https://github.com/rockenman1234/" target="_blank">GitHub</a></li>
+          <li role="menu-item"><a href="https://www.linkedin.com/in/alex-jenkins03/" target="_blank">LinkedIn</a></li>
+          <li role="menu-item"><a href="https://huggingface.co/alexj03" target="_blank">Hugging Face</a></li>
+        </ul>
+      </li>
+      <li role="menu-item" tabindex="0" aria-haspopup="true">
+        Special
+        <ul role="menu">
+          <li role="menu-item"><a href="/pgpkey.html">PGP Key</a></li>
+          <li role="menu-item"><a href="/pgpkey.asc" download="kjenkins60-gatech-edu-publickey.asc">Download PGP (.asc)</a></li>
+          <li role="menu-item" class="divider"><a href="/javascript.html" rel="jslicense">JavaScript Info</a></li>
+          <li role="menu-item"><a href="https://github.com/rockenman1234/rockenman1234.github.io?tab=License-1-ov-file" target="_blank">License</a></li>
+        </ul>
+      </li>
+    </ul>
+    <div class="menu-bar-right">
+      <span class="menu-bar-clock" id="menuClock"></span>
     </div>
-    <div class="header__text-box row">
-      <div class="header__text">
-        <h1 class="heading-primary">
-          <span>👋 Hi! I'm Alex!</span>
-        </h1>
-        <p>Computer Engineering Student at the Georgia Institute of Technology.</p>
-        <a href="#contact" class="btn btn--red">Let's Get in Touch!</a>
-      </div>
-    </div>
-  </header>
+  </nav>
 
-  <main role="main">
+  <!-- ===== DESKTOP ===== -->
+  <main class="desktop" role="main">
 
-    <!-- ***** Work ***** -->
-
-    <section class="work" id="work">
-      <div class="row">
-        <h2>My Work 💼</h2>
-        <div class="work__boxes">
-
-          <!-- 0. LibreTech -->
-          <div class="work__box">
-            <div class="work__text">
-              <h3>LibreTech Collective - Founder & President</h3>
-              <p>
-                Founder and President of LibreTech Collective, a student organization at Georgia Tech dedicated to promoting open source software development and fostering a collaborative community of developers.
-                The collective organizes workshops, hackathons, and collaborative projects to encourage students to contribute to open source initiatives and develop their skills in software development.
-                Additionally, we managed to secure funding to host Dr. Richard Stallman, the founder of the Free Software Foundation, for a talk at Georgia Tech in January 2026, further emphasizing our
-                commitment to free & libre principles for education.
-              </p>
-              <p>
-                To our knowledge, LibreTech Collective is the only student organization in the world to be based entierly around the idea of free software and copyleft principles.
-                Founded in 2025, we've quickly grown to over 40 active members and have made a significant impact on the Georgia Tech community by promoting open source software development
-                and fostering a collaborative environment for students interested in software development.
-              </p>
-              <ul class="work__list">
-                <li>Faculty Advisor - Dr. <a href="https://jyoung3131.github.io/" target="_blank">Jeffrey Young</a> (Ph.D. Electrical and Computer Engineering)</li>
-              </ul>
-              <div class="work__links work__links--stacked">
-                <a href="https://ltc.gtorg.gatech.edu/" class="link__text">
-                  Visit Club Website <span>&rarr;</span>
-                </a>
-                <a href="https://www.nojs.us" class="link__text" target="_blank" rel="noopener noreferrer">
-                  Watch RMS with Zero JavaScript <span>&rarr;</span>
-                </a>
-                <a href="https://www.youtube.com/watch?v=YDxPJs1EPS4" class="link__text" target="_blank" rel="noopener noreferrer">
-                  Watch RMS with YouTube <span>&rarr;</span>
-                </a>
-                <a href="https://github.com/LTC-GT/">
-                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub" width="20" height="20">
-                </a>
-              </div>
+    <!-- ===== WELCOME WINDOW ===== -->
+    <section id="welcome">
+      <div class="window welcome-window" id="window-welcome">
+        <div class="title-bar">
+          <button aria-label="Close" class="close"></button>
+          <h1 class="title">About Me</h1>
+        </div>
+        <div class="separator"></div>
+        <div class="window-pane welcome-pane">
+          <div class="welcome-content">
+            <div class="welcome-icon">
+              <img src="/images/headshot.webp" alt="Alex Jenkins" class="welcome-photo" width="120" height="127" />
             </div>
-            <div class="work__image-box">
-              <img src="./images/LTC-logo.webp" class="work__image" alt="LibreTech Collective" width="758" height="758" loading="eager" fetchpriority="high" decoding="async"/>
+            <div class="welcome-text">
+              <h2 class="welcome-heading">👋 Hi! I'm Alex!</h2>
+              <p>Computer Engineering Student at the Georgia Institute of Technology.</p>
+              <p class="welcome-threads">
+                Threads: <a href="https://ece.gatech.edu/cybersecurity-thread" target="_blank">Cyber Security</a> &amp; 
+                <a href="https://ece.gatech.edu/systems-architecture-thread" target="_blank">Systems and Architecture</a>
+              </p>
+              <button class="btn btn-default" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                Let's Get in Touch!
+              </button>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== MY WORK WINDOW ===== -->
+    <section id="work">
+      <div class="window work-window" id="window-work">
+        <div class="title-bar">
+          <button aria-label="Close" class="close"></button>
+          <h1 class="title">My Work</h1>
+        </div>
+        <div class="separator"></div>
+        <div class="window-pane">
+
+          <!-- Note: Project entries come in two types now: -->
+          <!-- Type A (Icon Layout): Has an inline 64x64 .project-icon inside the .project-header next to the title (e.g., LibreTech, Fedele-AI Lab). -->
+          <!-- Type B (Large Image Layout): Has a separate full-width block-level .project-image-large below the .project-header for taking up significantly more space, ideal for screenshots or posters. -->
+          
+          <!-- 0. LibreTech -->
+          <div class="project-entry">
+            <!-- Project Type A: Icon Layout -->
+            <div class="project-header">
+              <img src="/images/LTC-logo.webp" alt="LibreTech Collective" class="project-icon" width="64" height="64" loading="eager" />
+              <h3>LibreTech Collective - Founder &amp; President</h3>
+            </div>
+            <p>
+              Founder and President of LibreTech Collective, a student organization at Georgia Tech dedicated to promoting open source software development and fostering a collaborative community of developers.
+              The collective organizes workshops, hackathons, and collaborative projects to encourage students to contribute to open source initiatives and develop their skills in software development.
+              Additionally, we managed to secure funding to host Dr. Richard Stallman, the founder of the Free Software Foundation, for a talk at Georgia Tech in January 2026, further emphasizing our
+              commitment to free &amp; libre principles for education.
+            </p>
+            <p>
+              To our knowledge, LibreTech Collective is the only student organization in the world to be based entirely around the idea of free software and copyleft principles.
+              Founded in 2025, we've quickly grown to over 40 active members and have made a significant impact on the Georgia Tech community by promoting open source software development
+              and fostering a collaborative environment for students interested in software development.
+            </p>
+            <ul class="project-meta">
+              <li>Faculty Advisor - Dr. <a href="https://jyoung3131.github.io/" target="_blank">Jeffrey Young</a> (Ph.D. Electrical and Computer Engineering)</li>
+            </ul>
+            <div class="project-links">
+              <a href="https://ltc.gtorg.gatech.edu/" class="btn">Visit Club Website</a>
+              <a href="https://www.nojs.us" class="btn" target="_blank" rel="noopener noreferrer">Watch RMS (No JS)</a>
+              <a href="https://www.youtube.com/watch?v=YDxPJs1EPS4" class="btn" target="_blank" rel="noopener noreferrer">Watch RMS (YouTube)</a>
+              <a href="https://github.com/LTC-GT/" class="btn" target="_blank">GitHub</a>
+            </div>
+          </div>
+
+          <div class="separator"></div>
 
           <!-- 1. Fedele-AI Lab -->
-          <div class="work__box">
-            <div class="work__text">
+          <div class="project-entry">
+            <div class="project-header">
+              <img src="/images/fedele-lab-logo.webp" alt="Fedele-AI Lab" class="project-icon" width="64" height="64" loading="lazy" />
               <h3>Fedele-AI Lab - Cofounder</h3>
-              <p>
-                Cofounder of the Fedele-AI Lab at Georgia Tech, 
-                an innovative, cross-disciplinary research laboratory focusing on the intersection of machine learning, 
-                engineering, and creative applications. The lab explores cutting-edge AI/ML technologies 
-                and their practical implementations across various disciplines, 
-                fostering interdisciplinary collaboration and advancing the field of AI/ML research.
-              </p>
-              <ul class="work__list">
-                <li>Lab Director - Dr. <a href="https://scholar.google.com/citations?user=iaHIkTAAAAAJ" target="_blank">Francesco Fedele</a> (Ph.D. Civil Engineering)</li>
-              </ul>
-              <div class="work__links">
-                <a href="https://sites.gatech.edu/fedelelab/" class="link__text">
-                  Visit Lab Website <span>&rarr;</span>
-                </a>
-                <a href="https://github.com/Fedele-AI/">
-                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub" width="20" height="20">
-                </a>
-              </div>
             </div>
-            <div class="work__image-box">
-              <img src="./images/fedele-lab-logo.webp" class="work__image" alt="Fedele-AI Lab" width="758" height="758" loading="lazy" decoding="async"/>
+            <p>
+              Cofounder of the Fedele-AI Lab at Georgia Tech, 
+              an innovative, cross-disciplinary research laboratory focusing on the intersection of machine learning, 
+              engineering, and creative applications. The lab explores cutting-edge AI/ML technologies 
+              and their practical implementations across various disciplines, 
+              fostering interdisciplinary collaboration and advancing the field of AI/ML research.
+            </p>
+            <ul class="project-meta">
+              <li>Lab Director - Dr. <a href="https://scholar.google.com/citations?user=iaHIkTAAAAAJ" target="_blank">Francesco Fedele</a> (Ph.D. Civil Engineering)</li>
+            </ul>
+            <div class="project-links">
+              <a href="https://sites.gatech.edu/fedelelab/" class="btn">Visit Lab Website</a>
+              <a href="https://github.com/Fedele-AI/" class="btn" target="_blank">GitHub</a>
             </div>
           </div>
+
+          <div class="separator"></div>
 
           <!-- 2. AI Fundamentals Textbook -->
-          <div class="work__box">
-            <div class="work__text">
+          <div class="project-entry">
+            <div class="project-header">
+              <img src="/images/AI-Textbook-logo.webp" alt="AI Fundamentals Textbook" class="project-icon" width="64" height="64" loading="lazy" />
               <h3>AI Fundamentals - Coauthor</h3>
-              <p>
-                Co-authored a libre (copyleft and open source) AI/ML textbook that offers a mathematical and programming-based approach to 
-                understanding artificial intelligence in just 10 modules. This comprehensive educational resource was created for Georgia Tech's 
-                CEE 4803 - Art & Generative AI course and emphasizes learning AI fundamentals rather than just using APIs. 
-                The textbook covers everything from basic neural networks to complex architectures like transformers, 
-                with hands-on coding exercises and honest discussions about AI limitations and ethics.
-              </p>
-              <ul class="work__list">
-                <li>Co-Author - Dr. <a href="https://scholar.google.com/citations?user=iaHIkTAAAAAJ" target="_blank">Francesco Fedele</a> (Ph.D. Civil Engineering)</li>
-              </ul>
-              <ul class="work__list">
-                <li>Licensed under GPLv3 and GFDL 1.3 - completely free to use, modify, and distribute</li>
-              </ul>
-              <div class="work__links">
-                <a href="https://ce.gatech.edu/news/2025/05/new-course-broadens-students-horizons-using-ai" class="link__text">
-                  View Press Release <span>&rarr;</span>
-                </a>
-                <a href="https://github.com/Fedele-AI/AI_Fundamentals">
-                  <img src="./images/github.svg" class="work__code" title="View Textbook" alt="GitHub">
-                </a>
-              </div>
             </div>
-            <div class="work__image-box">
-              <img src="./images/AI-Textbook-logo.webp" class="work__image" alt="AI Fundamentals Textbook" width="758" height="724" loading="lazy" decoding="async"/>
+            <p>
+              Co-authored a libre (copyleft and open source) AI/ML textbook that offers a mathematical and programming-based approach to 
+              understanding artificial intelligence in just 10 modules. This comprehensive educational resource was created for Georgia Tech's 
+              CEE 4803 - Art &amp; Generative AI course and emphasizes learning AI fundamentals rather than just using APIs. 
+              The textbook covers everything from basic neural networks to complex architectures like transformers, 
+              with hands-on coding exercises and honest discussions about AI limitations and ethics.
+            </p>
+            <ul class="project-meta">
+              <li>Co-Author - Dr. <a href="https://scholar.google.com/citations?user=iaHIkTAAAAAJ" target="_blank">Francesco Fedele</a> (Ph.D. Civil Engineering)</li>
+              <li>Licensed under GPLv3 and GFDL 1.3 - completely free to use, modify, and distribute</li>
+            </ul>
+            <div class="project-links">
+              <a href="https://ce.gatech.edu/news/2025/05/new-course-broadens-students-horizons-using-ai" class="btn">View Press Release</a>
+              <a href="https://github.com/Fedele-AI/AI_Fundamentals" class="btn" target="_blank">View Textbook</a>
             </div>
           </div>
 
-          <!-- 3. Buzz off Browser Extension -->
-          <div class="work__box">
-            <div class="work__text">
-              <h3>Buzz_Off 🐝</h3>
-              <p>
-                A simple browser extension that replaces any text related to The university(sic) Of Georgia with various insults.
-              </p>
-              <ul class="work__list">
-                <li>Javascript</li>
-              </ul>
-              <div class="work__links">
-                <a href="https://chrome.google.com/webstore/detail/buzzoff/njeiabnnggpilaodighggmecepfhmckp" class="link__text">
-                  Get for Chrome <span>&rarr;</span>
-                </a>
-                <a href="https://addons.mozilla.org/en-US/firefox/addon/buzz_off/" class="link__text">
-                  Get for Firefox <span>&rarr;</span>
-                </a>
-                <a href="https://github.com/rockenman1234/Buzz_off">
-                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
-                </a>
-              </div>
+          <div class="separator"></div>
+
+          <!-- 3. Buzz_Off -->
+          <div class="project-entry">
+            <div class="project-header">
+              <h3>Buzz_Off</h3>
             </div>
-            <div class="work__image-box">
-              <img src="./images/Buzz_Off.webp" class="work__image" alt="Buzz Off" width="758" height="436" loading="lazy" decoding="async"/>
+            <img src="/images/Buzz_Off.webp" alt="Buzz Off" class="project-image-large" loading="lazy" />
+            <p>
+              A simple browser extension that replaces any text related to The university(sic) Of Georgia with various insults.
+            </p>
+            <ul class="project-meta"><li>Javascript</li></ul>
+            <div class="project-links">
+              <a href="https://chrome.google.com/webstore/detail/buzzoff/njeiabnnggpilaodighggmecepfhmckp" class="btn">Get for Chrome</a>
+              <a href="https://addons.mozilla.org/en-US/firefox/addon/buzz_off/" class="btn">Get for Firefox</a>
+              <a href="https://github.com/rockenman1234/Buzz_off" class="btn" target="_blank">GitHub</a>
             </div>
           </div>
+
+          <div class="separator"></div>
 
           <!-- 4. simpleHTTPd -->
-          <div class="work__box">
-            <div class="work__text">
-              <h3>simpleHTTPd 🛜</h3>
-              <p>
-                A lightweight HTTP server written in Rust, featured in Georgia Tech's ECE-3600 course. It demonstrates memory-safe programming principles through interactive projects, including a playful Cat website and a Google Solar API integration.
-              </p>
-              <ul class="work__list">
-                <li>Rust</li>
-                <li>Javascript</li>
-                <li>HTML</li>
-                <li>CSS</li>
-              </ul>
-              <div class="work__links">
-                <a href="https://github.com/rockenman1234/simpleHTTPd" class="link__text">
-                  View on GitHub <span>&rarr;</span>
-                </a>
-              </div>
+          <div class="project-entry">
+            <div class="project-header">
+              <img src="/images/simpleHTTPd.webp" alt="Simple HTTP Server" class="project-icon" width="64" height="64" loading="lazy" />
+              <h3>simpleHTTPd</h3>
             </div>
-            <div class="work__image-box">
-              <img src="./images/simpleHTTPd.webp" class="work__image" alt="Simple HTTP Server Screenshot" width="758" height="758" loading="lazy" decoding="async"/>
+            <p>
+              A lightweight HTTP server written in Rust, featured in Georgia Tech's ECE-3600 course. It demonstrates memory-safe programming principles through interactive projects, including a playful Cat website and a Google Solar API integration.
+            </p>
+            <ul class="project-meta"><li>Rust</li><li>Javascript</li><li>HTML</li><li>CSS</li></ul>
+            <div class="project-links">
+              <a href="https://github.com/rockenman1234/simpleHTTPd" class="btn" target="_blank">View on GitHub</a>
             </div>
           </div>
+
+          <div class="separator"></div>
 
           <!-- 5. rCPUfetch -->
-           <div class="work__box">
-            <div class="work__text">
-              <h3>rCPUfetch 🦀</h3>
-              <p>
-                rCPUfetch is a fast, cross-platform command-line tool written in Rust. It provides detailed CPU information in a visually appealing format, featuring vendor-specific ASCII art logos for an enhanced user experience.
-              </p>
-              <ul class="work__list">
-                <li>Rust</li>
-              </ul>
-              <div class="work__links">
-                <a href="https://github.com/rockenman1234/rcpufetch" class="link__text">
-                  View on GitHub <span>&rarr;</span>
-                </a>
-              </div>
+          <div class="project-entry">
+            <div class="project-header">
+              <h3>rCPUfetch</h3>
             </div>
-            <div class="work__image-box">
-              <img src="./images/rcpufetch_ss.webp" class="work__image" alt="rCPUfetch Screenshot" width="758" height="792" loading="lazy" decoding="async"/>
+            <img src="/images/rcpufetch_ss.webp" alt="rCPUfetch" class="project-image-large" loading="lazy" />
+            <p>
+              rCPUfetch is a fast, cross-platform command-line tool written in Rust. It provides detailed CPU information in a visually appealing format, featuring vendor-specific ASCII art logos for an enhanced user experience.
+            </p>
+            <ul class="project-meta"><li>Rust</li></ul>
+            <div class="project-links">
+              <a href="https://github.com/rockenman1234/rcpufetch" class="btn" target="_blank">View on GitHub</a>
             </div>
           </div>
 
-          <!-- 6. Granite Abliteration Toolkit -->
-          <div class="work__box">
-            <div class="work__text">
-              <h3>IBM Granite LLM Abliteration Toolkit 🔪</h3>
-              <p>
-                IBM Granite is a cutting-edge toolkit designed for the development and deployment of large language models (LLMs). It features advanced ablation techniques for IBM Granite 3 models, combining selective weight modification, layer-specific targeting, and direction-based ablation to effectively remove safety filters while preserving coherent text generation. Unlike traditional methods that simply zero weights and result in garbled output, this approach maintains model performance and clarity. The toolkit also includes a Gradio-based localhost web UI for convenient, real-time model tuning.
-              </p>
-              <ul class="work__list">
-                <li>Python (Transformers, Gradio)</li>
-              </ul>
-              <div class="work__links">
-                <a href="https://github.com/rockenman1234/GraniteAbliteration" class="link__text">
-                  View on GitHub <span>&rarr;</span>
-                </a>
-              </div>
+          <div class="separator"></div>
+
+          <!-- 6. Granite Abliteration -->
+          <div class="project-entry">
+            <div class="project-header">
+              <img src="/images/graniteAbliteration.webp" alt="Granite Abliteration" class="project-icon" width="64" height="64" loading="lazy" />
+              <h3>IBM Granite LLM Abliteration Toolkit</h3>
             </div>
-            <div class="work__image-box">
-              <img src="./images/graniteAbliteration.webp" class="work__image" alt="Granite Abliteration Logo" width="758" height="714" loading="lazy" decoding="async"/>
+            <p>
+              IBM Granite is a cutting-edge toolkit designed for the development and deployment of large language models (LLMs). It features advanced ablation techniques for IBM Granite 3 models, combining selective weight modification, layer-specific targeting, and direction-based ablation to effectively remove safety filters while preserving coherent text generation. Unlike traditional methods that simply zero weights and result in garbled output, this approach maintains model performance and clarity. The toolkit also includes a Gradio-based localhost web UI for convenient, real-time model tuning.
+            </p>
+            <ul class="project-meta"><li>Python (Transformers, Gradio)</li></ul>
+            <div class="project-links">
+              <a href="https://github.com/rockenman1234/GraniteAbliteration" class="btn" target="_blank">View on GitHub</a>
             </div>
           </div>
+
+          <div class="separator"></div>
 
           <!-- 7. Kalibunga -->
-          <div class="work__box">
-            <div class="work__text">
-              <h3>Kalibunga 🤘</h3>
-              <p>
-                A Rust program desgined to take Fedora Linux, and turn it into a ethical hacking OS like Kali Linux.
-              </p>
-              <ul class="work__list">
-                <li>Rust</li>
-                <li>Shell</li>
-              </ul>
-              <div class="work__links">
-                <a href="https://github.com/rockenman1234/kalibunga" class="link__text">
-                  View on GitHub <span>&rarr;</span>
-                </a>
-              </div>
+          <div class="project-entry">
+            <div class="project-header">
+              <h3>Kalibunga</h3>
             </div>
-            <div class="work__image-box">
-              <img src="./images/KalibungaDemo.gif" class="work__image" alt="Kalibunga Demo" width="758" height="584" loading="lazy" decoding="async"/>
+            <img src="/images/KalibungaDemo.gif" alt="Kalibunga Demo" class="project-image-large" loading="lazy" />
+            <p>
+              A Rust program designed to take Fedora Linux, and turn it into an ethical hacking OS like Kali Linux.
+            </p>
+            <ul class="project-meta"><li>Rust</li><li>Shell</li></ul>
+            <div class="project-links">
+              <a href="https://github.com/rockenman1234/kalibunga" class="btn" target="_blank">View on GitHub</a>
             </div>
           </div>
+
+          <div class="separator"></div>
 
           <!-- 8. Fedora Tweaks -->
-          <div class="work__box">
-            <div class="work__text">
-              <h3>Fedora Tweaks 🐧</h3>
-              <p>
-                A shell script that makes Fedora Linux more usable out of the box. 
-              </p>
-              <ul class="work__list">
-                <li>Shell</li>
-              </ul>
-              <div class="work__links">
-                <a href="https://github.com/rockenman1234/fedora-tweaks" class="link__text">
-                  View on GitHub <span>&rarr;</span>
-                </a>
-              </div>
+          <div class="project-entry">
+            <div class="project-header">
+              <img src="/images/fedoraTweaks.webp" alt="Fedora Tweaks" class="project-icon" width="64" height="64" loading="lazy" />
+              <h3>Fedora Tweaks</h3>
             </div>
-            <div class="work__image-box">
-              <img src="./images/fedoraTweaks.webp" class="work__image" alt="Fedora Tweaks Logo" width="758" height="758" loading="lazy" decoding="async"/>
+            <p>
+              A shell script that makes Fedora Linux more usable out of the box. 
+            </p>
+            <ul class="project-meta"><li>Shell</li></ul>
+            <div class="project-links">
+              <a href="https://github.com/rockenman1234/fedora-tweaks" class="btn" target="_blank">View on GitHub</a>
             </div>
           </div>
+
+          <div class="separator"></div>
 
           <!-- 9. Calculus Cruncher -->
-          <div class="work__box">
-            <div class="work__text">
-              <h3>Calculus Cruncher 📘</h3>
-              <p>
-                An Open Source webapp built on Javascript designed for students studying mathematics.
-              </p>
-              <ul class="work__list">
-                <li>HTML</li>
-                <li>CSS</li>
-                <li>JavaScript</li>
-              </ul>
-
-              <div class="work__links">
-                <a href="https://github.com/rockenman1234/Calculus_Cruncher" target="_blank" class="link__text">
-                  View on GitHub <span>&rarr;</span>
-                </a>
-              </div>
+          <div class="project-entry">
+            <!-- Project Type B: Large Image/Screenshot Layout -->
+            <div class="project-header">
+              <h3>Calculus Cruncher</h3>
             </div>
-            <div class="work__image-box">
-              <img src="./images/Calculus_cruncher.webp" class="work__image" alt="Calculus Cruncher Main Page" width="758" height="426" loading="lazy" decoding="async"/>
+            <img src="/images/Calculus_cruncher.webp" alt="Calculus Cruncher" class="project-image-large" loading="lazy" />
+            <p>
+              An Open Source webapp built on Javascript designed for students studying mathematics.
+            </p>
+            <ul class="project-meta"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
+            <div class="project-links">
+              <a href="https://github.com/rockenman1234/Calculus_Cruncher" class="btn" target="_blank">View on GitHub</a>
             </div>
           </div>
+
+          <div class="separator"></div>
 
           <!-- 10. Argon2 -->
-          <div class="work__box">
-            <div class="work__text">
-              <h3>Argon2 </h3>
-              <p>
-                Argon2 is a GO rewrite of the originial Argon. This version features much faster run times and better error/UI handling.
-                The goal of the Argon2 project is to become the MacOS equivalent of the popular Windows tool, Ninite.
-                Argon2 also features a junk/temporary file cleaner - and is much easier to get up and running compare to the first Argon, 
-                thanks to the Go language's Fyne framework.
-              </p>
-              <ul class="work__list">
-                <li>GO</li>
-                <li>Shell</li>
-              </ul>
-
-              <div class="work__links">
-                <a href="https://github.com/rockenman1234/Argon2" class="link__text">
-                  View on GitHub <span>&rarr;</span>
-                </a>
-              </div>
+          <div class="project-entry">
+            <div class="project-header">
+              <h3>Argon2</h3>
             </div>
-            <div class="work__image-box">
-              <img src="./images/argon2.webp" class="work__image" alt="Argon2" width="758" height="694" loading="lazy" decoding="async"/>
-            </div>
-          </div> 
-
-          <!-- 11. Argon1 -->
-          <div class="work__box">
-            <div class="work__text">
-              <h3>Argon </h3>
-              <p>
-                Argon is a Java-based downloadable software tool enabling software developers and power users to quickly and reliably utilize their Macs while leaving no trace.
-              </p>
-              <ul class="work__list">
-                <li>Java</li>
-                <li>Shell</li>
-              </ul>
-
-              <div class="work__links">
-                <a href="https://github.com/rockenman1234/Argon" class="link__text">
-                  View on GitHub <span>&rarr;</span>
-                </a>
-              </div>
-            </div>
-            <div class="work__image-box">
-              <img src="./images/argon.webp" class="work__image" alt="Argon" width="758" height="694" loading="lazy" decoding="async"/>
-            </div>
-          </div>  
-
-          <!-- 12. Newton's Method -->  
-          <div class="work__box">
-            <div class="work__text">
-              <h3>Newton's Method 👨‍🏫</h3>
-              <p>
-                A simple math research project program written in Python, 
-                under the supervision of Dr. Christopher Raridan, 
-                built to demonsrate Newton's Method of finding roots.
-              </p>
-              <ul class="work__list">
-                <li>Python</li>
-              </ul>
-
-              <div class="work__links">
-                <a href="https://github.com/rockenman1234/newtonsmethod" class="link__text">
-                  View on GitHub <span>&rarr;</span>
-                </a>
-              </div>
-            </div>
-            <div class="work__image-box">
-              <img src="./images/codingNewton.webp" class="work__image" alt="Newton's Method" width="758" height="758" loading="lazy" decoding="async"/>
+            <img src="/images/argon2.webp" alt="Argon2" class="project-image-large" loading="lazy" />
+            <p>
+              Argon2 is a GO rewrite of the original Argon. This version features much faster run times and better error/UI handling.
+              The goal of the Argon2 project is to become the MacOS equivalent of the popular Windows tool, Ninite.
+              Argon2 also features a junk/temporary file cleaner - and is much easier to get up and running compared to the first Argon, 
+              thanks to the Go language's Fyne framework.
+            </p>
+            <ul class="project-meta"><li>GO</li><li>Shell</li></ul>
+            <div class="project-links">
+              <a href="https://github.com/rockenman1234/Argon2" class="btn" target="_blank">View on GitHub</a>
             </div>
           </div>
+
+          <div class="separator"></div>
+
+          <!-- 11. Argon -->
+          <div class="project-entry">
+            <div class="project-header">
+              <h3>Argon</h3>
+            </div>
+            <img src="/images/argon.webp" alt="Argon" class="project-image-large" loading="lazy" />
+            <p>
+              Argon is a Java-based downloadable software tool enabling software developers and power users to quickly and reliably utilize their Macs while leaving no trace.
+            </p>
+            <ul class="project-meta"><li>Java</li><li>Shell</li></ul>
+            <div class="project-links">
+              <a href="https://github.com/rockenman1234/Argon" class="btn" target="_blank">View on GitHub</a>
+            </div>
+          </div>
+
+          <div class="separator"></div>
+
+          <!-- 12. Newton's Method -->
+          <div class="project-entry">
+            <div class="project-header">
+              <img src="/images/codingNewton.webp" alt="Newton's Method" class="project-icon" width="64" height="64" loading="lazy" />
+              <h3>Newton's Method</h3>
+            </div>
+            <p>
+              A simple math research project program written in Python, 
+              under the supervision of Dr. Christopher Raridan, 
+              built to demonstrate Newton's Method of finding roots.
+            </p>
+            <ul class="project-meta"><li>Python</li></ul>
+            <div class="project-links">
+              <a href="https://github.com/rockenman1234/newtonsmethod" class="btn" target="_blank">View on GitHub</a>
+            </div>
+          </div>
+
+          <div class="separator"></div>
 
           <!-- 13. Java Math Iterator -->
-          <div class="work__box">
-            <div class="work__text">
-              <h3>Java Math Iterator 🧮</h3>
-              <p>
-                A simple math research program written in Java, 
-                under the supervision of Dr. Christopher Raridan, 
-                to demonsrate the process of iterations in computer science.
-              </p>
-              <ul class="work__list">
-                <li>Java</li>
-              </ul>
-
-              <div class="work__links">
-                <a href="https://github.com/rockenman1234/java_math_integrator" class="link__text">
-                  View on GitHub <span>&rarr;</span>
-                </a>
-              </div>
+          <div class="project-entry">
+            <div class="project-header">
+              <img src="/images/javaMath.webp" alt="Java Math Iterator" class="project-icon" width="64" height="64" loading="lazy" />
+              <h3>Java Math Iterator</h3>
             </div>
-            <div class="work__image-box">
-              <img src="./images/javaMath.webp" class="work__image" alt="Java Math Iterator" width="758" height="758" loading="lazy" decoding="async"/>
+            <p>
+              A simple math research program written in Java, 
+              under the supervision of Dr. Christopher Raridan, 
+              to demonstrate the process of iterations in computer science.
+            </p>
+            <ul class="project-meta"><li>Java</li></ul>
+            <div class="project-links">
+              <a href="https://github.com/rockenman1234/java_math_integrator" class="btn" target="_blank">View on GitHub</a>
             </div>
           </div>
-          
+
+          <div class="separator"></div>
+
           <!-- 14. Falling Into Viscosity -->
-          <div class="work__box">
-            <div class="work__text">
+          <div class="project-entry">
+            <div class="project-header">
               <h3>Falling Into Viscosity</h3>
-              <p>
-                Presented at Clayton State University's Student Success Conference in Spring 2023, 
-                this project aimed to determine the viscosity of an unknown fluid by analyzing a video of a falling metal ball. 
-                The motion was tracked using Tracker software, and Stokes law was applied to relate the ball's velocity to the fluid's viscosity. 
-                The results demonstrated the effectiveness of combining Tracker software with Stokes law for measuring fluid viscosity, 
-                providing a low-cost and accessible method with potential applications in research and industry.
-              </p>
-              <ul class="work__list">
-                <li>Presented in collaboration with Joshua Chung (B.S. MechE 26' GT)</li>
-              </ul>
-              <ul class="work__list">
-                <li>Faculty Advisor - Dr. Tatiana Krivosheev (Ph.D. Physics)</li>
-              </ul>
-
-              <div class="work__links">
-                <a href="https://github.com/rockenman1234/Capstone-Presentations/tree/main/Clayton_State_University/Viscosity" class="link__text">
-                  Visit Archive <span>&rarr;</span>
-                </a>
-                <a href="https://github.com/rockenman1234/Capstone-Presentations/blob/main/Clayton_State_University/Viscosity/Manifest_SSC-2023.pdf" class="link__text">
-                  View Manifest <span>&rarr;</span>
-                </a>
-              </div>
             </div>
-            <div class="work__image-box">
-              <img src="./images/Falling_Into_Viscosity.webp" class="work__image" alt="Falling Into Viscosity Research" width="758" height="1000" loading="lazy" decoding="async"/>
+            <img src="/images/Falling_Into_Viscosity.webp" alt="Falling Into Viscosity" class="project-image-large" loading="lazy" />
+            <p>
+              Presented at Clayton State University's Student Success Conference in Spring 2023, 
+              this project aimed to determine the viscosity of an unknown fluid by analyzing a video of a falling metal ball. 
+              The motion was tracked using Tracker software, and Stokes law was applied to relate the ball's velocity to the fluid's viscosity. 
+              The results demonstrated the effectiveness of combining Tracker software with Stokes law for measuring fluid viscosity, 
+              providing a low-cost and accessible method with potential applications in research and industry.
+            </p>
+            <ul class="project-meta">
+              <li>Presented in collaboration with Joshua Chung (B.S. MechE 26' GT)</li>
+              <li>Faculty Advisor - Dr. Tatiana Krivosheev (Ph.D. Physics)</li>
+            </ul>
+            <div class="project-links">
+              <a href="https://github.com/rockenman1234/Capstone-Presentations/tree/main/Clayton_State_University/Viscosity" class="btn" target="_blank">Visit Archive</a>
+              <a href="https://github.com/rockenman1234/Capstone-Presentations/blob/main/Clayton_State_University/Viscosity/Manifest_SSC-2023.pdf" class="btn" target="_blank">View Manifest</a>
             </div>
           </div>
+
+          <div class="separator"></div>
 
           <!-- 15. Developing Metacognitive Skills -->
-          <div class="work__box">
-            <div class="work__text">
+          <div class="project-entry">
+            <div class="project-header">
               <h3>Developing Metacognitive Skills</h3>
-              <p>
-                Presented at Clayton State University's Student Success Conference in Spring 2023, 
-                this project aimed to examine the impact of developing metacognitive planning skills on student success in online math classes. 
-                The objective was to contribute to the research on metacognition in virtual learning environments and provide insights for educators
-                 and students in developing effective metacognitive strategies for online learning.
-              </p>
-              <ul class="work__list">
-                <li>Presented in collaboration with Jessica Gonzalez (B.S. Biology 23' CSU)</li>
-              </ul>
-              <ul class="work__list">
-                <li>Faculty Advisors - Dr. Christopher Raridan (Ph.D Mathematics), Dr. Barbara Musolf (Ph.D. Biology), Dr. Ann Showalter (Ph.D Biology), Mrs. Jelinda Spotorno (Senior Lecturure of Mathematics)</li>
-              </ul>
-
-              <div class="work__links">
-                <a href="https://github.com/rockenman1234/Capstone-Presentations/tree/main/Clayton_State_University/Metacognition" class="link__text">
-                  Visit Archive <span>&rarr;</span>
-                </a>
-                <a href="https://github.com/rockenman1234/Capstone-Presentations/blob/main/Clayton_State_University/Metacognition/Manifest_SSC-2023.pdf" class="link__text">
-                  View Manifest <span>&rarr;</span>
-                </a>
-              </div>
             </div>
-            <div class="work__image-box">
-              <img src="./images/Developing_Metacognitive_Skills_CSU_.webp" class="work__image" alt="Developing Metacognitive Skills Research" width="758" height="1000" loading="lazy" decoding="async"/>
+            <img src="/images/Developing_Metacognitive_Skills_CSU_.webp" alt="Developing Metacognitive Skills" class="project-image-large" loading="lazy" />
+            <p>
+              Presented at Clayton State University's Student Success Conference in Spring 2023, 
+              this project aimed to examine the impact of developing metacognitive planning skills on student success in online math classes. 
+              The objective was to contribute to the research on metacognition in virtual learning environments and provide insights for educators
+               and students in developing effective metacognitive strategies for online learning.
+            </p>
+            <ul class="project-meta">
+              <li>Presented in collaboration with Jessica Gonzalez (B.S. Biology 23' CSU)</li>
+              <li>Faculty Advisors - Dr. Christopher Raridan (Ph.D Mathematics), Dr. Barbara Musolf (Ph.D. Biology), Dr. Ann Showalter (Ph.D Biology), Mrs. Jelinda Spotorno (Senior Lecturer of Mathematics)</li>
+            </ul>
+            <div class="project-links">
+              <a href="https://github.com/rockenman1234/Capstone-Presentations/tree/main/Clayton_State_University/Metacognition" class="btn" target="_blank">Visit Archive</a>
+              <a href="https://github.com/rockenman1234/Capstone-Presentations/blob/main/Clayton_State_University/Metacognition/Manifest_SSC-2023.pdf" class="btn" target="_blank">View Manifest</a>
             </div>
           </div>
-
-          <!-- <div class="work__box">
-            <div class="work__text">
-              <h3>Buzz_Off 🐝</h3>
-              <p>
-                A simple browser extension that replaces any text related to The university(sic) Of Georgia with various insults.
-              </p>
-              <ul class="work__list">
-                <li>Javascript</li>
-              </ul>
-
-              <div class="work__links">
-                <a href="https://chrome.google.com/webstore/detail/buzzoff/njeiabnnggpilaodighggmecepfhmckp" class="link__text">
-                  Get for Chrome <span>&rarr;</span>
-                </a>
-                <a href="https://addons.mozilla.org/en-US/firefox/addon/buzz_off/" class="link__text">
-                  Get for Firefox <span>&rarr;</span>
-                </a>
-                <a href="https://github.com/rockenman1234/Buzz_off">
-                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
-                </a>
-              </div>
-            </div>
-            <div class="work__image-box">
-              <img src="./images/Buzz_Off.webp" class="work__image" alt="Project 1" />
-            </div>
-          </div> -->
 
         </div>
       </div>
     </section>
-    <!-- ***** Resume ***** -->
 
-  <section class="resume" id="resume">
-    <div class="row">
-      <h2>Resume 👨‍💼</h2>
-      <h3>Brief Résumé</h3>
-      <iframe src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/rockenman1234/resume/00be68a23cc2f913489cc5dab064aca5af28caab/Resume__Brief.pdf#sidebar=0" style="width:100%; height:100vh;" frameborder="0" title="Alex Jenkins Brief Resume PDF Viewer" loading="lazy"></iframe>
+    <!-- ===== RÉSUMÉ WINDOW ===== -->
+    <section id="resume">
+      <div class="window resume-window" id="window-resume">
+        <div class="title-bar">
+          <button aria-label="Close" class="close"></button>
+          <h1 class="title">Résumé</h1>
+        </div>
+        <div class="separator"></div>
+        <div class="window-pane">
+          <h3>Brief Résumé</h3>
+          <iframe src="/pdfjs/web/viewer.html?file=/Resume__Brief.pdf#sidebar=0" style="width:100%; height:80dvh;" frameborder="0" title="Alex Jenkins Brief Resume PDF Viewer" loading="lazy"></iframe>
+          
+          <div class="separator"></div>
+          
+          <h3>Full Résumé</h3>
+          <iframe src="/pdfjs/web/viewer.html?file=/Resume.pdf#sidebar=0" style="width:100%; height:80dvh;" frameborder="0" title="Alex Jenkins Full Resume PDF Viewer" loading="lazy"></iframe>
+        </div>
+      </div>
+    </section>
 
-      <h3>Full Résumé</h3>
-      <iframe src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/rockenman1234/resume/00be68a23cc2f913489cc5dab064aca5af28caab/Resume.pdf#sidebar=0" style="width:100%; height:100vh;" frameborder="0" title="Alex Jenkins Full Resume PDF Viewer" loading="lazy"></iframe>
-    </div>
-  </section>
-
-    <!-- ***** About ***** -->
-
-    <section class="about" id="about">
-      <div class="row">
-        <h2>About Me 🤓</h2>
-        <div class="about__content">
-          <div class="about__text">
-            <p>
-              Hi - I'm Alex Jenkins!
-            </p>
-            
-            <p>
-              My threads are  <a href="https://ece.gatech.edu/cybersecurity-thread" target=”_blank” class="text">Cyber Security</a>, & <a href="https://ece.gatech.edu/systems-architecture-thread"  target=”_blank” class="text">Systems and Architecture</a>.
-              My interests are in the field of Software Design, Hardware Design, Cyber Security, and Undergraduate Education.
-            </p>
-
-            <p>
-              I'm a current the President and Founder of LibreTech Collective, Georgia Tech's first and only student organization dedicated to promoting free, libre, and open-source software, hardware, and culture!
-            </p>
-
-            <p>
-              In the past, I worked as a Reasearch & Teaching Assistant in the Fedele-AI Lab at Georgia Tech, where I co-authored a libre AI/ML textbook and contributed to various research projects at the intersection of AI, engineering, and creative applications.
-              Co-taught by civil engineering professor Francesco Fedele and artist-professor Mark Liebert, the course explored the intersection of AI, neuroscience, design, and art to create both visual and auditory generative media.
-            </p>
-            <a href="https://github.com/rockenman1234/resume/raw/main/Resume.pdf" class="btn">View My Resume</a>
-          </div>
-
-          <div class="about__photo-container">
-            <img class="about__photo" src="./images/headshot.webp" alt="Alex Jenkins - Computer Engineering Student" width="1658" height="1758" />
+    <!-- ===== BIOGRAPHY WINDOW ===== -->
+    <section id="about">
+      <div class="window about-window" id="window-about">
+        <div class="title-bar">
+          <button aria-label="Close" class="close"></button>
+          <h1 class="title">Biography</h1>
+        </div>
+        <div class="separator"></div>
+        <div class="window-pane">
+          <div class="about-content">
+            <div class="about-text">
+              <p>
+                I'm currently the President and Founder of LibreTech Collective, Georgia Tech's first and only student organization dedicated to promoting free, libre, and open-source software, hardware, and culture!
+              </p>
+              <p>
+                In the past, I worked as a Research &amp; Teaching Assistant in the Fedele-AI Lab at Georgia Tech, where I co-authored a libre AI/ML textbook and contributed to various research projects at the intersection of AI, engineering, and creative applications.
+                Co-taught by civil engineering professor Francesco Fedele and artist-professor Mark Liebert, the course explored the intersection of AI, neuroscience, design, and art to create both visual and auditory generative media.
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </section>
-  </main>
 
-  <!-- ***** Contact ***** -->
-
-  <section class="contact" id="contact">
-    <div class="row">
-      <h2>Let's Get in Touch 📬</h2>
-      <div class="contact__info">
-        <p>
-          Are you looking for a reliable and efficient solution to represent 
-          your product or business in the field of software and/or hardware design? 
-          Or perhaps you have some advice to share and just want to say "Hi 👋"? 
-          In any case, feel free to reach out to me. I will do my best to respond promptly! 
-          I am always open to new opportunities and collaborations, so don't hesitate to get in touch.
-        </p>
-
-        <p>
-          (The quickest way to get in touch with me is to drop me a line below 👇)
-        </p>
-        <a href="mailto:kjenkins60@gatech.edu" class="btn"> 📧 Email Me Here!</a>
+    <!-- ===== CONTACT WINDOW ===== -->
+    <section id="contact">
+      <div class="window contact-window" id="window-contact">
+        <div class="title-bar">
+          <button aria-label="Close" class="close"></button>
+          <h1 class="title">Let's Get in Touch</h1>
+        </div>
+        <div class="separator"></div>
+        <div class="modeless-dialog">
+          <p>
+            Are you looking for a reliable and efficient solution to represent 
+            your product or business in the field of software and/or hardware design? 
+            Or perhaps you have some advice to share and just want to say "Hi"? 
+            In any case, feel free to reach out to me. I will do my best to respond promptly! 
+            I am always open to new opportunities and collaborations, so don't hesitate to get in touch.
+          </p>
+          <p><em>(The quickest way to get in touch with me is to drop me a line below ↓)</em></p>
+          <section class="field-row" style="justify-content: center; gap: 12px; margin-top: 16px;">
+            <a href="mailto:kjenkins60@gatech.edu" class="btn btn-default">✉ Email Me Here!</a>
+          </section>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ***** Footer ***** -->
-
-  <footer role="contentinfo" class="footer">
-    <div class="row">
-      <div class="footer__content">
-        <div class="footer__fsf">
-          <a href="http://u.fsf.org/16e" target="_blank" title="Free Software, Free Society">
-            <img src="./images/fsf.webp" class="footer__fsf-image" alt="Free Software, Free Society">
+    <!-- ===== FOOTER / STATUS BAR ===== -->
+    <footer role="contentinfo" class="status-bar">
+    <div class="status-bar-inner">
+      <div class="status-bar-left">
+        <a href="http://u.fsf.org/16e" target="_blank" title="Free Software, Free Society">
+          <img src="/images/fsf.webp" class="footer-fsf" alt="Free Software, Free Society" width="40" height="40" />
+        </a>
+      </div>
+      <div class="status-bar-center">
+        <div class="footer-social">
+          <a href="https://github.com/rockenman1234/" target="_blank" title="Github Profile">
+            <img src="/images/github.svg" alt="Github" width="20" height="20" />
+          </a>
+          <a href="https://www.linkedin.com/in/alex-jenkins03/" target="_blank" title="Linkedin Profile">
+            <img src="/images/linkedin.svg" alt="Linkedin" width="20" height="20" />
+          </a>
+          <a href="https://huggingface.co/alexj03" target="_blank" title="Hugging Face Profile">
+            <img src="/images/huggingface.svg" alt="Hugging Face" width="20" height="20" />
           </a>
         </div>
-        
-        <div class="footer__center">
-          <ul class="footer__social-links">
-            <li class="footer__social-link-item">
-              <a href="https://github.com/rockenman1234/" target="_blank" title="Github Profile">
-                <img src="./images/github.svg" class="footer__social-image" alt="Github">
-              </a>
-            </li>
-            <li class="footer__social-link-item">
-              <a href="https://www.linkedin.com/in/alex-jenkins03/" target="_blank" title="Linkedin Profile">
-                <img src="./images/linkedin.svg" class="footer__social-image" alt="Linkedin">
-              </a>
-            </li>
-            <li class="footer__social-link-item">
-              <a href="https://huggingface.co/alexj03" target="_blank" title="Hugging Face Profile">
-                <img src="./images/huggingface.svg" class="footer__social-image" alt="Hugging Face">
-              </a>
-            </li>
-          </ul>
-          
-          <p>
-            <b>Made with ❤️ in Atlanta, Georgia</b>
-            <img src="./images/us-flag.svg" width="24" height="13" alt="Made in USA" title="Proudly made in the USA" class="ml-2 inline-block" style="margin-left: 4px; vertical-align: middle;">
-            <br>
-            <span class="footer__license">
-              <a href="https://github.com/rockenman1234/rockenman1234.github.io?tab=License-1-ov-file#gnu-general-public-license-v30" target="_blank" class="footer__license-link">Code under GPL-3.0</a> | 
-              <a href="https://github.com/rockenman1234/rockenman1234.github.io?tab=License-1-ov-file#attribution-noderivatives-40-international" target="_blank" class="footer__license-link">Content under CC BY-ND 4.0</a> | 
-              <a href="javascript.html" rel="jslicense" class="footer__license-link">JavaScript Information</a> | 
-              <a href="pgpkey.html" class="footer__license-link">PGP Key</a> |
-              <a href="pgpkey.asc" class="footer__license-link" download="kjenkins60-gatech-edu-publickey.asc">PGP Key (.asc)</a>
-            </span>
-            <br>
-            <small style="opacity: 0.7; font-family: monospace;">2A9C A7BB 95ED 2166 3A9C FD69 7388 D213 0843 261C</small>
-          </p>
-        </div>
+        <p class="footer-made">
+          <b>Made with ❤️ in Atlanta, Georgia</b>
+          <img src="/images/us-flag.svg" width="18" height="10" alt="Made in USA" title="Proudly made in the USA" style="margin-left: 4px; vertical-align: middle;" />
+        </p>
+        <p class="footer-license">
+          <a href="https://github.com/rockenman1234/rockenman1234.github.io?tab=License-1-ov-file#gnu-general-public-license-v30" target="_blank">Code under GPL-3.0</a> | 
+          <a href="https://github.com/rockenman1234/rockenman1234.github.io?tab=License-1-ov-file#attribution-noderivatives-40-international" target="_blank">Content under CC BY-ND 4.0</a> | 
+          <a href="/javascript.html" rel="jslicense">JavaScript Information</a> | 
+          <a href="/pgpkey.html">PGP Key</a> |
+          <a href="/pgpkey.asc" download="kjenkins60-gatech-edu-publickey.asc">PGP Key (.asc)</a>
+        </p>
+        <p class="footer-pgp">2A9C A7BB 95ED 2166 3A9C FD69 7388 D213 0843 261C</p>
       </div>
+      <div class="status-bar-right-side"></div>
     </div>
   </footer>
 
-  <a href="#top" class="back-to-top" title="Back to Top">
-    <img src="./images/arrow-up.svg" alt="Back to Top" class="back-to-top__image" width="20" height="20"/>
-  </a>
-  <script src="./index.js" defer></script>
+  </main>
+
+  <a href="#top" class="back-to-top" title="Back to Top" id="backToTop">↑</a>
 </body>
 
 </html>

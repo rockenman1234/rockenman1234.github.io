@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#a8a8a8" />
+  <link rel="shortcut icon" type="image/png" href="/images/favicon.ico" />
+  <title>JavaScript Information | Alex Jenkins</title>
+  <meta name="description" content="Information about JavaScript code used on Alex Jenkins' website.">
+  <style>
+    @font-face {
+      font-family: "ChicagoFLF";
+      src: url("/fonts/ChicagoFLF.woff2") format("woff2"),
+        url("/fonts/ChicagoFLF.woff") format("woff");
+      font-weight: 400;
+      font-style: normal;
+      font-display: block;
+    }
+
+    @font-face {
+      font-family: "Chicago_12";
+      src: url("/fonts/ChiKareGo2.woff2") format("woff2"),
+        url("/fonts/ChiKareGo2.woff") format("woff");
+      font-weight: 400;
+      font-style: normal;
+      font-display: block;
+    }
+
+    :root {
+      --black: #000;
+      --white: #fff;
+      --desktop-gray: #a8a8a8;
+      --desktop-dot: #a0a0a0;
+      --window-gray: #d9d9d9;
+      --menu-height: 21px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: "ChicagoFLF", "Chicago", "Geneva", sans-serif;
+      font-size: 16px;
+      color: var(--black);
+      -webkit-font-smoothing: none;
+      text-rendering: geometricPrecision;
+      font-smooth: never;
+    }
+
+    body {
+      background-color: var(--desktop-gray);
+      background-image:
+        linear-gradient(45deg, var(--desktop-dot) 25%, transparent 25%),
+        linear-gradient(-45deg, var(--desktop-dot) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, var(--desktop-dot) 75%),
+        linear-gradient(-45deg, transparent 75%, var(--desktop-dot) 75%);
+      background-size: 4px 4px;
+      background-position: 0 0, 0 2px, 2px -2px, -2px 0;
+      padding-bottom: 24px;
+    }
+
+    .menu-bar-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      background: #fff;
+      border-bottom: 1px solid #000;
+      height: 21px;
+      padding: 0;
+    }
+
+    ul[role="menu-bar"] {
+      flex: 1;
+      height: 100%;
+      display: flex;
+      align-items: stretch;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-family: "Chicago_12", "Geneva", sans-serif;
+      font-size: 14px;
+      background: #fff;
+    }
+
+    ul[role="menu-bar"] > [role="menu-item"] {
+      padding: 0 10px !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      height: auto;
+      font-size: 14px;
+      position: relative;
+      cursor: default;
+    }
+
+    .menu-bar-right {
+      padding-right: 12px;
+      font-size: 14px;
+      font-family: "Chicago_12", "Geneva", sans-serif;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      -webkit-font-smoothing: none;
+      font-smooth: never;
+      text-rendering: geometricPrecision;
+    }
+
+    .menu-bar-clock {
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+    }
+
+    .menu-meridiem {
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+      letter-spacing: inherit;
+    }
+
+    .apple-menu {
+      font-family: "Chicago_12", "Geneva", sans-serif;
+      font-weight: bold;
+    }
+
+    .apple {
+      background: url("data:image/svg+xml;charset=utf-8,%3Csvg width='18' height='22' viewBox='0 0 9 11' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 0h2v1H5zM4 1h2v1H4zM4 2h1v1H4zM1 3h3v1H1zM5 3h3v1H5zM0 4h9v1H0zM0 5h7v2H0zM0 7h9v2H0zM1 9h7v1H1zM2 10h2v1H2zM5 10h2v1H5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-size: contain !important;
+      background-position: center !important;
+      border: none;
+      display: block;
+      height: 15px !important;
+      width: 14px !important;
+      margin-right: 0 !important;
+      position: relative;
+      top: -1px;
+    }
+
+    main {
+      padding: calc(21px + 32px) 18px 24px;
+      display: grid;
+      place-items: start center;
+    }
+
+    .alert-outer {
+      width: min(840px, 100%);
+      border: 2px solid var(--black);
+      background: var(--window-gray);
+      box-shadow: 1px 1px 0 var(--black);
+      padding: 4px;
+    }
+
+    .alert-inner {
+      border: 4px solid var(--black);
+      padding: 28px 30px 18px;
+      min-height: 218px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .alert-content {
+      display: block;
+    }
+
+    .alert-text {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.35;
+      letter-spacing: 0;
+    }
+
+    h1, h2, h3 {
+      margin-top: 1em;
+      margin-bottom: 0.5em;
+      font-size: 1.2em;
+    }
+
+    h1:first-child {
+      margin-top: 0;
+    }
+
+    p {
+      margin-bottom: 1em;
+    }
+
+    a {
+      color: #000;
+      text-decoration: underline;
+    }
+
+    a:hover {
+      background: #000;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1em 0;
+      font-size: 16px;
+    }
+
+    th, td {
+      border: 2px solid #000;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background: #f4f4f4;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 18px;
+    }
+
+    .ok-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 98px;
+      height: 32px;
+      padding: 0 16px;
+      border: 2px solid var(--black);
+      border-radius: 7px;
+      background: #f4f4f4;
+      color: var(--black);
+      text-decoration: none;
+      font-size: 18px;
+      line-height: 1;
+      box-shadow: inset 1px 1px 0 var(--white), inset -1px -1px 0 #8f8f8f;
+    }
+
+    .ok-button:hover,
+    .ok-button:focus-visible {
+      background: #ebebeb;
+      outline: 2px solid var(--black);
+      outline-offset: 1px;
+      color: var(--black);
+    }
+
+    .ok-button:active {
+      box-shadow: inset -1px -1px 0 var(--white), inset 1px 1px 0 #8f8f8f;
+      transform: translateY(1px);
+    }
+
+    @media (max-width: 800px) {
+      .alert-inner {
+        min-height: auto;
+      }
+      .ok-button {
+        min-width: 88px;
+        height: 30px;
+        font-size: 17px;
+      }
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+      thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+      tr { border: 2px solid #000; margin-bottom: 10px; }
+      td {
+        border: none;
+        border-bottom: 1px solid #000;
+        position: relative;
+        padding-left: 50%;
+      }
+      td:before {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        content: attr(data-label);
+        font-weight: bold;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .menu-bar-right {
+        display: none;
+      }
+    }
+
+    @media (max-width: 560px) {
+      ul[role="menu-bar"] > [role="menu-item"] {
+        padding: 0 8px !important;
+        font-size: 12px;
+      }
+
+      .alert-inner {
+        padding: 18px 16px 14px;
+      }
+
+      .ok-button {
+        min-width: 82px;
+        height: 29px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="menu-bar-wrapper" id="top">
+    <ul role="menu-bar">
+      <li role="menu-item" tabindex="0" aria-haspopup="false" class="apple-menu">
+        <span role="img" class="apple" aria-label="Apple"></span>
+      </li>
+      <li role="menu-item" tabindex="0" aria-haspopup="false">
+        File
+      </li>
+      <li role="menu-item" tabindex="0" aria-haspopup="false">
+        Edit
+      </li>
+      <li role="menu-item" tabindex="0" aria-haspopup="false">
+        View
+      </li>
+    </ul>
+    <div class="menu-bar-right">
+      <span class="menu-bar-clock" id="menuClock"></span>
+    </div>
+  </nav>
+
+  <main>
+    <section class="alert-outer" role="region" aria-label="JavaScript License Information">
+      <div class="alert-inner">
+        <div class="alert-content alert-text">
+          <h1>JavaScript License Information</h1>
+          <p>This page provides license information for all JavaScript code used on this website.</p>
+          
+          <table id="jslicense-labels1">
+            <thead>
+              <tr>
+                <th>JavaScript File</th>
+                <th>License</th>
+                <th>Source Code</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="JavaScript File"><a href="/index.js">index.js</a></td>
+                <td data-label="License"><a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU-GPL-3.0</a></td>
+                <td data-label="Source Code"><a href="/index.js">index.js</a></td>
+              </tr>
+              <tr>
+                <td data-label="JavaScript File">Embedded JavaScript (in HTML pages)</td>
+                <td data-label="License"><a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU-GPL-3.0</a></td>
+                <td data-label="Source Code">View page source</td>
+              </tr>
+              <tr>
+                <td data-label="JavaScript File"><a href="https://scripts.simpleanalyticscdn.com/latest.js">latest.js (Simple Analytics)</a></td>
+                <td data-label="License"><a href="https://mit-license.org/">MIT</a></td>
+                <td data-label="Source Code"><a href="https://github.com/simpleanalytics/scripts">Simple Analytics Scripts Repository</a></td>
+              </tr>
+              <tr>
+                <td data-label="JavaScript File"><a href="https://mozilla.github.io/pdf.js/build/pdf.worker.mjs">pdf.worker.mjs (PDF.js)</a></td>
+                <td data-label="License"><a href="https://www.apache.org/licenses/LICENSE-2.0">Apache-2.0</a></td>
+                <td data-label="Source Code"><a href="https://github.com/mozilla/pdf.js">PDF.js Repository</a></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>About the Licenses</h3>
+          <p>
+            All original JavaScript code on this website is licensed under the 
+            <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public License version 3</a>.
+            This ensures that users have the freedom to run, study, share, and modify the software.
+          </p>
+
+          <h3>Third-Party Scripts</h3>
+          <p>
+            This website uses Simple Analytics for privacy-respecting analytics. Simple Analytics 
+            is designed to be privacy-first and does not require user consent for GDPR compliance.
+            The Simple Analytics script is licensed under the MIT License and is available as free software.
+            You can find more information about Simple Analytics and their commitment to privacy at 
+            <a href="https://simpleanalytics.com/">simpleanalytics.com</a>.
+          </p>
+          <p>
+            The resume section uses Mozilla's PDF.js library to display PDF files in the browser.
+            PDF.js is licensed under the Apache License 2.0 and is developed by Mozilla as free software.
+            More information about PDF.js can be found at 
+            <a href="https://mozilla.github.io/pdf.js/">mozilla.github.io/pdf.js</a>.
+          </p>
+
+          <h3>Source Code</h3>
+          <p>
+            The complete source code for this website is available on 
+            <a href="https://github.com/rockenman1234/rockenman1234.github.io">GitHub</a> 
+            under the GPL v3 license.
+          </p>
+        </div>
+
+        <div class="actions">
+          <a class="ok-button" href="index.html" aria-label="Return to home page">OK</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function updateClock() {
+      const clock = document.getElementById('menuClock');
+      if (!clock) return;
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      const displayHours = hours % 12 || 12;
+      clock.innerHTML = `${displayHours}:${minutes} <span class="menu-meridiem">${ampm}</span>`;
+    }
+
+    updateClock();
+    setInterval(updateClock, 30000);
+  </script>
+</body>
+</html>

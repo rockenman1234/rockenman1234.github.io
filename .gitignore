@@ -1,0 +1,12 @@
+# DS Store files
+.DS_Store
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Vite cache
+.vite/
+*.local

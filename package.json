@@ -1,0 +1,22 @@
+{
+  "name": "rockenman1234.github.io",
+  "version": "1.0.0",
+  "description": "Alex Jenkins - Personal Portfolio (System 6 Edition)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "Alex Jenkins",
+  "license": "GPL-3.0",
+  "packageManager": "pnpm@10.18.3",
+  "devDependencies": {
+    "vite": "^8.0.0"
+  },
+  "dependencies": {
+    "@sakun/system.css": "^0.1.11",
+    "pdfjs-dist": "^5.5.207"
+  }
+}

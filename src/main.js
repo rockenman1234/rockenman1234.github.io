@@ -110,15 +110,21 @@ if (backToTopBtn && desktopEl) {
   backToTopBtn.addEventListener('click', (e) => {
     e.preventDefault();
     desktopEl.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // Fallback
   });
 
-  desktopEl.addEventListener('scroll', () => {
-    if (desktopEl.scrollTop > 300) {
+  const handleScroll = () => {
+    // Check both standard body and desktop element scroll positions
+    const scrollPos = Math.max(desktopEl.scrollTop, window.scrollY || document.documentElement.scrollTop);
+    if (scrollPos > 300) {
       backToTopBtn.classList.add('visible');
     } else {
       backToTopBtn.classList.remove('visible');
     }
-  }, { passive: true });
+  };
+
+  desktopEl.addEventListener('scroll', handleScroll, { passive: true });
+  window.addEventListener('scroll', handleScroll, { passive: true });
 }
 
 // ==============================

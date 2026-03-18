@@ -230,41 +230,36 @@
       margin-top: 18px;
     }
 
-    .ok-button {
+    .btn {
+      background: #fff;
+      border-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='81' height='81' viewBox='0 0 81 81' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M61 0H20V6H14H6V14V20H0V61H6V67V75H14H20V81H61V75H67H75V67V61H81V20H75V14V6H67H61V0ZM74 21H67V14H60V7H21V14H14V21H7V60H14V67H21V74H60V67H67V60H74V21Z' fill='black'/%3E%3C/svg%3E") 30 stretch;
+      border-style: solid;
+      border-width: 5.5px;
+      color: #000;
+      cursor: pointer;
+      font-family: "Chicago_12", "Geneva", sans-serif;
+      font-size: 18px;
+      min-height: 20px;
+      min-width: 59px;
+      padding: 0 16px;
+      text-align: center;
+      text-decoration: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 98px;
-      height: 32px;
-      padding: 0 16px;
-      border: 2px solid var(--black);
-      border-radius: 7px;
-      background: #f4f4f4;
-      color: var(--black);
-      text-decoration: none;
-      font-size: 18px;
-      line-height: 1;
-      box-shadow: inset 1px 1px 0 var(--white), inset -1px -1px 0 #8f8f8f;
     }
 
-    .ok-button:hover,
-    .ok-button:focus-visible {
-      background: #ebebeb;
-      outline: 2px solid var(--black);
-      outline-offset: 1px;
-      color: var(--black);
-    }
-
-    .ok-button:active {
-      box-shadow: inset -1px -1px 0 var(--white), inset 1px 1px 0 #8f8f8f;
-      transform: translateY(1px);
+    .btn:active {
+      background: #000;
+      border-radius: 6px;
+      color: #fff;
     }
 
     @media (max-width: 800px) {
       .alert-inner {
         min-height: auto;
       }
-      .ok-button {
+      .btn {
         min-width: 88px;
         height: 30px;
         font-size: 17px;
@@ -312,7 +307,7 @@
         padding: 18px 16px 14px;
       }
 
-      .ok-button {
+      .btn {
         min-width: 82px;
         height: 29px;
         font-size: 16px;
@@ -411,7 +406,7 @@
         </div>
 
         <div class="actions">
-          <a class="ok-button" href="index.html" aria-label="Return to home page">OK</a>
+          <a class="btn" style="width: 95px;" href="index.html" aria-label="Return to home page">OK</a>
         </div>
       </div>
     </section>

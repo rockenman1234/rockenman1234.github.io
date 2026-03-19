@@ -629,15 +629,3 @@ a.btn {
   cursor: pointer;
 }
 
-/* --- Classic Mac OS Click Flash --- */
-@keyframes mac-click-flash-anim {
-  0%, 19.9% { filter: invert(1); }
-  20%, 39.9% { filter: none; }
-  40%, 59.9% { filter: invert(1); }
-  60%, 79.9% { filter: none; }
-  80%, 99.9% { filter: invert(1); }
-  100% { filter: none; }
-}
-.mac-click-flash {
-  animation: mac-click-flash-anim 0.4s forwards !important;
-}

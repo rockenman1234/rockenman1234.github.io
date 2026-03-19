@@ -192,35 +192,3 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-// ==============================
-// Classic Mac OS Click Flash
-// ==============================
-document.addEventListener('click', (e) => {
-  let btn = e.target.closest('.btn, button, [role="menu-item"], a.btn');
-  if (!btn) return;
-  if (btn.tagName.toLowerCase() === 'li' && btn.hasAttribute('aria-haspopup')) return;
-
-  btn.classList.remove('mac-click-flash');
-  void btn.offsetWidth;
-  btn.classList.add('mac-click-flash');
-
-  setTimeout(() => {
-    btn.classList.remove('mac-click-flash');
-  }, 400);
-
-  const link = btn.tagName.toLowerCase() === 'a' ? btn : btn.querySelector('a');
-  if (link) {
-    const href = link.getAttribute('href');
-    const isBlank = link.getAttribute('target') === '_blank';
-    const isDownload = link.hasAttribute('download');
-    const isHash = href && href.startsWith('#');
-    const isMailto = href && href.startsWith('mailto:');
-    
-    if (href && !isHash && !isBlank && !isDownload && !isMailto) {
-      e.preventDefault();
-      setTimeout(() => {
-        window.location.href = href;
-      }, 400);
-    }
-  }
-});

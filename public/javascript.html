@@ -109,6 +109,7 @@
       font-family: "Chicago_12", "Geneva", sans-serif;
       white-space: nowrap;
       display: flex;
+      flex-shrink: 0;
       align-items: center;
       -webkit-font-smoothing: none;
       font-smooth: never;
@@ -293,7 +294,10 @@
 
     @media (max-width: 600px) {
       .menu-bar-right {
-        display: none;
+        padding-right: 8px;
+      }
+      ul[role="menu-bar"] > [role="menu-item"] {
+        padding: 0 6px !important;
       }
     }
 
@@ -313,7 +317,18 @@
         font-size: 16px;
       }
     }
-  </style>
+   mac-click-flash-anim {
+  0%, 19.9% { filter: invert(1); }
+  20%, 39.9% { filter: none; }
+  40%, 59.9% { filter: invert(1); }
+  60%, 79.9% { filter: none; }
+  80%, 99.9% { filter: invert(1); }
+  100% { filter: none; }
+}
+.mac-click-flash {
+  animation: mac-click-flash-anim 0.4s forwards !important;
+}
+</style>
 </head>
 <body>
   <nav class="menu-bar-wrapper" id="top">
@@ -426,6 +441,69 @@
 
     updateClock();
     setInterval(updateClock, 30000);
+  
+    document.addEventListener('click', (e) => {
+      let btn = e.target.closest('.btn, button, [role="menu-item"] a, a.btn');
+      if (!btn) {
+        btn = e.target.closest('[role="menu-item"]');
+        if (btn && btn.hasAttribute('aria-haspopup')) btn = null;
+      }
+      if (!btn) return;
+
+      btn.classList.remove('mac-click-flash');
+      void btn.offsetWidth;
+      btn.classList.add('mac-click-flash');
+
+      setTimeout(() => {
+        btn.classList.remove('mac-click-flash');
+      }, 400);
+
+      const link = btn.tagName.toLowerCase() === 'a' ? btn : btn.querySelector('a');
+      if (link) {
+        const href = link.getAttribute('href');
+        const isBlank = link.getAttribute('target') === '_blank';
+        const isDownload = link.hasAttribute('download');
+        const isHash = href && href.startsWith('#');
+        const isMailto = href && href.startsWith('mailto:');
+        
+        if (h    && !isHash && !isBlank && !isDownload && !isMailto) {
+          e.preventDefault();
+          setTimeout(() => {
+            window.location.href = href;
+          }, 400);
+        }
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      let btn = e.target.closest('.btn, button, [role="menu-item"], a.btn');
+      if (!btn) return;
+      if (btn.tagName.toLowerCase() === 'li' && btn.hasAttribute('aria-haspopup')) return;
+
+      btn.classList.remove('mac-click-flash');
+      void btn.offsetWidth;
+      btn.classList.add('mac-click-flash');
+
+      setTimeout(() => {
+        btn.classList.remove('mac-click-flash');
+      }, 400);
+
+      const link = btn.tagName.toLowerCase() === 'a' ? btn : btn.querySelector('a');
+      if (link) {
+        const href = link.getAttribute('href');
+        const isBlank = link.getAttribute('target') === '_blank';
+        const isDownload = link.hasAttribute('download');
+        const isHash = href && href.startsWith('#');
+        const isMailto = href && href.startsWith('mailto:');
+        
+        if (href && !isHash && !isBlank && !isDownload && !isMailto) {
+          e.preventDefault();
+          setTimeout(() => {
+            window.location.href = href;
+          }, 400);
+        }
+      }
+    });
   </script>
 </body>
 </html>

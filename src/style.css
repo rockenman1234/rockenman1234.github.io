@@ -110,6 +110,7 @@ ul[role="menu-bar"] > [role="menu-item"] {
   white-space: nowrap;
   display: flex;
   align-items: center;
+  flex-shrink: 0;
   -webkit-font-smoothing: none;
   font-smooth: never;
   text-rendering: geometricPrecision;
@@ -583,7 +584,11 @@ section.section-closed {
   }
 
   .menu-bar-right {
-    display: none;
+    padding-right: 8px;
+  }
+
+  ul[role="menu-bar"] > [role="menu-item"] {
+    padding: 0 6px !important;
   }
 }
 
@@ -622,4 +627,17 @@ a.btn {
   display: inline-block;
   text-decoration: none;
   cursor: pointer;
+}
+
+/* --- Classic Mac OS Click Flash --- */
+@keyframes mac-click-flash-anim {
+  0%, 19.9% { filter: invert(1); }
+  20%, 39.9% { filter: none; }
+  40%, 59.9% { filter: invert(1); }
+  60%, 79.9% { filter: none; }
+  80%, 99.9% { filter: invert(1); }
+  100% { filter: none; }
+}
+.mac-click-flash {
+  animation: mac-click-flash-anim 0.4s forwards !important;
 }

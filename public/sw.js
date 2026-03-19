@@ -15,9 +15,7 @@ const urlsToCache = [
   '/manifest.json',
   '/images/headshot.webp',
   '/images/altdowntown.avif',
-  '/images/safariBackground.webp',
-  '/fonts/HKGrotesk-Regular.woff',
-  '/fonts/Jost-Regular.ttf'
+  '/images/safariBackground.webp'
 ];
 
 // Large assets to cache on demand with longer expiry

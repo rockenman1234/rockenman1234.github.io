@@ -8,7 +8,7 @@
   <title>JavaScript Information | Alex Jenkins</title>
   <meta name="description" content="Information about JavaScript code used on Alex Jenkins' website.">
   <link rel="stylesheet" href="/mac-click.css">
-  <script src="/mac-click.js" defer></script>
+  <script src="/utils.js" defer></script>
   <style>
     @font-face {
       font-family: "ChicagoFLF";
@@ -319,17 +319,6 @@
         font-size: 16px;
       }
     }
-   mac-click-flash-anim {
-  0%, 19.9% { filter: invert(1); }
-  20%, 39.9% { filter: none; }
-  40%, 59.9% { filter: invert(1); }
-  60%, 79.9% { filter: none; }
-  80%, 99.9% { filter: invert(1); }
-  100% { filter: none; }
-}
-.mac-click-flash {
-  animation: mac-click-flash-anim 0.4s forwards !important;
-}
 </style>
 </head>
 <body>
@@ -375,9 +364,14 @@
                 <td data-label="Source Code"><a href="/index.js">index.js</a></td>
               </tr>
               <tr>
-                <td data-label="JavaScript File">Embedded JavaScript (in HTML pages)</td>
+                <td data-label="JavaScript File"><a href="/src/main.js">main.js</a></td>
                 <td data-label="License"><a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU-GPL-3.0</a></td>
-                <td data-label="Source Code">View page source</td>
+                <td data-label="Source Code"><a href="https://github.com/rockenman1234/rockenman1234.github.io/blob/main/src/main.js">Source on GitHub</a></td>
+              </tr>
+              <tr>
+                <td data-label="JavaScript File"><a href="/utils.js">utils.js</a></td>
+                <td data-label="License"><a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU-GPL-3.0</a></td>
+                <td data-label="Source Code"><a href="/utils.js">utils.js</a></td>
               </tr>
               <tr>
                 <td data-label="JavaScript File"><a href="https://scripts.simpleanalyticscdn.com/latest.js">latest.js (Simple Analytics)</a></td>
@@ -428,84 +422,5 @@
       </div>
     </section>
   </main>
-
-  <script>
-    function updateClock() {
-      const clock = document.getElementById('menuClock');
-      if (!clock) return;
-      const now = new Date();
-      const hours = now.getHours();
-      const minutes = now.getMinutes().toString().padStart(2, '0');
-      const ampm = hours >= 12 ? 'PM' : 'AM';
-      const displayHours = hours % 12 || 12;
-      clock.innerHTML = `${displayHours}:${minutes} <span class="menu-meridiem">${ampm}</span>`;
-    }
-
-    updateClock();
-    setInterval(updateClock, 30000);
-  
-    document.addEventListener('click', (e) => {
-      let btn = e.target.closest('.btn, button, [role="menu-item"] a, a.btn');
-      if (!btn) {
-        btn = e.target.closest('[role="menu-item"]');
-        if (btn && btn.hasAttribute('aria-haspopup')) btn = null;
-      }
-      if (!btn) return;
-
-      btn.classList.remove('mac-click-flash');
-      void btn.offsetWidth;
-      btn.classList.add('mac-click-flash');
-
-      setTimeout(() => {
-        btn.classList.remove('mac-click-flash');
-      }, 400);
-
-      const link = btn.tagName.toLowerCase() === 'a' ? btn : btn.querySelector('a');
-      if (link) {
-        const href = link.getAttribute('href');
-        const isBlank = link.getAttribute('target') === '_blank';
-        const isDownload = link.hasAttribute('download');
-        const isHash = href && href.startsWith('#');
-        const isMailto = href && href.startsWith('mailto:');
-        
-        if (h    && !isHash && !isBlank && !isDownload && !isMailto) {
-          e.preventDefault();
-          setTimeout(() => {
-            window.location.href = href;
-          }, 400);
-        }
-      }
-    });
-
-    document.addEventListener('click', (e) => {
-      let btn = e.target.closest('.btn, button, [role="menu-item"], a.btn');
-      if (!btn) return;
-      if (btn.tagName.toLowerCase() === 'li' && btn.hasAttribute('aria-haspopup')) return;
-
-      btn.classList.remove('mac-click-flash');
-      void btn.offsetWidth;
-      btn.classList.add('mac-click-flash');
-
-      setTimeout(() => {
-        btn.classList.remove('mac-click-flash');
-      }, 400);
-
-      const link = btn.tagName.toLowerCase() === 'a' ? btn : btn.querySelector('a');
-      if (link) {
-        const href = link.getAttribute('href');
-        const isBlank = link.getAttribute('target') === '_blank';
-        const isDownload = link.hasAttribute('download');
-        const isHash = href && href.startsWith('#');
-        const isMailto = href && href.startsWith('mailto:');
-        
-        if (href && !isHash && !isBlank && !isDownload && !isMailto) {
-          e.preventDefault();
-          setTimeout(() => {
-            window.location.href = href;
-          }, 400);
-        }
-      }
-    });
-  </script>
 </body>
 </html>

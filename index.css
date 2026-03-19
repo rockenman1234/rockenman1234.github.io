@@ -2,26 +2,6 @@
 /* ----- Performance Optimizations ----- */
 /* --------------------------------------- */
 
-/* Improve font loading performance */
-@font-face {
-    font-family: 'Hk Grotesk';
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url('./fonts/HKGrotesk-Regular.woff') format('woff');
-    /* Preload hint for better performance */
-    font-feature-settings: "liga" 1, "kern" 1;
-}
-
-@font-face {
-    font-family: 'Jost';
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url('./fonts/Jost-Regular.ttf') format('truetype');
-    font-feature-settings: "liga" 1, "kern" 1;
-}
-
 /* Critical CSS performance improvements */
 * {
     margin: 0;
@@ -66,7 +46,7 @@ img {
     --font-size-medium-1: 3.6rem;
     --font-size-large: 5.5rem;
     --font-size-huge: 7.5rem;
-    --font-stack: 'Hk Grotesk', sans-serif;
+    --font-stack: "Chicago_12", "Geneva", sans-serif;
 
     --line-height-normal: 1.7;
     --line-height-small: 1.2;
@@ -211,7 +191,7 @@ img {
 h1,
 h2,
 h3 {
-    font-family: 'Jost', sans-serif;
+    font-family: var(--font-stack);
     font-weight: 400;
     line-height: var(--line-height-small);
     color: var(--white);
@@ -279,7 +259,7 @@ p {
 a {
     color: var(--white);
     font-weight: 400;
-    font-family: 'Jost', sans-serif;
+    font-family: var(--font-stack);
     transition: all .2s;
     outline: 2px solid transparent;
 }
@@ -397,7 +377,7 @@ body:not(.user-is-tabbing) a:focus {
 
 .link__text span {
     padding-left: 1rem;
-    font-family: sans-serif;
+    font-family: var(--font-stack);
 }
 
 /* ----- Back to Top ----- */
@@ -525,7 +505,7 @@ body:not(.user-is-tabbing) a:focus {
 .header__text p {
     margin: 1.5rem 0 3.5rem;
     max-width: var(--container-medium-width);
-    font-family: 'Jost', sans-serif;
+    font-family: var(--font-stack);
     font-size: var(--font-size-medium);
 }
 

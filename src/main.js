@@ -1,3 +1,4 @@
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&dn=gpl-3.0.txt GPL-3.0
 /*!
  * @licstart  The following is the entire license notice for the 
  * JavaScript code in this file.
@@ -24,12 +25,6 @@
  * for the JavaScript code in this file.
  */
 
-// Import system.css
-import '@sakun/system.css';
-
-// Import custom styles
-import './style.css';
-
 // ==============================
 // Menu Bar Clock
 // ==============================
@@ -52,6 +47,14 @@ setInterval(updateClock, 30000);
 // Window Close Buttons
 // ==============================
 document.addEventListener('DOMContentLoaded', () => {
+  const contactScrollBtn = document.getElementById('contactScrollBtn');
+  const contactSection = document.getElementById('contact');
+  if (contactScrollBtn && contactSection) {
+    contactScrollBtn.addEventListener('click', () => {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
   // Close buttons on windows
   document.querySelectorAll('.window .close').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -147,33 +150,17 @@ const handleMouseDownOnce = () => {
 window.addEventListener('keydown', handleFirstTab);
 
 // ==============================
-// Konami Code Easter Egg
+// Deferred Analytics (Production Only)
 // ==============================
-const pattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-let current = 0;
-
-document.addEventListener('keydown', (event) => {
-  if (pattern.indexOf(event.key) < 0 || event.key !== pattern[current]) {
-    current = 0;
-    return;
-  }
-  current++;
-  if (pattern.length === current) {
-    current = 0;
-    window.open('https://youtube.com/watch?v=vLNRdtLI1lc', '_blank');
-  }
-}, false);
-
-// ==============================
-// Deferred Analytics
-// ==============================
-setTimeout(() => {
-  const script = document.createElement('script');
-  script.src = 'https://scripts.simpleanalyticscdn.com/latest.js';
-  script.async = true;
-  script.defer = true;
-  document.head.appendChild(script);
-}, 2000);
+if (import.meta.env.PROD) {
+  setTimeout(() => {
+    const script = document.createElement('script');
+    script.src = 'https://scripts.simpleanalyticscdn.com/latest.js';
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+  }, 2000);
+}
 
 // ==============================
 // Service Worker (Optional)
@@ -191,4 +178,6 @@ if ('serviceWorker' in navigator) {
     }, 2000);
   });
 }
+
+// @license-end
 

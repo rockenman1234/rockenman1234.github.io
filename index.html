@@ -35,6 +35,7 @@
   <!-- PWA Manifest -->
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#a8a8a8">
+  <link rel="jslicense" href="/javascript.html">
   
   <!-- DNS prefetch for external domains -->
   <link rel="dns-prefetch" href="//scripts.simpleanalyticscdn.com">
@@ -49,8 +50,9 @@
   <link rel="preload" href="https://raw.githubusercontent.com/rockenman1234/resume/00be68a23cc2f913489cc5dab064aca5af28caab/Resume.pdf" as="fetch" crossorigin="anonymous">
   <link rel="preload" href="https://raw.githubusercontent.com/rockenman1234/resume/00be68a23cc2f913489cc5dab064aca5af28caab/Resume__Brief.pdf" as="fetch" crossorigin="anonymous">
 
+  <link rel="stylesheet" href="/src/style.css">
   <link rel="stylesheet" href="/mac-click.css">
-  <script src="/mac-click.js" defer></script>
+  <script src="/utils.js" defer></script>
 
   <script type="module" src="/src/main.js"></script>
 </head>
@@ -124,7 +126,7 @@
                 Threads: <a href="https://ece.gatech.edu/cybersecurity-thread" target="_blank">Cyber Security</a> &amp; 
                 <a href="https://ece.gatech.edu/systems-architecture-thread" target="_blank">Systems and Architecture</a>
               </p>
-              <button class="btn btn-default" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+              <button class="btn btn-default" id="contactScrollBtn">
                 Let's Get in Touch!
               </button>
             </div>

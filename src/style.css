@@ -1,3 +1,5 @@
+@import "@sakun/system.css";
+
 /* ================================================
    System 6 Portfolio – Custom Styles
    Built on top of system.css (@sakun/system.css)
@@ -499,7 +501,7 @@ section.section-closed {
 
 .footer-pgp {
   font-size: 10px;
-  font-family: monospace;
+  font-family: inherit;
   opacity: 0.6;
   margin: 4px 0;
 }

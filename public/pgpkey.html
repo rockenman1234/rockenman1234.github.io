@@ -1,107 +1,424 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kenneth Alexander Jenkins - PGP Public Key</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#a8a8a8" />
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.ico" />
+    <title>PGP Public Key | Alex Jenkins</title>
+    <meta name="description" content="PGP public key details and curl-friendly key endpoint for Alex Jenkins.">
+    <link rel="alternate" type="application/pgp-keys" href="/pgpkey.asc" title="PGP Public Key" />
     <link rel="stylesheet" href="/mac-click.css">
     <script src="/utils.js" defer></script>
     <style>
+        @font-face {
+            font-family: "ChicagoFLF";
+            src: url("/fonts/ChicagoFLF.woff2") format("woff2"),
+                url("/fonts/ChicagoFLF.woff") format("woff");
+            font-weight: 400;
+            font-style: normal;
+            font-display: block;
+        }
+
+        @font-face {
+            font-family: "Chicago_12";
+            src: url("/fonts/ChiKareGo2.woff2") format("woff2"),
+                url("/fonts/ChiKareGo2.woff") format("woff");
+            font-weight: 400;
+            font-style: normal;
+            font-display: block;
+        }
+
+        :root {
+            --black: #000;
+            --white: #fff;
+            --primary: #fff;
+            --secondary: #000;
+            --desktop-gray: #a8a8a8;
+            --desktop-dot: #a0a0a0;
+            --window-gray: #d9d9d9;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
         body {
+            margin: 0;
+            height: 100dvh;
+            font-family: "ChicagoFLF", "Chicago", "Geneva", sans-serif;
+            font-size: 16px;
+            color: var(--black);
+            -webkit-font-smoothing: none;
+            text-rendering: geometricPrecision;
+            font-smooth: never;
+            overflow: hidden;
+        }
+
+        body {
+            background-color: var(--desktop-gray);
+            background-image:
+                linear-gradient(45deg, var(--desktop-dot) 25%, transparent 25%),
+                linear-gradient(-45deg, var(--desktop-dot) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, var(--desktop-dot) 75%),
+                linear-gradient(-45deg, transparent 75%, var(--desktop-dot) 75%);
+            background-size: 4px 4px;
+            background-position: 0 0, 0 2px, 2px -2px, -2px 0;
+        }
+
+        main::-webkit-scrollbar {
+            width: 22px;
+            background-color: var(--primary);
+        }
+
+        main::-webkit-scrollbar-track {
+            background: linear-gradient(45deg, var(--secondary) 25%, transparent 25%, transparent 75%, var(--secondary) 75%, var(--secondary)),
+                linear-gradient(45deg, var(--secondary) 25%, transparent 25%, transparent 75%, var(--secondary) 75%, var(--secondary));
+            background-color: var(--primary);
+            background-size: 4px 4px;
+            background-position: 0 0, 2px 2px;
+            width: 10px;
+            border-left: 3px solid var(--secondary);
+        }
+
+        main::-webkit-scrollbar-thumb {
+            width: 20px;
+            box-sizing: content-box;
+            background-color: var(--primary);
+            border: 2px solid var(--secondary);
+            border-right: none;
+        }
+
+        main::-webkit-scrollbar-button:vertical:start {
+            background-repeat: no-repeat;
+            height: 23.38px;
+            background-image: url('data:image/svg+xml;utf8,<svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 23V0H22V23H0ZM20 2H2V21H20V2Z" fill="black"/><path d="M4 17V15H6V13H8V11H10V9H12V11H14V13H16V15H18V17H16V15H14V13H12V11H10V13H8V15H6V17H4Z" fill="black"/><path d="M6 17V15H8V13H10V11H12V13H14V15H16V17H6Z" fill="black"/></svg>');
+        }
+
+        main::-webkit-scrollbar-button:vertical:end {
+            height: 23.38px;
+            background-image: url('data:image/svg+xml;utf8,<svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 23V0H22V23H0ZM20 2H2V21H20V2Z" fill="black"/><path d="M18 6V8H16V10H14V12H12V14H10V12H8V10H6V8H4V6H6V8H8V10H10V12H12V10H14V8H16V6H18Z" fill="black"/><path d="M16 6V8H14V10H12V12H10V10H8V8H6V6H16Z" fill="black"/></svg>');
+        }
+
+        .menu-bar-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: stretch;
+            justify-content: space-between;
+            background: #fff;
+            border-bottom: 1px solid #000;
+            height: 21px;
+            padding: 0;
+        }
+
+        ul[role="menu-bar"] {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            align-items: stretch;
+            list-style: none;
+            margin: 0;
+            padding: 0;
             font-family: "Chicago_12", "Geneva", sans-serif;
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            background: #0d1117;
-            color: #c9d1d9;
-            line-height: 1.6;
+            font-size: 14px;
+            background: #fff;
         }
-        pre {
-            background: #161b22;
-            padding: 16px;
-            border-radius: 6px;
-            overflow-x: auto;
-            border: 1px solid #30363d;
+
+        ul[role="menu-bar"] > [role="menu-item"] {
+            padding: 0 10px !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+            height: auto;
+            font-size: 14px;
+            position: relative;
+            cursor: default;
         }
-        h1 {
-            font-size: 1.5em;
-            margin-bottom: 0.5em;
+
+        ul[role="menu-bar"] > [role="menu-item"]:hover {
+            background: #000;
+            color: #fff;
         }
-        .info {
-            color: #8b949e;
-            margin: 20px 0;
+
+        ul[role="menu-bar"] > [role="menu-item"].apple-menu:hover .apple {
+            filter: invert(1);
         }
-        a {
-            color: #58a6ff;
+
+        ul[role="menu-bar"] > [role="menu-item"] > a {
+            color: inherit;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            cursor: default;
+        }
+
+        ul[role="menu-bar"] > [role="menu-item"] > a:hover {
+            color: inherit;
             text-decoration: none;
         }
-        a:hover {
+
+        .menu-bar-right {
+            padding-right: 12px;
+            font-size: 14px;
+            font-family: "Chicago_12", "Geneva", sans-serif;
+            white-space: nowrap;
+            display: flex;
+            flex-shrink: 0;
+            align-items: center;
+            -webkit-font-smoothing: none;
+            font-smooth: never;
+            text-rendering: geometricPrecision;
+        }
+
+        .menu-bar-clock {
+            font-variant-numeric: tabular-nums;
+            line-height: 1;
+        }
+
+        .apple-menu {
+            font-family: "Chicago_12", "Geneva", sans-serif;
+            font-weight: bold;
+        }
+
+        .apple {
+            background: url("data:image/svg+xml;charset=utf-8,%3Csvg width='18' height='22' viewBox='0 0 9 11' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 0h2v1H5zM4 1h2v1H4zM4 2h1v1H4zM1 3h3v1H1zM5 3h3v1H5zM0 4h9v1H0zM0 5h7v2H0zM0 7h9v2H0zM1 9h7v1H1zM2 10h2v1H2zM5 10h2v1H5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: contain !important;
+            background-position: center !important;
+            border: none;
+            display: block;
+            height: 15px !important;
+            width: 14px !important;
+            margin-right: 0 !important;
+            position: relative;
+            top: -1px;
+        }
+
+        main {
+            position: absolute;
+            top: 21px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 32px 18px 24px;
+            display: grid;
+            place-items: start center;
+        }
+
+        .alert-outer {
+            width: min(840px, 100%);
+            border: 2px solid var(--black);
+            background: var(--window-gray);
+            box-shadow: 1px 1px 0 var(--black);
+            padding: 4px;
+        }
+
+        .alert-inner {
+            border: 4px solid var(--black);
+            padding: 28px 30px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .alert-text {
+            margin: 0;
+            font-size: 18px;
+            line-height: 1.35;
+            letter-spacing: 0;
+        }
+
+        h1, h2 {
+            margin-top: 0.9em;
+            margin-bottom: 0.45em;
+            font-size: 1.2em;
+        }
+
+        h1:first-child {
+            margin-top: 0;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 0.95em;
+        }
+
+        a {
+            color: #000;
             text-decoration: underline;
         }
-        .command {
-            background: #161b22;
-            padding: 12px;
-            border-radius: 6px;
-            margin: 10px 0;
-            border-left: 3px solid #58a6ff;
-        }
 
-        .download-btn {
-            display: inline-block;
-            background: #238636;
-            color: #ffffff;
-            padding: 8px 12px;
-            border-radius: 6px;
-            border: 1px solid rgba(240, 246, 252, 0.1);
-            font-weight: 600;
-            line-height: 1;
-            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
-        }
-
-        .download-btn:hover {
-            background: #2ea043;
+        a:hover {
+            background: #000;
+            color: #fff;
             text-decoration: none;
         }
 
-        .download-btn:focus {
-            outline: 2px solid #58a6ff;
-            outline-offset: 2px;
+        .details {
+            margin: 0;
+            padding: 0;
+            list-style: none;
         }
 
-        .download-btn:active {
-            transform: translateY(1px);
+        .details li {
+            margin-bottom: 6px;
+        }
+
+        .command {
+            border: 2px solid #000;
+            background: #fff;
+            padding: 8px 10px;
+            margin: 8px 0 0;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.45;
+            color: #000;
+            overflow-x: auto;
+            white-space: pre;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: auto;
+            font-smooth: auto;
+        }
+
+        .key-preview {
+            border: 2px solid #000;
+            background: #fdfdfd;
+            padding: 10px;
+            margin-top: 10px;
+            max-height: 300px;
+            overflow: auto;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.45;
+            color: #000;
+            white-space: pre;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: auto;
+            font-smooth: auto;
+        }
+
+        .command::selection,
+        .key-preview::selection {
+            background: #000;
+            color: #fff;
+        }
+
+        .command *::selection,
+        .key-preview *::selection {
+            background: #000;
+            color: #fff;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 12px;
+        }
+
+        .btn {
+            background: #fff;
+            border-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='81' height='81' viewBox='0 0 81 81' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M61 0H20V6H14H6V14V20H0V61H6V67V75H14H20V81H61V75H67H75V67V61H81V20H75V14V6H67H61V0ZM74 21H67V14H60V7H21V14H14V21H7V60H14V67H21V74H60V67H67V60H74V21Z' fill='black'/%3E%3C/svg%3E") 30 stretch;
+            border-style: solid;
+            border-width: 5.5px;
+            color: #000;
+            cursor: pointer;
+            font-family: "Chicago_12", "Geneva", sans-serif;
+            font-size: 18px;
+            min-height: 20px;
+            min-width: 59px;
+            padding: 0 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn:active {
+            background: #000;
+            border-radius: 6px;
+            color: #fff;
+        }
+
+        @media (max-width: 600px) {
+            ul[role="menu-bar"] > [role="menu-item"] {
+                padding: 0 8px !important;
+                font-size: 12px;
+            }
+
+            .menu-bar-right {
+                padding-right: 8px;
+            }
+
+            .alert-inner {
+                padding: 18px 16px 14px;
+            }
+
+            .btn {
+                min-width: 82px;
+                height: 29px;
+                font-size: 16px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>PGP Public Key</h1>
-    
-    <div class="info">
-        <strong>Name:</strong> Kenneth Alexander Jenkins<br>
-        <strong>Email:</strong> kjenkins60@gatech.edu<br>
-        <strong>Website:</strong> <a href="https://www.alexj.io/">https://www.alexj.io/</a><br>
-        <strong>Key ID:</strong> 0x7388D2130843261C<br>
-        <strong>Fingerprint:</strong> 2A9C A7BB 95ED 2166 3A9C FD69 7388 D213 0843 261C
-    </div>
-
-    <div class="info">
-        <strong>Download:</strong>
-        <div style="margin-top: 10px;">
-            <a class="download-btn" href="./pgpkey.asc" download="kjenkins60-gatech-edu-publickey.asc">Download PGP key (.asc)</a>
+    <nav class="menu-bar-wrapper" id="top">
+        <ul role="menu-bar">
+            <li role="menu-item" tabindex="0" aria-haspopup="false" class="apple-menu">
+                <a aria-label="Menu bar top">
+                    <span role="img" class="apple" aria-label="Apple"></span>
+                </a>
+            </li>
+            <li role="menu-item" tabindex="0" aria-haspopup="false"><a>File</a></li>
+            <li role="menu-item" tabindex="0" aria-haspopup="false"><a>Edit</a></li>
+            <li role="menu-item" tabindex="0" aria-haspopup="false"><a>Special</a></li>
+        </ul>
+        <div class="menu-bar-right">
+            <span class="menu-bar-clock" id="menuClock"></span>
         </div>
-    </div>
+    </nav>
 
-    <div class="info">
-        <strong>Import with curl:</strong>
-        <div class="command">curl -fsSL https://alexj.io/pgpkey.asc | gpg --import</div>
-    </div>
+    <main>
+        <section class="alert-outer" role="region" aria-label="PGP Public Key Information">
+            <div class="alert-inner">
+                <div class="alert-text">
+                    <h1>PGP Public Key</h1>
+                    <p>This page provides a browser view of my public key and a direct curl endpoint.</p>
 
-    <div class="info">
-        <strong>Or download and import:</strong>
-        <div class="command">curl -O https://alexj.io/pgpkey.asc && gpg --import pgpkey.asc</div>
-    </div>
+                    <h2>Key Details</h2>
+                    <ul class="details">
+                        <li><strong>Name:</strong> Kenneth Alexander Jenkins</li>
+                        <li><strong>Email:</strong> <a href="mailto:kjenkins60@gatech.edu">kjenkins60@gatech.edu</a></li>
+                        <li><strong>Website:</strong> <a href="https://www.alexj.io/">https://www.alexj.io/</a></li>
+                        <li><strong>Key ID:</strong> 0x7388D2130843261C</li>
+                        <li><strong>Fingerprint:</strong> 2A9C A7BB 95ED 2166 3A9C FD69 7388 D213 0843 261C</li>
+                    </ul>
 
-<pre>
+                    <h2>Raw Key Endpoint</h2>
+                    <p>Direct URL: <a href="/pgpkey.asc">https://alexj.io/pgpkey.asc</a></p>
+                    <p>Import directly with curl:</p>
+                    <div class="command">curl -fsSL https://alexj.io/pgpkey.asc | gpg --import</div>
+                    <p>Download key file with curl:</p>
+                    <div class="command">curl -fsSLO https://alexj.io/pgpkey.asc</div>
+                    <p>Verify fingerprint after import:</p>
+                    <div class="command">gpg --fingerprint kjenkins60@gatech.edu</div>
+
+                    <h2>Public Key Preview</h2>
+                    <div class="key-preview" aria-label="Public key preview">
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 
 mQINBGl20yoBEADwDIBDx7zvYUEIG2TwVVrrvjM+nKJ6b7WmFK6BF3YVHvr1jXy4
@@ -154,12 +471,15 @@ XHc5VbkX9d54kWwzAmZ993rhqUWiZnQ2rGQ9RjG0iqSJkG8uEDV6F7YpoIdwVN1S
 V1IL6YsTmr1ThlOf6hVvksfBLN4rZbgYWPg1J2kA2QI+tsJds/GbAQ==
 =nUoH
 -----END PGP PUBLIC KEY BLOCK-----
-</pre>
+                    </div>
+                </div>
 
-    <div class="info" style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #30363d;">
-        <strong>Verify the fingerprint:</strong>
-        <div class="command">gpg --fingerprint kjenkins60@gatech.edu</div>
-    </div>
-
+                <div class="actions">
+                    <a class="btn" style="width: 145px;" href="/pgpkey.asc" download="kjenkins60-gatech-edu-publickey.asc" aria-label="Download public key file">Download Key</a>
+                    <a class="btn" style="width: 75px; margin-left: 8px;" href="index.html" aria-label="Return to home page">OK</a>
+                </div>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

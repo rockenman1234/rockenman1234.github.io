@@ -55,6 +55,25 @@
   <script src="/utils.js" defer></script>
 
   <script type="module" src="/src/main.js"></script>
+
+  <style>
+    .window .title-bar {
+      cursor: move;
+      user-select: none;
+    }
+
+    /* Classic Mac OS 50% dither pattern for the drag wireframe */
+    .window-wireframe {
+      position: fixed;
+      pointer-events: none;
+      z-index: 99990;
+      display: none;
+      background: transparent;
+      box-sizing: border-box;
+      /* 2px alternating dashed border gives a retro XOR feel */
+      border: 2px dashed #000;
+    }
+  </style>
 </head>
 
 <body>
@@ -112,6 +131,7 @@
         <div class="title-bar">
           <button aria-label="Close" class="close"></button>
           <h1 class="title">About Me</h1>
+          <button aria-label="Resize" class="resize"></button>
         </div>
         <div class="separator"></div>
         <div class="window-pane welcome-pane">
@@ -141,6 +161,7 @@
         <div class="title-bar">
           <button aria-label="Close" class="close"></button>
           <h1 class="title">My Work</h1>
+          <button aria-label="Resize" class="resize"></button>
         </div>
         <div class="separator"></div>
         <div class="window-pane">
@@ -199,6 +220,27 @@
             <div class="project-links">
               <a href="https://sites.gatech.edu/fedelelab/" class="btn">Visit Lab Website</a>
               <a href="https://github.com/Fedele-AI/" class="btn" target="_blank">GitHub</a>
+            </div>
+          </div>
+
+          <div class="separator"></div>
+
+          <!-- ML Visualizer -->
+          <div class="project-entry">
+            <div class="project-header">
+              <div class="project-icon" style="display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; font-size: 40px; background: #fff;">🤖</div>
+              <h3>ML Visualizer - Creator & Coauthor</h3>
+            </div>
+            <p>
+              Interactive demonstrations of AI and machine learning architectures, featuring a real, working transformer-like sequence model implemented in Rust and WebAssembly. It runs natively in the browser and provides real-time visualizations, interactive controls, and educational descriptions to explore mechanics like attention, sequencing, and synthesis—without the complexity of production-grade LLMs.
+            </p>
+            <ul class="project-meta">
+              <li>Built for CEE 4803 (Art &amp; Generative AI) at Georgia Tech</li>
+              <li>Rust, WebAssembly, HTML5, CSS3, Vanilla JavaScript</li>
+            </ul>
+            <div class="project-links">
+              <a href="https://mlvisualizer.org" class="btn" target="_blank" rel="noopener noreferrer">Live Demo</a>
+              <a href="https://github.com/Fedele-AI/MLvisualizer" class="btn" target="_blank" rel="noopener noreferrer">GitHub</a>
             </div>
           </div>
 
@@ -483,6 +525,7 @@
         <div class="title-bar">
           <button aria-label="Close" class="close"></button>
           <h1 class="title">Résumé</h1>
+          <button aria-label="Resize" class="resize"></button>
         </div>
         <div class="separator"></div>
         <div class="window-pane">
@@ -503,6 +546,7 @@
         <div class="title-bar">
           <button aria-label="Close" class="close"></button>
           <h1 class="title">Biography</h1>
+          <button aria-label="Resize" class="resize"></button>
         </div>
         <div class="separator"></div>
         <div class="window-pane">
@@ -532,6 +576,7 @@
         <div class="title-bar">
           <button aria-label="Close" class="close"></button>
           <h1 class="title">Let's Get in Touch</h1>
+          <button aria-label="Resize" class="resize"></button>
         </div>
         <div class="separator"></div>
         <div class="modeless-dialog">
@@ -590,6 +635,216 @@
   </main>
 
   <a href="#top" class="back-to-top" title="Back to Top" id="backToTop">↑</a>
+
+  <script>
+    (() => {
+      const supportsPrecisePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      if (!supportsPrecisePointer) return;
+
+      const windows = Array.from(document.querySelectorAll('.window'));
+      if (!windows.length) return;
+
+      const wireframe = document.createElement('div');
+      wireframe.className = 'window-wireframe';
+      document.body.appendChild(wireframe);
+
+      let activeState = null;
+      let topLayer = 100;
+
+      const snapToGrid = (value) => Math.round(value / 2) * 2;
+
+      const moveWireframe = (left, top) => {
+        wireframe.style.left = `${left}px`;
+        wireframe.style.top = `${top}px`;
+      };
+
+      const endDrag = () => {
+        if (!activeState) return;
+
+        const { win, startX, startY, baseX, baseY, lastClientX, lastClientY, startRect } = activeState;
+
+        document.removeEventListener('pointermove', handlePointerMove);
+        document.removeEventListener('pointerup', handlePointerUp);
+        document.removeEventListener('pointercancel', handlePointerUp);
+
+        const dx = snapToGrid(lastClientX - startX);
+        const dy = snapToGrid(lastClientY - startY);
+
+        const nextX = baseX + dx;
+        const nextY = baseY + dy;
+
+        // Skip animation if we didn't really move
+        if (Math.abs(dx) < 2 && Math.abs(dy) < 2) {
+          wireframe.style.display = 'none';
+          activeState = null;
+          return;
+        }
+
+        // Old Mac OS ZoomRect / screen redraw animation
+        // Instead of sliding the window with a CSS transition, we animate the wireframe
+        // in chunky steps to the final location, then instantly snap the window.
+        const targetLeft = startRect.left + dx;
+        const targetTop = startRect.top + dy;
+        const steps = 8;
+        let step = 0;
+
+        const drawRedrawAnimation = () => {
+          step++;
+          if (step > steps) {
+            wireframe.style.display = 'none';
+            
+            // Disable the modern glide transition for a retro instant snap
+            const oldTransition = win.style.transition;
+            win.style.transition = 'none';
+            win.style.transform = `translate(${nextX}px, ${nextY}px)`;
+            win.dataset.dragX = String(nextX);
+            win.dataset.dragY = String(nextY);
+            
+            // Force layout reflow
+            void win.offsetWidth;
+            
+            win.style.transition = oldTransition;
+            activeState = null;
+            return;
+          }
+          
+          // Chunky frame interpolation between old bounds and new bounds
+          const progress = step / steps;
+          const currentLeft = startRect.left + (dx * progress);
+          const currentTop = startRect.top + (dy * progress);
+          
+          moveWireframe(currentLeft, currentTop);
+          setTimeout(drawRedrawAnimation, 60);
+        };
+
+        // Start the redraw frames
+        drawRedrawAnimation();
+      };
+
+      const handlePointerMove = (event) => {
+        if (!activeState) return;
+        event.preventDefault();
+
+        const now = Date.now();
+        // Throttle dragging to ~15fps for that crunched System 6 feel
+        if (now - activeState.lastDrawTime < 60) return;
+        activeState.lastDrawTime = now;
+
+        activeState.lastClientX = event.clientX;
+        activeState.lastClientY = event.clientY;
+
+        const dx = snapToGrid(event.clientX - activeState.startX);
+        const dy = snapToGrid(event.clientY - activeState.startY);
+        moveWireframe(activeState.startRect.left + dx, activeState.startRect.top + dy);
+      };
+
+      const handlePointerUp = () => {
+        endDrag();
+      };
+
+      windows.forEach((win) => {
+        const titleBar = win.querySelector('.title-bar');
+        if (!titleBar) return;
+
+        if (!win.dataset.dragX) win.dataset.dragX = '0';
+        if (!win.dataset.dragY) win.dataset.dragY = '0';
+
+        const resizeBtn = win.querySelector('.resize');
+        if (resizeBtn) {
+          resizeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const startX = Number(win.dataset.dragX || '0');
+            const startY = Number(win.dataset.dragY || '0');
+
+            if (startX !== 0 || startY !== 0) {
+              const startRect = win.getBoundingClientRect();
+              
+              // Temporarily jump to 0,0 to find the destination rect
+              const oldTransition = win.style.transition;
+              win.style.transition = 'none';
+              win.style.transform = 'translate(0px, 0px)';
+              const targetRect = win.getBoundingClientRect();
+              
+              // Jump back to start position for the animation
+              win.style.transform = `translate(${startX}px, ${startY}px)`;
+              void win.offsetWidth; // force reflow
+
+              // Draw chunky animation from current position to default position
+              const steps = 8;
+              let step = 0;
+              
+              wireframe.style.width = `${startRect.width}px`;
+              wireframe.style.height = `${startRect.height}px`;
+              wireframe.style.display = 'block';
+
+              const drawSnapAnimation = () => {
+                step++;
+                if (step > steps) {
+                  wireframe.style.display = 'none';
+                  win.style.transform = 'translate(0px, 0px)';
+                  win.dataset.dragX = '0';
+                  win.dataset.dragY = '0';
+                  win.style.transition = oldTransition;
+                  return;
+                }
+                const progress = step / steps;
+                const currentLeft = startRect.left + (targetRect.left - startRect.left) * progress;
+                const currentTop = startRect.top + (targetRect.top - startRect.top) * progress;
+                const currentWidth = startRect.width + (targetRect.width - startRect.width) * progress;
+                const currentHeight = startRect.height + (targetRect.height - startRect.height) * progress;
+                
+                wireframe.style.left = `${currentLeft}px`;
+                wireframe.style.top = `${currentTop}px`;
+                wireframe.style.width = `${currentWidth}px`;
+                wireframe.style.height = `${currentHeight}px`;
+                
+                setTimeout(drawSnapAnimation, 60);
+              };
+              drawSnapAnimation();
+            }
+          });
+        }
+
+        win.addEventListener('pointerdown', () => {
+          topLayer += 1;
+          win.style.zIndex = String(topLayer);
+        }, { capture: true }); // Use capture so it runs early and doesn't get blocked by stopPropagation
+
+        titleBar.addEventListener('pointerdown', (event) => {
+          if (event.button !== 0 || event.pointerType === 'touch') return;
+          if (event.target.closest('button, a, input, textarea, select')) return;
+
+          const startRect = win.getBoundingClientRect();
+          const baseX = Number(win.dataset.dragX || '0');
+          const baseY = Number(win.dataset.dragY || '0');
+
+          activeState = {
+            win,
+            startX: event.clientX,
+            startY: event.clientY,
+            lastClientX: event.clientX,
+            lastClientY: event.clientY,
+            lastDrawTime: Date.now(),
+            startRect,
+            baseX,
+            baseY
+          };
+
+          wireframe.style.width = `${startRect.width}px`;
+          wireframe.style.height = `${startRect.height}px`;
+          moveWireframe(startRect.left, startRect.top);
+          wireframe.style.display = 'block';
+
+          document.addEventListener('pointermove', handlePointerMove, { passive: false });
+          document.addEventListener('pointerup', handlePointerUp);
+          document.addEventListener('pointercancel', handlePointerUp);
+          event.preventDefault();
+        });
+      });
+    })();
+  </script>
 </body>
 
 </html>

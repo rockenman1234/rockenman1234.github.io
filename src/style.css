@@ -90,7 +90,7 @@ html {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 99999;
   display: flex;
   align-items: stretch;
   justify-content: space-between;
@@ -198,6 +198,8 @@ ul[role="menu-bar"] > [role="menu-item"].apple-menu:active .apple {
   width: 100%;
   margin: 0 auto;
   box-shadow: 2px 2px 0px #000;
+  position: relative; /* Enable z-index ordering across sections */
+  z-index: 10;
 }
 
 .window .title {
@@ -540,7 +542,7 @@ section.section-closed {
   font-weight: bold;
   text-decoration: none;
   color: #000;
-  z-index: 1000; /* Increased to ensure visibility */
+  z-index: 99999; /* Increased to ensure visibility */
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.3s, visibility 0.3s;

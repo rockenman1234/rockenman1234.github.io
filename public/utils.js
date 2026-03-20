@@ -68,11 +68,21 @@
     return clickable;
   };
 
-  document.addEventListener('mousedown', (e) => {
+  const handleInteraction = (e) => {
+    if (e.type === 'mousedown' && window.__macTouchOccurred) {
+      return; // Prevent duplicate flash from simulated mousedown
+    }
+    if (e.type === 'touchstart') {
+      window.__macTouchOccurred = true;
+      setTimeout(() => { window.__macTouchOccurred = false; }, 500);
+    }
     const clickable = resolveClickable(e.target);
     if (!clickable) return;
     applyFlash(clickable);
-  }, true);
+  };
+
+  document.addEventListener('mousedown', handleInteraction, true);
+  document.addEventListener('touchstart', handleInteraction, { capture: true, passive: true });
 
   document.addEventListener('click', (e) => {
     const clickable = resolveClickable(e.target);
@@ -111,18 +121,25 @@
     if (shouldDelay) {
       e.preventDefault();
       e.stopImmediatePropagation();
+      clickable.dataset.macClickPending = 'true';
       setTimeout(() => {
-        if (isBlank) {
-          window.open(href, '_blank');
-        } else if (isDownload) {
-          const tempLink = document.createElement('a');
-          tempLink.href = href;
-          tempLink.download = link.getAttribute('download') || '';
-          document.body.appendChild(tempLink);
-          tempLink.click();
-          document.body.removeChild(tempLink);
+        if (isHash) {
+          link.click();
+          clickable.dataset.macClickPending = 'false';
         } else {
-          window.location.href = href;
+          clickable.dataset.macClickPending = 'false';
+          if (isBlank) {
+            window.open(href, '_blank');
+          } else if (isDownload) {
+            const tempLink = document.createElement('a');
+            tempLink.href = href;
+            tempLink.download = link.getAttribute('download') || '';
+            document.body.appendChild(tempLink);
+            tempLink.click();
+            document.body.removeChild(tempLink);
+          } else {
+            window.location.href = href;
+          }
         }
       }, flashDuration);
     }

@@ -395,12 +395,22 @@
         const isBlank = link.getAttribute('target') === '_blank';
         const isDownload = link.hasAttribute('download');
         const isHash = href && href.startsWith('#');
-        const isMailto = href && href.startsWith('mailto:');
         
-        if (h    && !isHash && !isBlank && !isDownload && !isMailto) {
+        if (href && !isHash) {
           e.preventDefault();
           setTimeout(() => {
-            window.location.href = href;
+            if (isBlank) {
+              window.open(href, '_blank');
+            } else if (isDownload) {
+              const tempLink = document.createElement('a');
+              tempLink.href = href;
+              tempLink.download = link.getAttribute('download') || '';
+              document.body.appendChild(tempLink);
+              tempLink.click();
+              document.body.removeChild(tempLink);
+            } else {
+              window.location.href = href;
+            }
           }, 400);
         }
       }
@@ -425,12 +435,22 @@
         const isBlank = link.getAttribute('target') === '_blank';
         const isDownload = link.hasAttribute('download');
         const isHash = href && href.startsWith('#');
-        const isMailto = href && href.startsWith('mailto:');
         
-        if (href && !isHash && !isBlank && !isDownload && !isMailto) {
+        if (href && !isHash) {
           e.preventDefault();
           setTimeout(() => {
-            window.location.href = href;
+            if (isBlank) {
+              window.open(href, '_blank');
+            } else if (isDownload) {
+              const tempLink = document.createElement('a');
+              tempLink.href = href;
+              tempLink.download = link.getAttribute('download') || '';
+              document.body.appendChild(tempLink);
+              tempLink.click();
+              document.body.removeChild(tempLink);
+            } else {
+              window.location.href = href;
+            }
           }, 400);
         }
       }

@@ -106,13 +106,24 @@
     const isMailto = href && href.startsWith('mailto:');
 
     const inMenu = !!link.closest('[role="menu-bar"]');
-    const shouldDelay = href && !isBlank && !isDownload && !isMailto && (inMenu || !isHash);
+    const shouldDelay = href && (inMenu || !isHash);
 
     if (shouldDelay) {
       e.preventDefault();
       e.stopImmediatePropagation();
       setTimeout(() => {
-        window.location.href = href;
+        if (isBlank) {
+          window.open(href, '_blank');
+        } else if (isDownload) {
+          const tempLink = document.createElement('a');
+          tempLink.href = href;
+          tempLink.download = link.getAttribute('download') || '';
+          document.body.appendChild(tempLink);
+          tempLink.click();
+          document.body.removeChild(tempLink);
+        } else {
+          window.location.href = href;
+        }
       }, flashDuration);
     }
   }, true);

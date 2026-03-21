@@ -106,9 +106,11 @@
         }
 
         /* Firefox scrollbar (Firefox 64+) */
-        main {
-            scrollbar-width: thin;
-            scrollbar-color: #fff #000; /* thumb track */
+        @-moz-document url-prefix() {
+            main {
+                scrollbar-width: thin;
+                scrollbar-color: #fff #000; /* thumb track */
+            }
         }
 
         .menu-bar-wrapper {

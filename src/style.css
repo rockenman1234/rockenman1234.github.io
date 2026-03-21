@@ -72,15 +72,11 @@ body {
 }
 
 /* Firefox scrollbar (Firefox 64+) */
-.desktop {
-  scrollbar-width: thin;           /* thin scrollbar width */
-  scrollbar-color: #fff #000;      /* thumb color, track color - matches WebKit theme */
-}
-
-/* Ensure scrollbar shows on any scrollable container */
-html {
-  scrollbar-width: thin;
-  scrollbar-color: #fff #000;      /* white thumb, black track */
+@-moz-document url-prefix() {
+  .desktop, html {
+    scrollbar-width: thin;           /* thin scrollbar width */
+    scrollbar-color: #fff #000;      /* thumb color, track color - matches WebKit theme */
+  }
 }
 
 

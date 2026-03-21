@@ -25,6 +25,8 @@
  * for the JavaScript code in this file.
  */
 
+import './style.css';
+
 // ==============================
 // Menu Bar Clock
 // ==============================
@@ -54,6 +56,64 @@ document.addEventListener('DOMContentLoaded', () => {
       contactSection.scrollIntoView({ behavior: 'smooth' });
     });
   }
+
+  const desktopScrollContainer = document.querySelector('.desktop');
+
+  const scrollHashTarget = (hash, behavior = 'smooth') => {
+    if (!desktopScrollContainer || !hash || !hash.startsWith('#')) return;
+
+    const target = document.querySelector(hash);
+    if (!target) return;
+
+    const containerRect = desktopScrollContainer.getBoundingClientRect();
+    const targetRect = target.getBoundingClientRect();
+    const topWithinContainer =
+      targetRect.top - containerRect.top + desktopScrollContainer.scrollTop;
+    const prefersTopAlignment = hash === '#work';
+    const desiredTop = prefersTopAlignment
+      ? topWithinContainer
+      : topWithinContainer - (desktopScrollContainer.clientHeight - targetRect.height) / 2;
+    const maxTop = desktopScrollContainer.scrollHeight - desktopScrollContainer.clientHeight;
+    const clampedTop = Math.max(0, Math.min(desiredTop, maxTop));
+
+    desktopScrollContainer.scrollTo({ top: clampedTop, behavior });
+  };
+
+  const centerHashTargetWithSettle = (hash, behavior = 'smooth') => {
+    scrollHashTarget(hash, behavior);
+
+    // Re-apply centering after layout settles (menu delays, reopened windows, lazy content).
+    const settleDelays = [180, 420];
+    settleDelays.forEach(delayMs => {
+      setTimeout(() => {
+        scrollHashTarget(hash, 'auto');
+      }, delayMs);
+    });
+  };
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (event) => {
+      const href = anchor.getAttribute('href');
+      if (!href || href === '#') return;
+
+      const target = document.querySelector(href);
+      if (!target) return;
+
+      event.preventDefault();
+      history.pushState(null, '', href);
+      requestAnimationFrame(() => centerHashTargetWithSettle(href, 'smooth'));
+    });
+  });
+
+  if (window.location.hash) {
+    requestAnimationFrame(() => {
+      centerHashTargetWithSettle(window.location.hash, 'auto');
+    });
+  }
+
+  window.addEventListener('hashchange', () => {
+    centerHashTargetWithSettle(window.location.hash, 'smooth');
+  });
 
   // Close buttons on windows
   document.querySelectorAll('.window .close').forEach(btn => {
@@ -165,18 +225,35 @@ if (import.meta.env.PROD) {
 // ==============================
 // Service Worker (Optional)
 // ==============================
+const isLocalhost =
+  window.location.hostname === 'localhost' ||
+  window.location.hostname === '127.0.0.1';
+
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      navigator.serviceWorker.register('/sw.js')
-        .then(registration => {
-          console.log('ServiceWorker registration successful');
-        })
-        .catch(err => {
-          console.log('ServiceWorker registration failed: ', err);
-        });
-    }, 2000);
-  });
+  if (!import.meta.env.PROD || isLocalhost) {
+    // Keep local dev deterministic: remove any previously registered SW and caches.
+    window.addEventListener('load', async () => {
+      const registrations = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(registrations.map(registration => registration.unregister()));
+
+      if ('caches' in window) {
+        const cacheNames = await caches.keys();
+        await Promise.all(cacheNames.map(cacheName => caches.delete(cacheName)));
+      }
+    });
+  } else {
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(() => {
+            console.log('ServiceWorker registration successful');
+          })
+          .catch(err => {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+      }, 2000);
+    });
+  }
 }
 
 // @license-end

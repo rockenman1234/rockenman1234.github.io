@@ -1,0 +1,53 @@
+# Alex Jenkins
+
+```text
+⠰⡿⠿⠛⠛⠻⠿⣷
+⠀⠀⠀⠀⠀⠀⣀⣄⡀⠀⠀⠀⠀⢀⣀⣀⣤⣄⣀⡀
+⠀⠀⠀⠀⠀⢸⣿⣿⣷⠀⠀⠀⠀⠛⠛⣿⣿⣿⡛⠿⠷
+⠀⠀⠀⠀⠀⠘⠿⠿⠋⠀⠀⠀⠀⠀⠀⣿⣿⣿⠇
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠁            GEMINI CAPSULE
+                                text-first | calm | readable
+⠀⠀⠀⠀⣿⣷⣄⠀⢶⣶⣷⣶⣶⣤⣀
+⠀⠀⠀⠀⣿⣿⣿⠀⠀⠀⠀⠀⠈⠙⠻⠗
+⠀⠀⠀⣰⣿⣿⣿⠀⠀⠀⠀⢀⣀⣠⣤⣴⣶⡄
+⠀⣠⣾⣿⣿⣿⣥⣶⣶⣿⣿⣿⣿⣿⠿⠿⠛⠃
+⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄
+⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡁
+⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁
+⠀⠀⠛⢿⣿⣿⣿⣿⣿⣿⡿⠟ 
+```
+
+Computer Engineering student at Georgia Tech.
+Focus: Cyber Security + Systems and Architecture.
+
+## Quick Links
+=> mailto:kjenkins60@gatech.edu Email (kjenkins60@gatech.edu)
+=> https://github.com/rockenman1234/ GitHub
+=> https://www.linkedin.com/in/alex-jenkins03/ LinkedIn
+=> https://huggingface.co/alexj03 Hugging Face
+
+## Selected Work
+=> https://ltc.gtorg.gatech.edu/ LibreTech Collective (Founder and President)
+=> https://sites.gatech.edu/fedelelab/ Fedele-AI Lab (Cofounder)
+=> https://mlvisualizer.org ML Visualizer (Rust + WebAssembly)
+=> https://github.com/Fedele-AI/AI_Fundamentals AI Fundamentals Textbook (Coauthor)
+
+## Resume
+=> https://rockenman1234.github.io/Resume__Brief.pdf Brief Resume (PDF)
+=> https://rockenman1234.github.io/Resume.pdf Full Resume (PDF)
+
+## Notes
+* Free, Libre, & open-source with copyleft values
+* Systems programming knowledge and practical AI/LLM education
+* Open to collaboration and research discussions on FLOSS at Georgia Tech and beyond.
+
+## Other Site
+=> https://alexj.io Main website
+
+---
+
+## Shouout
+To Dr. Roy Schestowitz for recomending myself and others to join GEMINI with my own capsule.
+
+---
+Last updated: 2026-03-20

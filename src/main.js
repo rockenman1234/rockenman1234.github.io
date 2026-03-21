@@ -59,6 +59,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const desktopScrollContainer = document.querySelector('.desktop');
 
+  const bringWindowToFront = (win) => {
+    if (!win) return;
+    let maxLayer = 100;
+    document.querySelectorAll('.window').forEach(existingWin => {
+      const z = Number.parseInt(existingWin.style.zIndex || '0', 10);
+      if (!Number.isNaN(z)) maxLayer = Math.max(maxLayer, z);
+    });
+    win.style.zIndex = String(maxLayer + 1);
+  };
+
+  const reopenWindowForHash = (hash, shouldBringToFront = false) => {
+    if (!hash || !hash.startsWith('#')) return;
+
+    const targetId = hash.slice(1);
+    const section = document.getElementById(targetId);
+    if (!section) return;
+
+    const win = section.querySelector('.window, .welcome-window');
+    if (!win) return;
+
+    const wasClosed = win.classList.contains('window-closed') || section.classList.contains('section-closed');
+    if (wasClosed) {
+      win.classList.remove('window-closed', 'window-closing');
+      section.classList.remove('section-closed');
+      checkAllWindowsClosed();
+    }
+
+    if (shouldBringToFront) {
+      bringWindowToFront(win);
+    }
+  };
+
   const scrollHashTarget = (hash, behavior = 'smooth') => {
     if (!desktopScrollContainer || !hash || !hash.startsWith('#')) return;
 
@@ -99,6 +131,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const target = document.querySelector(href);
       if (!target) return;
 
+      const inMenuBar = !!anchor.closest('[role="menubar"]');
+      if (inMenuBar) {
+        reopenWindowForHash(href, true);
+      }
+
       event.preventDefault();
       history.pushState(null, '', href);
       requestAnimationFrame(() => centerHashTargetWithSettle(href, 'smooth'));
@@ -107,11 +144,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (window.location.hash) {
     requestAnimationFrame(() => {
+      reopenWindowForHash(window.location.hash);
       centerHashTargetWithSettle(window.location.hash, 'auto');
     });
   }
 
   window.addEventListener('hashchange', () => {
+    reopenWindowForHash(window.location.hash);
     centerHashTargetWithSettle(window.location.hash, 'smooth');
   });
 
@@ -128,22 +167,6 @@ document.addEventListener('DOMContentLoaded', () => {
           win.classList.remove('window-closing');
           checkAllWindowsClosed();
         }, 300);
-      }
-    });
-  });
-
-  // Clicking menu items that link to a closed window should re-open it
-  document.querySelectorAll('[role="menu-bar"] a[href^="#"]').forEach(link => {
-    link.addEventListener('click', () => {
-      const targetId = link.getAttribute('href').slice(1);
-      const section = document.getElementById(targetId);
-      if (section) {
-        const win = section.querySelector('.window, .welcome-window');
-        if (win && win.classList.contains('window-closed')) {
-          win.classList.remove('window-closed');
-          section.classList.remove('section-closed');
-          checkAllWindowsClosed();
-        }
       }
     });
   });

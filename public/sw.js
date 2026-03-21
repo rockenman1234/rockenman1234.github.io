@@ -1,7 +1,6 @@
 // Service Worker for Caching - GitHub Pages Compatible
 // @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&dn=gpl-3.0.txt GPL-v3
 
-const CACHE_NAME = 'alexj-portfolio-v5';
 const STATIC_CACHE = 'static-v5';
 const DYNAMIC_CACHE = 'dynamic-v5';
 const IMAGE_CACHE = 'images-v5';
@@ -11,7 +10,8 @@ const urlsToCache = [
   '/',
   '/index.html',
   '/index.css',
-  '/index.js',
+  '/utils.js',
+  '/mac-click.css',
   '/manifest.json',
   '/images/headshot.webp',
   '/images/altdowntown.avif',

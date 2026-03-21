@@ -6,17 +6,34 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check:duplicates": "jscpd --format javascript --min-lines 8 --min-tokens 60 --reporters console src public",
+    "check:deadcode": "knip --include files,dependencies"
   },
   "keywords": [],
   "author": "Alex Jenkins",
   "license": "GPL-3.0",
   "packageManager": "pnpm@10.18.3",
   "devDependencies": {
+    "jscpd": "^4.0.8",
+    "knip": "^6.0.1",
     "vite": "^8.0.0"
   },
+  "knip": {
+    "entry": [
+      "index.html",
+      "public/sw.js",
+      "public/utils.js"
+    ],
+    "project": [
+      "src/**/*.js",
+      "public/**/*.js"
+    ],
+    "ignoreDependencies": [
+      "@sakun/system.css"
+    ]
+  },
   "dependencies": {
-    "@sakun/system.css": "^0.1.11",
-    "pdfjs-dist": "^5.5.207"
+    "@sakun/system.css": "^0.1.11"
   }
 }

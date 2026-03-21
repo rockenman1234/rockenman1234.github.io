@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const target = document.querySelector(href);
       if (!target) return;
 
-      const inMenuBar = !!anchor.closest('[role="menubar"]');
+      const inMenuBar = !!anchor.closest('[role="menu-bar"], [role="menubar"]');
       if (inMenuBar) {
         reopenWindowForHash(href, true);
       }

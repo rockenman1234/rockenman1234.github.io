@@ -37,7 +37,7 @@
   const getClickable = (target) => {
     if (!target) return null;
     return target.closest(
-      'button, input[type="button"], input[type="submit"], input[type="reset"], label, [role="button"], [role="menuitem"], .btn, .toolbarButton'
+      'button, input[type="button"], input[type="submit"], input[type="reset"], label, [role="button"], [role="menu-item"], [role="menuitem"], .btn, .toolbarButton'
     );
   };
 
@@ -59,8 +59,8 @@
     let clickable = getClickable(target);
     if (!clickable) return null;
     if (clickable.hasAttribute('data-no-mac-flash')) return null;
-    if (clickable.closest('[role="menubar"]') && clickable.hasAttribute('aria-haspopup')) return null;
-    if (clickable.getAttribute('role') === 'menuitem') {
+    if (clickable.closest('[role="menu-bar"], [role="menubar"]') && clickable.hasAttribute('aria-haspopup')) return null;
+    if (clickable.getAttribute('role') === 'menuitem' || clickable.getAttribute('role') === 'menu-item') {
       const menuLink = clickable.querySelector('a');
       if (menuLink) clickable = menuLink;
     }
@@ -114,7 +114,7 @@
     const isDownload = link.hasAttribute('download');
     const isHash = href && href.startsWith('#');
 
-    const inMenu = !!link.closest('[role="menubar"]');
+    const inMenu = !!link.closest('[role="menu-bar"], [role="menubar"]');
     const shouldDelay = href && (inMenu || !isHash);
 
     if (shouldDelay) {

@@ -100,14 +100,14 @@ html {
   padding: 0;
 }
 
-.menu-bar-wrapper > [role="menubar"] {
+.menu-bar-wrapper > :is([role="menu-bar"], [role="menubar"]) {
   flex: 1;
   height: 100%;
   display: flex;
   align-items: stretch;
 }
 
-ul[role="menubar"] > [role="menuitem"] {
+:is(ul[role="menu-bar"], ul[role="menubar"]) > :is([role="menu-item"], [role="menuitem"]) {
   padding: 0 10px !important;
   display: flex;
   align-items: center;
@@ -160,10 +160,10 @@ ul[role="menubar"] > [role="menuitem"] {
   top: -1px;
 }
 
-ul[role="menubar"] > [role="menuitem"].apple-menu:focus .apple,
-ul[role="menubar"] > [role="menuitem"].apple-menu:focus-within .apple,
-ul[role="menubar"] > [role="menuitem"].apple-menu:hover .apple,
-ul[role="menubar"] > [role="menuitem"].apple-menu:active .apple {
+:is(ul[role="menu-bar"], ul[role="menubar"]) > :is([role="menu-item"], [role="menuitem"]).apple-menu:focus .apple,
+:is(ul[role="menu-bar"], ul[role="menubar"]) > :is([role="menu-item"], [role="menuitem"]).apple-menu:focus-within .apple,
+:is(ul[role="menu-bar"], ul[role="menubar"]) > :is([role="menu-item"], [role="menuitem"]).apple-menu:hover .apple,
+:is(ul[role="menu-bar"], ul[role="menubar"]) > :is([role="menu-item"], [role="menuitem"]).apple-menu:active .apple {
   filter: invert(1);
 }
 
@@ -603,7 +603,7 @@ section.section-closed {
     padding-right: 8px;
   }
 
-  ul[role="menubar"] > [role="menuitem"] {
+  :is(ul[role="menu-bar"], ul[role="menubar"]) > :is([role="menu-item"], [role="menuitem"]) {
     padding: 0 6px !important;
   }
 }

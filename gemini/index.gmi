@@ -1,11 +1,9 @@
-# Alex Jenkins
-
 ```text
 ⠰⡿⠿⠛⠛⠻⠿⣷
 ⠀⠀⠀⠀⠀⠀⣀⣄⡀⠀⠀⠀⠀⢀⣀⣀⣤⣄⣀⡀
 ⠀⠀⠀⠀⠀⢸⣿⣿⣷⠀⠀⠀⠀⠛⠛⣿⣿⣿⡛⠿⠷
 ⠀⠀⠀⠀⠀⠘⠿⠿⠋⠀⠀⠀⠀⠀⠀⣿⣿⣿⠇
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠁            GEMINI CAPSULE
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠁            ALEX'S GEMINI CAPSULE
                             Human (Student) Developer Portfolio 
 ⠀⠀⠀⠀⣿⣷⣄⠀⢶⣶⣷⣶⣶⣤⣀
 ⠀⠀⠀⠀⣿⣿⣿⠀⠀⠀⠀⠀⠈⠙⠻⠗
@@ -17,32 +15,71 @@
 ⠀⠀⠛⢿⣿⣿⣿⣿⣿⣿⡿⠟ 
 ```
 
-B.S. Computer Engineering 2026 (expected) at Georgia Tech.
-Focus: Cyber Security + Systems and Architecture.
+👋 Hi! I'm Alex!
+Computer Engineering Student at the Georgia Institute of Technology.
+Threads: Cyber Security + Systems and Architecture.
 
 ## Quick Links
-=> mailto:kjenkins60@gatech.edu Email (kjenkins60@gatech.edu)
+=> mailto:kjenkins60@gatech.edu Email
 => https://github.com/rockenman1234/ GitHub
+=> https://codeberg.org/rockenman1234 Codeberg
 => https://www.linkedin.com/in/alex-jenkins03/ LinkedIn
 => https://huggingface.co/alexj03 Hugging Face
 
 ## Selected Work
-=> https://ltc.gtorg.gatech.edu/ LibreTech Collective (Founder and President)
-=> https://sites.gatech.edu/fedelelab/ Fedele-AI Lab (Cofounder)
-=> https://mlvisualizer.org ML Visualizer (Rust + WebAssembly)
-=> https://github.com/Fedele-AI/AI_Fundamentals AI Fundamentals Textbook (Coauthor)
 
-## Resume
+### LibreTech Collective
+Founder and President
+A student organization at Georgia Tech dedicated to promoting software development and fostering a collaborative community of developers. The collective organizes workshops, hackathons, and collaborative projects.
+=> https://ltc.gtorg.gatech.edu/ Visit Club Website
+=> https://github.com/LTC-GT/ Source
+
+### Fedele-AI Lab
+Cofounder
+An innovative, cross-disciplinary research laboratory focusing on the intersection of machine learning, engineering, and creative applications.
+=> https://sites.gatech.edu/fedelelab/ Visit Lab Website
+=> https://github.com/Fedele-AI/ Source
+
+### ML Visualizer
+Creator & Main Developer
+Interactive demonstrations of AI and machine learning architectures. Features a working transformer-like sequence model implemented in Rust and WebAssembly natively in the browser.
+=> https://mlvisualizer.org Live Demo
+=> https://github.com/Fedele-AI/MLvisualizer Source
+
+### AI Fundamentals Textbook
+Coauthor
+An AI/ML textbook offering a mathematical and programming-based approach to understanding artificial intelligence in just 10 modules. Created for Georgia Tech's CEE 4803.
+=> https://ce.gatech.edu/news/2025/05/new-course-broadens-students-horizons-using-ai Press Release
+=> https://github.com/Fedele-AI/AI_Fundamentals View Textbook
+
+### Buzz_Off
+A browser extension that replaces any text related to The university(sic) Of Georgia with various insults.
+=> https://chrome.google.com/webstore/detail/buzzoff/njeiabnnggpilaodighggmecepfhmckp Chrome Extension
+=> https://addons.mozilla.org/en-US/firefox/addon/buzz_off/ Firefox Add-on
+=> https://github.com/rockenman1234/Buzz_off Source
+
+### simpleHTTPd
+A lightweight HTTP server written in Rust, featured in Georgia Tech's ECE-3600 course. Demonstrates memory-safe programming principles.
+=> https://github.com/rockenman1234/simpleHTTPd Source
+
+### rCPUfetch
+A fast, cross-platform command-line tool written in Rust that provides detailed CPU information in a visually appealing format.
+=> https://github.com/rockenman1234/rcpufetch Source
+
+## Résumé
 => https://rockenman1234.github.io/Resume__Brief.pdf Brief Resume (PDF)
 => https://rockenman1234.github.io/Resume.pdf Full Resume (PDF)
 
 ## Notes
-* Free, Libre, & open-source with copyleft values
-* Systems programming knowledge and practical AI/LLM education
-* Open to collaboration and research discussions on FLOSS at Georgia Tech and beyond.
+* Systems programming knowledge and practical AI/LLM education.
+* Open to collaboration and research discussions at Georgia Tech and beyond.
 
-## Other Site
-=> https://alexj.io Main website
+## Other Sites & Views
+=> https://alexj.io WWW Site (HTML)
+=> http://alexjw4usdp7ocl4lridlf6lgjwtw4iyt7s5da333i6wvzej4j47nnad.onion TOR Onion Site Mirror
+=> http://r2ao4o6ge5beipxhsrj6tnmetvkqtdjrbgewxvzmrjsygz24iski5ahohpdcoqseh3tziu7jwwcj2vijruyq.b32.i2p I2P Eep Site Mirror
+=> https://alexj.io/pgpkey.html PGP Key
+=> https://alexj.io/pgpkey.asc Download PGP (.asc)
 
 ---
 
@@ -50,4 +87,4 @@ Focus: Cyber Security + Systems and Architecture.
 To Dr. Roy Schestowitz (of Techrights and Tuxmachines) for recomending myself and others to join GEMINI with a new capsule.
 
 ---
-Last updated: 2026-03-20
+Last updated: 2026-03-22

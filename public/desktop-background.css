@@ -1,0 +1,17 @@
+/* Global System 6 desktop background used across all HTML entry pages. */
+:root {
+  --system6-checker-light: #b2b2b2;
+  --system6-checker-dark: #7f7f7f;
+}
+
+html,
+body {
+  background-color: var(--system6-checker-light) !important;
+  background-image: repeating-conic-gradient(
+    var(--system6-checker-dark) 0 25%,
+    var(--system6-checker-light) 0 50%
+  ) !important;
+  background-size: 4px 4px !important;
+  background-position: 0 0 !important;
+  background-attachment: fixed !important;
+}

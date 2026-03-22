@@ -13,11 +13,11 @@
   "keywords": [],
   "author": "Alex Jenkins",
   "license": "GPL-3.0",
-  "packageManager": "pnpm@10.18.3",
+  "packageManager": "pnpm@10.32.1",
   "devDependencies": {
     "jscpd": "^4.0.8",
-    "knip": "^6.0.1",
-    "vite": "^8.0.0"
+    "knip": "^6.0.2",
+    "vite": "^8.0.1"
   },
   "knip": {
     "entry": [

@@ -94,6 +94,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const scrollHashTarget = (hash, behavior = 'smooth') => {
     if (!desktopScrollContainer || !hash || !hash.startsWith('#')) return;
 
+    // #top refers to the fixed menu bar, not content inside .desktop; force absolute top.
+    if (hash === '#top') {
+      desktopScrollContainer.scrollTo({ top: 0, behavior });
+      return;
+    }
+
     const target = document.querySelector(hash);
     if (!target) return;
 

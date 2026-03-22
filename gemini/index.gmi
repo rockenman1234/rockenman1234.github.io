@@ -6,7 +6,7 @@
 ⠀⠀⠀⠀⠀⢸⣿⣿⣷⠀⠀⠀⠀⠛⠛⣿⣿⣿⡛⠿⠷
 ⠀⠀⠀⠀⠀⠘⠿⠿⠋⠀⠀⠀⠀⠀⠀⣿⣿⣿⠇
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠁            GEMINI CAPSULE
-                                text-first | calm | readable
+                            Human (Student) Developer Portfolio 
 ⠀⠀⠀⠀⣿⣷⣄⠀⢶⣶⣷⣶⣶⣤⣀
 ⠀⠀⠀⠀⣿⣿⣿⠀⠀⠀⠀⠀⠈⠙⠻⠗
 ⠀⠀⠀⣰⣿⣿⣿⠀⠀⠀⠀⢀⣀⣠⣤⣴⣶⡄
@@ -17,7 +17,7 @@
 ⠀⠀⠛⢿⣿⣿⣿⣿⣿⣿⡿⠟ 
 ```
 
-Computer Engineering student at Georgia Tech.
+B.S. Computer Engineering 2026 (expected) at Georgia Tech.
 Focus: Cyber Security + Systems and Architecture.
 
 ## Quick Links

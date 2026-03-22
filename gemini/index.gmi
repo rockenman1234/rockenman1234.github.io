@@ -46,8 +46,8 @@ Focus: Cyber Security + Systems and Architecture.
 
 ---
 
-## Shouout
-To Dr. Roy Schestowitz for recomending myself and others to join GEMINI with my own capsule.
+## Special Thanks
+To Dr. Roy Schestowitz (of Techrights and Tuxmachines) for recomending myself and others to join GEMINI with a new capsule.
 
 ---
 Last updated: 2026-03-20

@@ -87,4 +87,4 @@ A fast, cross-platform command-line tool written in Rust that provides detailed 
 To Dr. Roy Schestowitz (of Techrights and Tuxmachines) for recomending myself and others to join GEMINI with a new capsule.
 
 ---
-Last updated: 2026-03-22
+Last updated: 2026-03-25

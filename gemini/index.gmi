@@ -76,7 +76,7 @@ A fast, cross-platform command-line tool written in Rust that provides detailed 
 
 ## Other Sites & Views
 => https://alexj.io WWW Site (HTML)
-=> http://alexjw4usdp7ocl4lridlf6lgjwtw4iyt7s5da333i6wvzej4j47nnad.onion TOR Onion Site Mirror
+=> http://alexj5r7j5s36iwug2e7zd3ilcx3xrqejjw6hgla25zym32kbcedrgyd.onion/ TOR Onion Site Mirror
 => http://zqlgeq4it4ecxwgywrsro5zxk2776gl7fttldtdto7up5fcezvra.b32.i2p I2P Eep Site Mirror
 => https://alexj.io/pgpkey.html PGP Key
 => https://alexj.io/pgpkey.asc Download PGP (.asc)

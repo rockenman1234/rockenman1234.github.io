@@ -30,21 +30,29 @@ Threads: Cyber Security + Systems and Architecture.
 
 ### LibreTech Collective
 Founder and President
-A student organization at Georgia Tech dedicated to promoting software development and fostering a collaborative community of developers. The collective organizes workshops, hackathons, and collaborative projects.
+A student organization at Georgia Tech dedicated to free software/hardware development, free software/hardware education, and collaborative projects.
 => https://ltc.gtorg.gatech.edu/ Visit Club Website
-=> https://github.com/LTC-GT/ Source
+=> https://nojs.us Watch RMS (No JS)
+=> https://www.youtube.com/watch?v=YDxPJs1EPS4 Watch RMS (YouTube)
+=> https://github.com/LTC-GT/ GitHub
+
+### LibreLinker
+Main Developer
+A platform that showcases free, libre, and open-source projects built by the Georgia Tech community.
+=> https://github.com/LTC-GT/LibreLinker GitHub
+=> https://librelinker.us Visit Website
 
 ### Fedele-AI Lab
 Cofounder
 An innovative, cross-disciplinary research laboratory focusing on the intersection of machine learning, engineering, and creative applications.
 => https://sites.gatech.edu/fedelelab/ Visit Lab Website
-=> https://github.com/Fedele-AI/ Source
+=> https://github.com/Fedele-AI/ GitHub
 
 ### ML Visualizer
 Creator & Main Developer
 Interactive demonstrations of AI and machine learning architectures. Features a working transformer-like sequence model implemented in Rust and WebAssembly natively in the browser.
 => https://mlvisualizer.org Live Demo
-=> https://github.com/Fedele-AI/MLvisualizer Source
+=> https://github.com/Fedele-AI/MLvisualizer GitHub
 
 ### AI Fundamentals Textbook
 Coauthor
@@ -56,15 +64,57 @@ An AI/ML textbook offering a mathematical and programming-based approach to unde
 A browser extension that replaces any text related to The university(sic) Of Georgia with various insults.
 => https://chrome.google.com/webstore/detail/buzzoff/njeiabnnggpilaodighggmecepfhmckp Chrome Extension
 => https://addons.mozilla.org/en-US/firefox/addon/buzz_off/ Firefox Add-on
-=> https://github.com/rockenman1234/Buzz_off Source
+=> https://github.com/rockenman1234/Buzz_off GitHub
 
 ### simpleHTTPd
 A lightweight HTTP server written in Rust, featured in Georgia Tech's ECE-3600 course. Demonstrates memory-safe programming principles.
-=> https://github.com/rockenman1234/simpleHTTPd Source
+=> https://github.com/rockenman1234/simpleHTTPd View on GitHub
 
 ### rCPUfetch
 A fast, cross-platform command-line tool written in Rust that provides detailed CPU information in a visually appealing format.
-=> https://github.com/rockenman1234/rcpufetch Source
+=> https://github.com/rockenman1234/rcpufetch View on GitHub
+
+### IBM Granite LLM Abliteration Toolkit
+A toolkit for IBM Granite 3 model ablation experiments with a local Gradio web UI for real-time tuning.
+=> https://github.com/rockenman1234/GraniteAbliteration View on GitHub
+
+### Kalibunga
+A Rust program designed to turn Fedora Linux into an ethical hacking OS workflow similar to Kali Linux.
+=> https://github.com/rockenman1234/kalibunga View on GitHub
+
+### Fedora Tweaks
+A shell script that makes Fedora Linux more usable out of the box.
+=> https://github.com/rockenman1234/fedora-tweaks View on GitHub
+
+### Calculus Cruncher
+An free JavaScript web app designed for students studying mathematics.
+=> https://github.com/rockenman1234/Calculus_Cruncher View on GitHub
+
+### Argon2
+A Go rewrite of Argon focused on faster runtime, better UI/error handling, and utility tooling.
+=> https://github.com/rockenman1234/Argon2 View on GitHub
+
+### Argon
+A Java-based software tool for quickly and reliably utilizing Macs while leaving no trace.
+=> https://github.com/rockenman1234/Argon View on GitHub
+
+### Newton's Method
+A Python math research project demonstrating Newton's Method for finding roots.
+=> https://github.com/rockenman1234/newtonsmethod View on GitHub
+
+### Java Math Iterator
+A Java math research program demonstrating iterative processes in computer science.
+=> https://github.com/rockenman1234/java_math_integrator View on GitHub
+
+### Falling Into Viscosity
+Presented at Clayton State University Student Success Conference 2023, estimating fluid viscosity from tracked falling-ball motion.
+=> https://github.com/rockenman1234/Capstone-Presentations/tree/main/Clayton_State_University/Viscosity Visit Archive
+=> https://github.com/rockenman1234/Capstone-Presentations/blob/main/Clayton_State_University/Viscosity/Manifest_SSC-2023.pdf View Manifest
+
+### Developing Metacognitive Skills
+Presented at Clayton State University Student Success Conference 2023, studying metacognitive planning and online math-course outcomes.
+=> https://github.com/rockenman1234/Capstone-Presentations/tree/main/Clayton_State_University/Metacognition Visit Archive
+=> https://github.com/rockenman1234/Capstone-Presentations/blob/main/Clayton_State_University/Metacognition/Manifest_SSC-2023.pdf View Manifest
 
 ## Résumé
 => https://rockenman1234.github.io/Resume__Brief.pdf Brief Resume (PDF)
@@ -77,8 +127,8 @@ A fast, cross-platform command-line tool written in Rust that provides detailed 
 ## Other Sites & Views
 => https://alexj.io WWW Site (HTML)
 => http://alexj5r7j5s36iwug2e7zd3ilcx3xrqejjw6hgla25zym32kbcedrgyd.onion/ TOR Onion Site Mirror
-=> http://zqlgeq4it4ecxwgywrsro5zxk2776gl7fttldtdto7up5fcezvra.b32.i2p I2P Eep Site Mirror
-=> https://alexj.io/pgpkey.html PGP Key
+=> http://alexj.i2p I2P Eep Site Mirror
+=> https://alexj.io/pgpkey PGP Key
 => https://alexj.io/pgpkey.asc Download PGP (.asc)
 
 ---
@@ -87,4 +137,4 @@ A fast, cross-platform command-line tool written in Rust that provides detailed 
 To Dr. Roy Schestowitz (of Techrights and Tuxmachines) for recomending myself and others to join GEMINI with a new capsule.
 
 ---
-Last updated: 2026-03-25
+Last updated: 2026-03-28

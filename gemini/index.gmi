@@ -39,8 +39,8 @@ A student organization at Georgia Tech dedicated to free software/hardware devel
 ### LibreLinker
 Main Developer
 A platform that showcases free, libre, and open-source projects built by the Georgia Tech community.
-=> https://github.com/LTC-GT/LibreLinker GitHub
-=> https://librelinker.us Visit Website
+=> https://librelinker.us Visit web
+=> https://github.com/LTC-GT/LibreLinker View GitHub
 
 ### Fedele-AI Lab
 Cofounder

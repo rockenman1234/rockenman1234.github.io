@@ -16,8 +16,8 @@
   "packageManager": "pnpm@10.33.0",
   "devDependencies": {
     "jscpd": "^4.0.8",
-    "knip": "^6.0.5",
-    "vite": "^8.0.2"
+    "knip": "^6.1.0",
+    "vite": "^8.0.3"
   },
   "knip": {
     "entry": [

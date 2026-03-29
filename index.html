@@ -129,7 +129,7 @@
       <div class="window welcome-window" id="window-welcome">
         <div class="title-bar">
           <button aria-label="Close" class="close"></button>
-          <h1 class="title">About Me</h1>
+          <h1 class="title"><a href="#welcome">About Me</a></h1>
           <button aria-label="Resize" class="resize"></button>
         </div>
         <div class="separator"></div>
@@ -159,7 +159,7 @@
       <div class="window work-window" id="window-work">
         <div class="title-bar">
           <button aria-label="Close" class="close"></button>
-          <h1 class="title">My Work</h1>
+          <h1 class="title"><a href="#work">My Work</a></h1>
           <button aria-label="Resize" class="resize"></button>
         </div>
         <div class="separator"></div>
@@ -557,7 +557,7 @@
       <div class="window resume-window" id="window-resume">
         <div class="title-bar">
           <button aria-label="Close" class="close"></button>
-          <h1 class="title">Résumé</h1>
+          <h1 class="title"><a href="#resume">Résumé</a></h1>
           <button aria-label="Resize" class="resize"></button>
         </div>
         <div class="separator"></div>
@@ -585,7 +585,7 @@
       <div class="window about-window" id="window-about">
         <div class="title-bar">
           <button aria-label="Close" class="close"></button>
-          <h1 class="title">Biography</h1>
+          <h1 class="title"><a href="#about">Biography</a></h1>
           <button aria-label="Resize" class="resize"></button>
         </div>
         <div class="separator"></div>
@@ -618,7 +618,7 @@
       <div class="window contact-window" id="window-contact">
         <div class="title-bar">
           <button aria-label="Close" class="close"></button>
-          <h1 class="title">Let's Get in Touch</h1>
+          <h1 class="title"><a href="#contact">Let's Get in Touch</a></h1>
           <button aria-label="Resize" class="resize"></button>
         </div>
         <div class="separator"></div>
@@ -797,6 +797,58 @@
         endDrag();
       };
 
+      // Force hash navigation even while heavy assets (images/iframes) are still loading.
+      const forceHashScroll = (hash, saveHistory = true) => {
+        if (!hash || hash.length < 2) return;
+        const target = document.querySelector(hash);
+        if (!target) return;
+
+        if (saveHistory && window.location.hash !== hash) {
+          history.pushState(null, '', hash);
+        }
+
+        const jump = () => {
+          target.scrollIntoView({ behavior: 'auto', block: 'start' });
+        };
+
+        jump();
+        requestAnimationFrame(jump);
+        setTimeout(jump, 120);
+        setTimeout(jump, 450);
+        setTimeout(jump, 900);
+      };
+
+      let pendingHash = window.location.hash || '';
+
+      document.addEventListener('click', (event) => {
+        const anchor = event.target.closest('a[href^="#"]');
+        if (!anchor) return;
+
+        // Preserve default browser behavior for new-tab / modified clicks.
+        if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+          return;
+        }
+
+        const hash = anchor.getAttribute('href');
+        if (!hash || hash === '#') return;
+
+        const target = document.querySelector(hash);
+        if (!target) return;
+
+        event.preventDefault();
+        pendingHash = hash;
+        forceHashScroll(hash);
+      }, { capture: true });
+
+      window.addEventListener('load', () => {
+        if (!pendingHash) return;
+        forceHashScroll(pendingHash, false);
+      }, { once: true });
+
+      if (pendingHash) {
+        forceHashScroll(pendingHash, false);
+      }
+
       windows.forEach((win) => {
         const titleBar = win.querySelector('.title-bar');
         if (!titleBar) return;
@@ -869,7 +921,13 @@
 
         titleBar.addEventListener('pointerdown', (event) => {
           if (event.button !== 0 || event.pointerType === 'touch') return;
-          if (event.target.closest('button, a, input, textarea, select')) return;
+          
+          // Explicitly allow anchor links to work - don't start drag
+          const anchorElement = event.target.closest('a');
+          if (anchorElement) return;
+          
+          // Also exclude other interactive elements
+          if (event.target.closest('button, input, textarea, select')) return;
 
           const startRect = win.getBoundingClientRect();
           const baseX = Number(win.dataset.dragX || '0');

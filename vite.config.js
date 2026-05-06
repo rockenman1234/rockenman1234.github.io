@@ -11,7 +11,7 @@ export default defineConfig({
       png: { quality: 60 },
       jpeg: { quality: 90 },
       jpg: { quality: 90 },
-      webp: { quality: 90 },
+      avif: { quality: 90 },
       gif: { optimizationLevel: 3, interlaced: true },      svg: {
         plugins: [
           {
@@ -24,15 +24,17 @@ export default defineConfig({
             },
           },
         ],
-      },      exclude: /\.avif$/i,
+      },
     }),
     compression({
       algorithm: 'gzip',
       exclude: [/\.(br)$ /, /\.(gz)$/],
+      include: [/\.(html|xml|css|json|js|mjs|svg|yaml|yml|toml|avif)$/i],
     }),
     compression({
       algorithm: 'brotliCompress',
       exclude: [/\.(br)$ /, /\.(gz)$/],
+      include: [/\.(html|xml|css|json|js|mjs|svg|yaml|yml|toml|avif)$/i],
     }),
   ],
   build: {

@@ -13,19 +13,19 @@ const urlsToCache = [
   '/utils.js',
   '/mac-click.css',
   '/manifest.json',
-  '/images/headshot.webp',
+  '/images/headshot.avif',
   '/images/altdowntown.avif',
-  '/images/safariBackground.webp'
+  '/images/safariBackground.avif'
 ];
 
 // Large assets to cache on demand with longer expiry
 const largeAssets = [
   '/images/code.gif',
   '/images/KalibungaDemo.gif',
-  '/images/AI-Textbook-logo.webp',
-  '/images/Buzz_Off.webp',
-  '/images/simpleHTTPd.webp',
-  '/images/fedele-lab-logo.webp'
+  '/images/AI-Textbook-logo.avif',
+  '/images/Buzz_Off.avif',
+  '/images/simpleHTTPd.avif',
+  '/images/fedele-lab-logo.avif'
 ];
 
 // Install event - cache critical resources
